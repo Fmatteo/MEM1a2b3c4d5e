@@ -2,7 +2,7 @@
 					 <div class="modal-dialog modal-sm">
                       <div class="modal-content">
 
-                        <div class="modal-header">
+                        <div class="modal-header box-header">
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
                           </button>
                           <h4 class="modal-title" id="myModalLabel2">Edit Branch Details</h4>
@@ -21,8 +21,10 @@
 									<br/>
 								
 									
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button  name = "update" class="btn btn-primary">Save changes</button>
+							<div style="text-align: center;">
+								<button  name = "update" class="btn btn-primary">Save changes</button>
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+							</div>
 							
 						</form>
 						</div>

@@ -2,75 +2,18 @@
 <?php include 'header.php';?>
 <link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico|Raleway" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+<link rel="stylesheet" href="css/styleV2.css">
 <style>
-::-webkit-scrollbar{
-  width: 12px;
-}
-::-webkit-scrollbar-thumb{
-  background:linear-gradient(#000, green);
-  border-radius: 6px;
-}
-.nav-md .container.body .right_col{
-  background: url('../dist/img/admin.jpg') no-repeat center center fixed;
-  background-size: cover;
-  
-
-  
-}
-th{
-  color:white;
-
-}
-.nav_menu{
-  font-family: 'Comfortaa', cursive;
-  border-radius: 20px;
-  background-color: transparent;
-  border:3px solid white;
-  box-shadow: 0x 0px 200px 0px;
-  color:orange;
-}
-.left_col{
 
 
-  background: url('../dist/img/admin.jpg') no-repeat center center fixed;
-  background-size: cover;
-  
-  
 
-}
-.nav_title{
+   h1 {
+    font-size: 30px;
+  }
 
-  background: url('../dist/img/admin.jpg') no-repeat center center fixed;
-  background-size: cover;
-  
-}
-footer{
-   background: url('../dist/img/admin.jpg') no-repeat center center fixed;
-  background-size: cover;
-  
-}
-.sidebar-footer{
-   background: url('../dist/img/admin.jpg') no-repeat center center fixed;
-  background-size: cover;
-  
-}
-a{
-  font-family: 'Comfortaa', cursive;
-}
-th{
-  font-family: 'Comfortaa', cursive;
-}
-.profile_info{
-  font-family: 'Comfortaa', cursive;
-}
-.panel-success{
-  border:1px solid black;
-  box-shadow: 0px 0px 20px 0px;
+.panel-body{
   color:black;
-  border-radius: 20px;
 }
-
-
 
 </style>
   <body class="nav-md">
@@ -114,8 +57,8 @@ th{
 
         <!-- footer content -->
         <footer>
-          <div class="pull-right">
-            Sales and Inventory System <a href="#"></a>
+          <div class="pull-center">
+            <p class="footer-txt">Copyright © 2018 <strong>SYDESO</strong> System Development Solutions. All rights reserved.</p>
           </div>
           <div class="clearfix"></div>
         </footer>

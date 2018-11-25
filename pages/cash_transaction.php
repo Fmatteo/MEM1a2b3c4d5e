@@ -35,72 +35,219 @@ javascript:window.history.forward(1);
   width: 12px;
 }
 ::-webkit-scrollbar-thumb{
-  background:linear-gradient(#000, #30ff00);
-  border-radius: 6px;
+  background:linear-gradient(darkred, white);
 }
-.box-primary{
-        font-family: 'Comfortaa', cursive;
-        background-color: transparent;
-        border-radius: 15px;
-        margin-top: 20px;
-        border:1px solid black;
-        box-shadow: 0px 1px 200px 20px;
-        box-shadow: black;
-        color:black;
-      }      
-      .content-wrapper{
-        border-top-left-radius: 100px;
-        border-top-right-radius: 100px;
-      } 
-      h3{
-        font-family: 'Comfortaa', cursive;
-        color:white;
-      }
-       .modal-header{
-        background-color: black;
-        color:white;
-        border-top-left-radius:20px;
-        border-top-right-radius:20px;
-        font-family: 'Comfortaa', cursive;
-        border:1px solid black;
-      }
-      .modal-content{
-        border-radius: 20px;
-        background-color: white;
-        border:1px solid black;
-        box-shadow: 0px 0 50px 0px;
-        color:black;
-      }
-      
-      .form{
-        border-radius: 20px;
 
-      }
-      .row{
-        margin-right: 0px;
-        margin-left: 0px;
-      }
-      .box.box-primary{
-        border-radius: 20px;
-      }
+    .sidebar {  
+    width: 250;
+    height:100%;
+    display: block;
+    left: -240px;
+    top: 0px;
+    transition: left 0.3s linear;
+    }
 
-      
-        
+    .sidebar.visible {
+    left:0px;
+    transition: left 0.3s linear;
+    }
+
+    .nav-txt {
+      color: white;
+    }
+
+    .subnav-txt:hover {
+      color: #ff0000;
+    }
+
+    .nav-txt:hover {
+      background-color: #7d0000;
+      color: white;
+      transition: all .2s;
+    }
+
+    .main-sidebar {
+      background-image: linear-gradient(to left, rgba(232,76,61,1) , rgba(193,57,43,1));
+      position: fixed;
+      z-index: 5;
+    }
+
+    .main-sidebar * a {
+      color: white;
+    }
+
+    .treeview-menu {
+      background-color: #7d0000;
+    }
+
+    .reorder-count {
+      font-size: 10px !important;
+    }
+
+    .box-header {
+      background-image: linear-gradient(to right, rgba(232,76,61,1) , rgba(193,57,43,1));
+    }
+
+    .menu {
+      list-style-type: none;
+      margin: 0;
+      padding: 10px 15px;
+    }
+
+    .box-title {
+      color: white;
+      text-align: center;
+      display: block !important;
+    }
+
+    .btn:hover {
+      transition: all .2s linear;
+    }
+
       
       
 </style>
  </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-  <body class="hold-transition skin-<?php echo $_SESSION['skin'];?> layout-top-nav" onload="myFunction()">
+  <body>
     <div class="wrapper">
       <?php include('../dist/includes/header.php');?>
       <!-- Full Width Column -->
       <div class="content-wrapper">
-        <div class="container">
+        <!-- Navbar Right Menu -->
+            <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- search form -->
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+             
+            <li class="treeview">
+              <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-refresh text-white"></i> Reorder
+                      <span class="label label-success">
+                      <?php 
+                      $query=mysqli_query($con,"select COUNT(*) as count from product where prod_qty<=reorder and branch_id='$branch'")or die(mysqli_error());
+                      $row=mysqli_fetch_array($query);
+                      echo $row['count'];
+                      ?>  
+                      </span>
+                    </a>  
+              
+            <li class="treeview">
+              <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-wrench text-white"></i> Maintenance
+                      
+                    </a>
+              <ul class="treeview-menu">
+       <li>
+                        
+              <li><!-- start notification -->
+                            <a href="category.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Company Name
+                            </a>
+                          </li><!-- end notification -->
+                          <li class="nav-txt"><!-- start notification -->
+                            <a href="customer.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Customer
+                            </a>
+                          </li><!-- end notification -->
+                          <li class="nav-txt"><!-- start notification -->
+                            <a href="creditor.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Credit Applicants
+                            </a>
+                          </li><!-- end notification -->
+              <li class="nav-txt"><!-- start notification -->
+                            <a href="product.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-cutlery text-white"></i> Product
+                            </a>
+                          </li><!-- end notification -->
+             
+              <li class="nav-txt"><!-- start notification -->
+                            <a href="supplier.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-send text-white"></i> Distributor
+                            </a>
+                          </li><!-- end notification -->
+                         
+             <li><!-- start notification -->
+                            <a href="expenses.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Expenses
+                            </a>
+                          </li><!-- end notification -->
+
+                        </ul>
+                      </li>
+                     
+                    
+                  </li>
+    <li class="treeview">
+      <a href="stockin.php" class="dropdown-toggle nav-txt">
+                      <i class="glyphicon glyphicon-list text-white"></i> Stock in/out
+                      
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                      </li>
+                     
+                    </ul>
+                  </li>
+    <li class="treeview">
+      <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-stats text-white"></i> Report
+                     
+                    </a>
+                   <ul class="treeview-menu">
+                     
+                          <li><!-- start notification -->
+                            <a href="inventory.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-ok text-white"></i>Inventory
+                            </a>
+                          </li><!-- end notification -->
+                        <li><!-- start notification -->
+                         <a href="sales.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-usd text-white"></i>Sales
+                            </a>
+                          </li><!-- end notification -->
+              <li><!-- start notification -->
+                         <a href="receivables.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-th-list text-white"></i>Account Receivables
+                            </a>
+                          </li><!-- end notification -->
+              <li><!-- start notification -->
+                         <a href="income.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-th-list text-white"></i>Branch Income
+                            </a>
+                          </li><!-- end notification -->
+                          <li><!-- start notification -->
+                         <a href="purchase_request.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-usd text-white"></i>Purchase Request
+                            </a>
+                          </li><!-- end notification -->
+                        </ul>
+                      </li>
+                    
+    <li class="treeview">
+      <a href="profile.php" class="dropdown-toggle nav-txt">
+                      <i class="glyphicon glyphicon-cog text-white"></i>
+                      <?php echo $_SESSION['name'];?>
+                    </a>
+                  </li>
+
+    <li class="treeview">
+       <a href="logout.php" class="dropdown-toggle nav-txt">
+                      <i class="glyphicon glyphicon-off text-white"></i> Logout 
+                      
+                    </a>
+                  </li>       
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
           <!-- Content Header (Page header) -->
           <section class="content-header">
             <h1>
-              <a class="btn btn-lg btn-warning" href="home.php">Back</a>
+              <a class="btn btn-lg btn-danger" href="home.php">Back</a>
               
             </h1>
             <ol class="breadcrumb">
@@ -113,7 +260,7 @@ javascript:window.history.forward(1);
           <section class="content">
             <div class="row">
 	      <div class="col-md-9">
-              <div class="box box-primary">
+              <div class="box box-danger">
                 <div class="box-header">
                   <h3 class="box-title">Sales Transaction</h3>
                 </div>
@@ -160,7 +307,7 @@ javascript:window.history.forward(1);
 						<div class="form-group">
 							<label for="date"></label>
 							<div class="input-group">
-								<button class="btn btn-lg btn-primary" type="submit" tabindex="3" name="addtocart">+</button>
+								<button class="btn btn-lg btn-success" type="submit" tabindex="3" name="addtocart">+</button>
 							</div>
 						</div>	
 					</form>	
@@ -217,7 +364,7 @@ $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or
 	
 	<div class="modal-dialog">
 	  <div class="modal-content" style="height:auto">
-              <div class="modal-header">
+              <div class="modal-header box-header" style="color:white;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span></button>
                 <h4 class="modal-title">Update Sales Details</h4>
@@ -249,7 +396,7 @@ $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or
 <div id="delete<?php echo $row['temp_trans_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog">
     <div class="modal-content" style="height:auto">
-              <div class="modal-header">
+              <div class="modal-header box-header" style="color:white;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span></button>
                 <h4 class="modal-title">Delete Item</h4>
@@ -356,8 +503,8 @@ $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or
                       </button>
 
 
-					  <button class="btn btn-lg btn-block" id="daterange-btn" type="reset"  tabindex="8">
-                        <a href="cancel.php">Cancel Sale</a>
+					            <button class="btn btn-lg btn-block btn-danger" id="daterange-btn" type="reset"  tabindex="8">
+                        <a href="cancel.php" style="color:white;">Cancel Sale</a>
                       </button>
               
 				</form>	

@@ -5,80 +5,20 @@ $branch_id = $_GET['id'];
 ?>
 <link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico|Raleway" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+<link rel="stylesheet" href="css/styleV2.css">
 <style>
-::-webkit-scrollbar{
-  width: 12px;
-}
-::-webkit-scrollbar-thumb{
-  background:linear-gradient(#000, green);
-  border-radius: 6px;
-}
-.nav-md .container.body .right_col{
-  background: url('../dist/img/admin.jpg') no-repeat center center fixed;
-  background-size: cover;
-  
 
-  
+body {
+	color: black;
 }
 
-.nav_menu{
-	background: url('../dist/img/admin.jpg') no-repeat center center fixed;
-	background-size: cover;
-  font-family: 'Comfortaa', cursive;
-  border-radius: 20px;
- border:3px solid white;
-}
-.left_col{
-
-
-  background: url('../dist/img/admin.jpg') no-repeat center center fixed;
-  background-size: cover;
-  
-  
-
-}
-.nav_title{
-
-  background: url('../dist/img/admin.jpg') no-repeat center center fixed;
-  background-size: cover;
-  
-}
-footer{
-   background: url('../dist/img/admin.jpg') no-repeat center center fixed;
-  background-size: cover;
-  
-}
-.sidebar-footer{
-   background: url('../dist/img/admin.jpg') no-repeat center center fixed;
-  background-size: cover;
-  
-}
-a{
-  font-family: 'Comfortaa', cursive;
-}
-th{
-  font-family: 'Comfortaa', cursive;
-}
-.profile_info{
-  font-family: 'Comfortaa', cursive;
-}
 .tile_count{
 	background-color: white;
 	border-radius: 20px;
 	padding: 20px;
 }
-.main_container{
-	background: url('../dist/img/admin.jpg') no-repeat center center fixed;
-  background-size: cover;
-  
-}
-h5, h6{
-	color:white;
-	font-family: 'Comfortaa', cursive;
-}
-span{
-	font-family: 'Comfortaa', cursive;
-
+th{
+	color:black;
 }
 
 </style>
@@ -92,11 +32,13 @@ span{
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div role="main"> 
-			<div class="row">
-				<div class="col-md-12 col-sm-12 col-xs-12">	
+        <div class="right_col" style="padding: 40px;" role="main">
+			<div class = "row" style="margin-top: 25px;">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="box-header">Reports</div> 
+
 					<div class = "x-panel">
-						<div class="right_col" role="main">
+						<div role="main">
 								<?php					 
 			$branch=$_GET['id'];
 			$query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die(mysqli_error());  
@@ -311,6 +253,17 @@ span{
           });
       });
     </script>
+     <footer>
+          <div class="pull-right">
+            <p class="footer-txt">Copyright © 2018 <strong>SYDESO</strong> System Development Solutions. All rights reserved.</p>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+	<?php include 'datatable_script.php';?>
 	<?php include 'datatable_script.php';?>
     <!-- /gauge.js -->
   </body>

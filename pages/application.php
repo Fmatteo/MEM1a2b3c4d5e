@@ -27,38 +27,233 @@ endif;
     <link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico|Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
     <style>
-    .content{
-        font-family: 'Comfortaa', cursive;
-        background-color: transparent;
-        border-radius: 15px;
-        margin-top: 20px;
-        border:1px solid black;
-        box-shadow: 0px 1px 200px 20px;
-        box-shadow: black;
-        color:black;
+    ::-webkit-scrollbar{
+  width: 12px;
+}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(darkred, white);
+}
 
+    .sidebar {  
+    width: 250;
+    height:100%;
+    display: block;
+    left: -240px;
+    top: 0px;
+    transition: left 0.3s linear;
+    }
 
-      } 
-     .content-wrapper{
-        border-top-left-radius: 100px;
-        border-top-right-radius: 100px;
-      }
+    .sidebar.visible {
+    left:0px;
+    transition: left 0.3s linear;
+    }
+
+    .nav-txt {
+      color: white;
+    }
+
+    .subnav-txt:hover {
+      color: #ff0000;
+    }
+
+    .nav-txt:hover {
+      background-color: #7d0000;
+      color: white;
+      transition: all .2s;
+    }
+
+    .main-sidebar {
+      background-image: linear-gradient(to left, rgba(232,76,61,1) , rgba(193,57,43,1));
+      position: fixed;
+      z-index: 5;
+    }
+
+    .main-sidebar * a {
+      color: white;
+    }
+
+    .treeview-menu {
+      background-color: #7d0000;
+    }
+
+    .reorder-count {
+      font-size: 10px !important;
+    }
+
+    .box-header {
+      background-image: linear-gradient(to right, rgba(232,76,61,1) , rgba(193,57,43,1));
+    }
+
+    .menu {
+      list-style-type: none;
+      margin: 0;
+      padding: 10px 15px;
+    }
+
+    .box-title {
+      color: white;
+      text-align: center;
+      display: block !important;
+    }
+
+    .btn:hover {
+      transition: all .2s linear;
+    }
+
+    .input-group {
+      margin-bottom: 10px;
+    }
+
+    .submit-btn {
+      margin-bottom: 15px;
+    }
+
       
     </style>
  </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-  <body class="hold-transition skin-<?php echo $_SESSION['skin'];?> layout-top-nav">
-    <div class="wrapper">
-      <?php include('../dist/includes/header.php');
-      include('../dist/includes/dbcon.php');
-      ?>
+  <body>
+  <div class="wrapper">
+      <?php include('../dist/includes/header.php');?>
       <!-- Full Width Column -->
       <div class="content-wrapper">
-        <div class="container">
+     
+            <!-- Navbar Right Menu -->
+            <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- search form -->
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+             
+            <li class="treeview">
+              <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-refresh text-white"></i> Reorder
+                      <span class="label label-success">
+                      <?php 
+                      $query=mysqli_query($con,"select COUNT(*) as count from product where prod_qty<=reorder and branch_id='$branch'")or die(mysqli_error());
+                      $row=mysqli_fetch_array($query);
+                      echo $row['count'];
+                      ?>  
+                      </span>
+                    </a>  
+              
+            <li class="treeview">
+              <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-wrench text-white"></i> Maintenance
+                      
+                    </a>
+              <ul class="treeview-menu">
+       <li>
+                        
+              <li><!-- start notification -->
+                            <a href="category.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Company Name
+                            </a>
+                          </li><!-- end notification -->
+                          <li class="nav-txt"><!-- start notification -->
+                            <a href="customer.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Customer
+                            </a>
+                          </li><!-- end notification -->
+                          <li class="nav-txt"><!-- start notification -->
+                            <a href="creditor.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Credit Applicants
+                            </a>
+                          </li><!-- end notification -->
+              <li class="nav-txt"><!-- start notification -->
+                            <a href="product.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-cutlery text-white"></i> Product
+                            </a>
+                          </li><!-- end notification -->
+             
+              <li class="nav-txt"><!-- start notification -->
+                            <a href="supplier.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-send text-white"></i> Distributor
+                            </a>
+                          </li><!-- end notification -->
+                         
+             <li><!-- start notification -->
+                            <a href="expenses.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Expenses
+                            </a>
+                          </li><!-- end notification -->
+
+                        </ul>
+                      </li>
+                     
+                    
+                  </li>
+    <li class="treeview">
+      <a href="stockin.php" class="dropdown-toggle nav-txt">
+                      <i class="glyphicon glyphicon-list text-white"></i> Stock in/out
+                      
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                      </li>
+                     
+                    </ul>
+                  </li>
+    <li class="treeview">
+      <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-stats text-white"></i> Report
+                     
+                    </a>
+                   <ul class="treeview-menu">
+                     
+                          <li><!-- start notification -->
+                            <a href="inventory.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-ok text-white"></i>Inventory
+                            </a>
+                          </li><!-- end notification -->
+                        <li><!-- start notification -->
+                         <a href="sales.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-usd text-white"></i>Sales
+                            </a>
+                          </li><!-- end notification -->
+              <li><!-- start notification -->
+                         <a href="receivables.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-th-list text-white"></i>Account Receivables
+                            </a>
+                          </li><!-- end notification -->
+              <li><!-- start notification -->
+                         <a href="income.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-th-list text-white"></i>Branch Income
+                            </a>
+                          </li><!-- end notification -->
+                          <li><!-- start notification -->
+                         <a href="purchase_request.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-usd text-white"></i>Purchase Request
+                            </a>
+                          </li><!-- end notification -->
+                        </ul>
+                      </li>
+                    
+    <li class="treeview">
+      <a href="profile.php" class="dropdown-toggle nav-txt">
+                      <i class="glyphicon glyphicon-cog text-white"></i>
+                      <?php echo $_SESSION['name'];?>
+                    </a>
+                  </li>
+
+    <li class="treeview">
+       <a href="logout.php" class="dropdown-toggle nav-txt">
+                      <i class="glyphicon glyphicon-off text-white"></i> Logout 
+                      
+                    </a>
+                  </li>       
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+
+
           <!-- Content Header (Page header) -->
           <section class="content-header">
             <h1>
-              <a class="btn btn-lg btn-warning" href="home.php">Back</a>
+              <a class="btn btn-lg btn-danger" href="creditor.php">Back</a>
               
             </h1>
             <ol class="breadcrumb">
@@ -70,8 +265,8 @@ endif;
           <!-- Main content -->
           <section class="content">
             <div class="row">
-	           <div class="col-md-12">
-              <div class="box box-primary">
+	           <div class="col-xs-12">
+              <div class="box box-danger">
                 <div class="box-header">
                   <h3 class="box-title">Apply As New Creditor</h3>
                 </div>
@@ -96,7 +291,6 @@ endif;
                       
                     </div>
                     
-                      </div><!-- /.form group -->
                   </div><!--row-->
                   <div class="row">
                     <div class="col-md-4" style="display: none;">  
@@ -109,8 +303,15 @@ endif;
                     <div class="col-md-4">
                       <label for="date">Nick Name</label>
                       <div class="input-group col-md-12">
-                          <input type="text" class="form-control pull-right" id="date" name="nickname" placeholder="Nicknamer" required>
-                        </div>
+                          <input type="text" class="form-control pull-right" id="date" name="nickname" placeholder="Nickname" required>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">  
+                      <label for="date">Telephone No. & Cellphone No.</label>
+                      <div class="input-group col-md-12">
+                          <input type="text" class="form-control pull-right" id="date" name="contact" placeholder="Customer Contact No." required>
+                      </div><!-- /.input group -->
                     </div>
                     
                    </div>
@@ -121,14 +322,11 @@ endif;
                           <input type="text" class="form-control pull-right" id="date" name="address" placeholder="Customer Complete Address" required>
                       </div><!-- /.input group -->
                     </div>
-                    <div class="col-md-4">  
-                      <label for="date">Tel # and Cellphone #</label>
-                      <div class="input-group col-md-12">
-                          <input type="text" class="form-control pull-right" id="date" name="contact" placeholder="Customer Contact #" required>
-                      </div><!-- /.input group -->
-                    </div>
                   
-                  </div><!--row-->  
+                  </div><!--row--> 
+                  
+                  </div><!-- /.form group --> <!-- BOX BODY -->
+
                   <div class="row" style="display: none;">
                     <div class="col-md-6">  
                       <label for="date">House Status</label>
@@ -235,11 +433,9 @@ endif;
                       </div>    
                     
                   </div><!--row-->     
-                    <div class="col-md-12">
-                       <div class="col-md-12">
-                        <button class="btn btn-lg btn-primary pull-right" id="daterange-btn" name="">Submit</button>
-					</div>	
-                    </div>  
+                      <div class="col-md-12">
+                        <button class="btn btn-lg btn-primary submit-btn pull-left" id="daterange-btn" name="">Submit</button>	
+                      </div>  
 					
 				  </form>	
 

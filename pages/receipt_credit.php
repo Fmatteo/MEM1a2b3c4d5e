@@ -35,6 +35,11 @@ endif;
             display:none !important;
           }
       }
+
+      .btn:hover {
+        transition: all .2s linear;
+    }
+
     </style>
     
  </head>
@@ -43,7 +48,7 @@ endif;
     <div class="wrapper">
       
       <!-- Full Width Column -->
-      <div class="content-wrapper">
+      <div class="content-wrapper" style="width: 1200px; margin: 0 auto;">
         <div class="container">
 
           <section class="content">
@@ -247,7 +252,7 @@ $query2=mysqli_query($con,"select * from user where user_id='$user_id'")or die(m
 
 				</div>	
             <a class = "btn btn-success btn-print" href = "" onclick = "window.print()"><i class ="glyphicon glyphicon-print"></i> Print</a>
-                <a class = "btn btn-primary btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
+                <a class = "btn btn-danger btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
                   
                   
 				</form>	

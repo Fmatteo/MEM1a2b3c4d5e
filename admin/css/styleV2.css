@@ -1,0 +1,125 @@
+::-webkit-scrollbar{
+  width: 12px;
+}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(darkred, white);
+}
+  
+  
+th {
+  color:white;
+}
+
+.nav_menu {
+  font-family: 'Comfortaa', cursive;
+  border-radius: 20px;
+  background-color: transparent;
+  border:3px solid white;
+  box-shadow: 0x 0px 200px 0px;
+  color:orange;
+}
+
+body {
+  font-family: 'Comfortaa', cursive;
+  background-color: transparent;
+}
+
+.navbar {
+  background-image: linear-gradient(to left, rgba(232,76,61,1) , rgba(193,57,43,1));
+}
+
+.left_col {
+  background-image: linear-gradient(to left, rgba(232,76,61,1) , rgba(193,57,43,1));
+  height: 100vh;
+  position: fixed;
+}
+
+footer {
+  background-color: white;
+  padding: 0;
+  margin: 0;
+  color: rgba(193,57,43,1);
+  border-top: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-txt {
+  margin: 0;
+  margin-top: 20px;
+  margin-left: 200px;
+}
+
+
+.sidebar-footer {
+  background: url('../dist/img/admin.jpg') no-repeat center center fixed;
+  background-size: cover;
+  visibility: hidden;
+}
+
+.panel-success {
+  border:1px solid black;
+  box-shadow: 0px 0px 20px 0px;
+  color:black;
+  border-radius: 20px;
+}
+
+.nav_menu {
+  background-color: white;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #dd4b39;
+}
+
+.fa-bars {
+  color: #dd4b39;
+}
+
+.fa-building {
+  color: white;
+}
+
+.nav.navbar-nav>li>a {
+  color: #dd4b39 !important;
+}
+
+.panel-success>.panel-heading {
+  background-color: #dd4b39;
+  border: none;
+  padding: 17px;
+}
+
+.panel-success {
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 5px 5px rgba(193,57,43,.3);
+}
+
+li:hover {
+  background-color: rgba(255,255,255,0.05);
+}
+
+.dropdown-menu>li>a {
+  color: #dd4b39;
+}
+
+.dropdown-menu>li>a:hover {
+  color: #dd4b39;
+}
+
+.navbar-nav .open .dropdown-menu {
+  width: 100%;
+}
+
+.box-header {
+  background-color: red !important;
+}
+
+.box-header {
+  background-image: linear-gradient(to right, rgba(232,76,61,1) , rgba(193,57,43,1));
+  padding: 13px;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+}

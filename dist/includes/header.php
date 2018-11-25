@@ -15,70 +15,27 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
 ?>
 <style>
 
-.navbar-custom-menu{
-  font-family: 'Comfortaa', cursive;
-  background-color:transparent;
-  border-radius: 15px; 
-  border:1px solid white;
+.navbar {
+  background-color: #fff;
 }
 
-
-
-.main-header{
-  font-family: 'Comfortaa', cursive;
-  padding:15px;
+.navbar-brand {
+  background-image: linear-gradient(to left, rgba(232,76,61,1) , rgba(193,57,43,1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-left: 15px;
 }
 
-
-ul li a{
-  color:black;
-}
-.wrapper{
-  background: url('../dist/img/headerpic.jpg');
-}
-.nav>li>a:hover, .nav>li>a:active, .nav>li>a:focus{
-   background: linear-gradient(to bottom, #ccff66 0%, #ff99cc 100%);
-  border-radius: 15px;
-  opacity: .8;
-  transform:scale(1.3);
-  box-shadow: 0px 0px 20px 0px #fff;
-  transition: 1s;
-
-
-}
-.navbar-nav>.notifications-menu>.dropdown-menu, .navbar-nav>.messages-menu>.dropdown-menu, .navbar-nav>.tasks-menu>.dropdown-menu{
-  background-color: black;
-  border-radius: 15px;
-  border:1px solid linear-gradient(#ccff66 100%);
-  box-shadow: 0px 0px 20px 0px #fff;
-  
-
-
-
-}
-.navbar-nav>.notifications-menu>.dropdown-menu>li .menu>li>a:hover, .navbar-nav>.messages-menu>.dropdown-menu>li .menu>li>a:hover, .navbar-nav>.tasks-menu>.dropdown-menu>li .menu>li>a:hover{
-  background: transparent;
-  border-radius: 15px;
-   transform:scale(1.0);
-  transition: 1s;
-  box-shadow: 0px 0px 20px 0px #fff;
+.main-header {
+  z-index: 0;
+  border-bottom: 1.5px solid #c1392b;
 }
 
-
-.skin-red .main-header .navbar{
-  background-color: transparent;
-}
-.navbar-nav>.notifications-menu>.dropdown-menu>li .menu>li>a{
-  background:transparent;
-   transform:scale(1.0);
-  transition: 1s;
-
-}
 </style>
       <header class="main-header">
         <nav class="navbar navbar-static-top">
           <div class="container">
-            <div class="navbar-header" style="padding-left:20px">
+            <div class="navbar-header">
               <a href="home.php" class="navbar-brand"><b><i class="glyphicon glyphicon-home"></i> <?php echo $branch_name;?> </b></a>
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                 <i class="fa fa-bars"></i>
@@ -86,7 +43,7 @@ ul li a{
             </div>
 
             <!-- Navbar Right Menu -->
-              <div class="navbar-custom-menu">
+              <div class="navbar-custom-menu" style="display:none;">
                 <ul class="nav navbar-nav">
                   <!-- Messages: style can be found in dropdown.less-->
           

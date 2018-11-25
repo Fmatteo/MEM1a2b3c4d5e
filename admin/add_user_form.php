@@ -1,3 +1,9 @@
+ <style>
+  .pagination>.active>a {
+    background-color: #337ab7 !important;
+  }
+ </style> 
+  
   <div class="x_panel">
                   <div class="x_title">
                     <h2>Add User <i class = "fa fa-users"></i></h2>
@@ -12,21 +18,18 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-3">Username</label>
                         <div class="col-md-9 col-sm-9 col-xs-9">
                           <input type="text" class="form-control" name = "username" required>
-                          <span class="fa fa-key form-control-feedback right" aria-hidden="true"required ></span>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-3">Password</label>
                         <div class="col-md-9 col-sm-9 col-xs-9">
                           <input type="password" name = "password" class="form-control" required>
-                          <span class="fa fa-key form-control-feedback right" aria-hidden="true" required></span>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-3" style = "font-size:11px;">Full name</label>
                         <div class="col-md-9 col-sm-9 col-xs-9">
                           <input type="text" class="form-control" name = "name" required>
-                          <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                         </div>
                       </div>
 					  <input type = "hidden" name = "status" value = "active">
@@ -52,8 +55,7 @@
 
                       <div class="form-group">
                         <div class="col-md-9 col-md-offset-3">
-                        
-                          <button name = "" class="btn btn-block btn-success"><i class = "fa fa-save"></i> Save</button>
+                          <button name = "" class="btn btn-block btn-primary" style="margin-left: -45px;"><i class = "fa fa-save"></i> Save</button>
                         </div>
                       </div>
 

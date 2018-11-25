@@ -1,4 +1,4 @@
-  <?php session_start();
+<?php session_start();
 if(empty($_SESSION['id'])):
 header('Location:../index.php');
 endif;
@@ -26,220 +26,353 @@ endif;
     <link rel="stylesheet" type="text/css" href="dist/css/sample1.css">
     <link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico|Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <script scr="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <style>
-      .col-lg-3{
-        margin:50px 0x;
-      }
-      
-      .box-primary{
-        font-family: 'Comfortaa', cursive;
-        background-color: transparent;
-        border-radius: 15px;
-        margin-top: 20px;
-        border:1px solid black;
-        box-shadow: 0px 1px 200px 20px;
-        box-shadow: black;
-        color:black;
+   
+   .sidebar {  
+      width: 250;
+      height:100%;
+      display: block;
+      left: -240px;
+      top: 0px;
+      transition: left 0.3s linear;
+    }
 
+    .sidebar.visible {
+      left:0px;
+      transition: left 0.3s linear;
+    }
 
-      } 
+    .nav-txt {
+      color: white;
+    }
 
-      .content-wrapper{
-        font-family: 'Comfortaa', cursive;
+    .subnav-txt:hover {
+      color: #ff0000;
+    }
 
-      }
+    .nav-txt:hover {
+      background-color: #7d0000;
+      color: white;
+      transition: all .2s;
+    }
 
-      .box-title{
-        font-family: 'Comfortaa', cursive;
-      }
+    .main-sidebar {
+      background-image: linear-gradient(to left, rgba(232,76,61,1) , rgba(193,57,43,1));
+      position: fixed;
+      z-index: 5;
+    }
 
-      h3{
-        font-family: 'Comfortaa', cursive;
-      }
+    .main-sidebar * a {
+      color: white;
+    }
 
-      .box-body{
-        font-family: 'Comfortaa', cursive;
-      }
-    
-        .content-wrapper{
-        border-top-left-radius: 100px;
-        border-top-right-radius: 100px;
-      }
-      h3{
-          color:white;
-        }
-        
-        
+    .treeview-menu {
+      background-color: #7d0000;
+    }
+
+    .reorder-count {
+      font-size: 10px !important;
+    }
+
+    .box-header {
+      background-image: linear-gradient(to right, rgba(232,76,61,1) , rgba(193,57,43,1));
+    }
+
+    .menu {
+      list-style-type: none;
+      margin: 0;
+      padding: 10px 15px;
+    }
+
+    .box-title {
+      color: white;
+      text-align: center;
+      display: block !important;
+    }
+
+    .transactions-link {
+      display: inline-block;
+    }
+
+    .transactions-box {
+      background-image: linear-gradient(to left, rgba(232,76,61,1) , rgba(193,57,43,1));
+      display: flex;
+      height: 150px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .transactions-box:hover .transactions-title-visible {
+      transform: translateX(-100%);
+      transition: all .5s;
+    }
+
+    .transactions-box:hover .transactions-title-invisible {
+      right: 0;
+      transition: all .5s;
+    }
+
+    .transactions-title {
+      color: white;
+      letter-spacing: 2px;
+      display: inline-block;
+      font-size: 17px;
+      margin: 10px 0 0 0;
+      background-image: linear-gradient(to left, RGBA(255,28,22,.1) , rgba(255,13,22,.1));
+      width: 100%;
+      padding: 5px;
+      text-align: center;
+      font-variant: bold;
+    }
+
+    .transactions-title-invisible {
+      position: absolute;
+      width: 100%;
+      top: 85px;
+      right: -100%;
+    }
+
+    .transaction-title-visible {
+      width: 100%;
+    }
+
+    .transactions-wrapper {
+      display: grid;
+      grid-template-columns: repeat(3,300px);
+      grid-gap: 15px;
+      justify-content: center;
+      margin-top: 25px;
+    }
+
     </style>
+    
  </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-  <body class="hold-transition skin-<?php echo $_SESSION['skin'];?> layout-top-nav" onload="myFunction()">
+  <body>
+    
+
+
+
     <div class="wrapper">
       <?php include('../dist/includes/header.php');?>
       <!-- Full Width Column -->
       <div class="content-wrapper">
-        <div class="container">
+     
+            <!-- Navbar Right Menu -->
+            <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- search form -->
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+             
+            <li class="treeview">
+              <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-refresh text-white"></i> Reorder
+                      <span class="label label-success">
+                      <?php 
+                      $query=mysqli_query($con,"select COUNT(*) as count from product where prod_qty<=reorder and branch_id='$branch'")or die(mysqli_error());
+                      $row=mysqli_fetch_array($query);
+                      echo $row['count'];
+                      ?>  
+                      </span>
+                    </a>  
+              
+            <li class="treeview">
+              <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-wrench text-white"></i> Maintenance
+                      
+                    </a>
+              <ul class="treeview-menu">
+       <li>
+                        
+              <li><!-- start notification -->
+                            <a href="category.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Company Name
+                            </a>
+                          </li><!-- end notification -->
+                          <li class="nav-txt"><!-- start notification -->
+                            <a href="customer.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Customer
+                            </a>
+                          </li><!-- end notification -->
+                          <li class="nav-txt"><!-- start notification -->
+                            <a href="creditor.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Credit Applicants
+                            </a>
+                          </li><!-- end notification -->
+              <li class="nav-txt"><!-- start notification -->
+                            <a href="product.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-cutlery text-white"></i> Product
+                            </a>
+                          </li><!-- end notification -->
+             
+              <li class="nav-txt"><!-- start notification -->
+                            <a href="supplier.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-send text-white"></i> Distributor
+                            </a>
+                          </li><!-- end notification -->
+                         
+             <li><!-- start notification -->
+                            <a href="expenses.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Expenses
+                            </a>
+                          </li><!-- end notification -->
+
+                        </ul>
+                      </li>
+                     
+                    
+                  </li>
+    <li class="treeview">
+      <a href="stockin.php" class="dropdown-toggle nav-txt">
+                      <i class="glyphicon glyphicon-list text-white"></i> Stock in/out
+                      
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                      </li>
+                     
+                    </ul>
+                  </li>
+    <li class="treeview">
+      <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-stats text-white"></i> Report
+                     
+                    </a>
+                   <ul class="treeview-menu">
+                     
+                          <li><!-- start notification -->
+                            <a href="inventory.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-ok text-white"></i>Inventory
+                            </a>
+                          </li><!-- end notification -->
+                        <li><!-- start notification -->
+                         <a href="sales.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-usd text-white"></i>Sales
+                            </a>
+                          </li><!-- end notification -->
+              <li><!-- start notification -->
+                         <a href="receivables.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-th-list text-white"></i>Account Receivables
+                            </a>
+                          </li><!-- end notification -->
+              <li><!-- start notification -->
+                         <a href="income.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-th-list text-white"></i>Branch Income
+                            </a>
+                          </li><!-- end notification -->
+                          <li><!-- start notification -->
+                         <a href="purchase_request.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-usd text-white"></i>Purchase Request
+                            </a>
+                          </li><!-- end notification -->
+                        </ul>
+                      </li>
+                    
+    <li class="treeview">
+      <a href="profile.php" class="dropdown-toggle nav-txt">
+                      <i class="glyphicon glyphicon-cog text-white"></i>
+                      <?php echo $_SESSION['name'];?>
+                    </a>
+                  </li>
+
+    <li class="treeview">
+       <a href="logout.php" class="dropdown-toggle nav-txt">
+                      <i class="glyphicon glyphicon-off text-white"></i> Logout 
+                      
+                    </a>
+                  </li>       
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+
+
+
+
+      
           <!-- Content Header (Page header) -->
          
 
           <!-- Main content -->
-          <section class="content">
-            <div class="row">
-	      <div class="col-md-8">
-              <div class="box box-primary">
+          <section>
                 <div class="box-header with-border">
                   <h3 class="box-title">Transactions</h3>
                 </div><!-- /.box-header -->
-                <div class="box-body">
-                  <div class="row">
-                      <div class="col-lg-4 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-green">
-                          <div class="inner">
-                            <h3>Purchase</h3>
-                            <p>Cash</p>
-                          </div>
-                          <div class="icon" style="margin-top:10px">
-                            <i class="glyphicon glyphicon-user"></i>
-                          </div>
-                          <a href="cust_new.php" class="small-box-footer">
-                            Go <i class="fa fa-arrow-circle-right"></i>
-                          </a>
-                        </div>
-                      </div><!-- ./col -->
-
-
-                      <div class="col-lg-4 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-red">
-                          <div class="inner">
-                            <h3>Stock i/o</h3>
-                            <p>Products</p>
-                          </div>
-                          <div class="icon" style="margin-top:10px">
-                            <i class="glyphicon glyphicon-share-alt"></i>
-                          </div>
-                          <a href="stockin.php" class="small-box-footer">
-                            Go <i class="fa fa-arrow-circle-right"></i>
-                          </a>
-                        </div>
-                      </div><!-- ./col -->
-                      
-                      <div class="col-lg-4 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-yellow">
-                          <div class="inner">
-                            <h3>Payment</h3>
-                            <p>Customer</p>
-                          </div>
-                          <div class="icon" style="margin-top:10px">
-                            <i class="glyphicon glyphicon-usd"></i>
-                          </div>
-                          <a href="customer.php" class="small-box-footer">
-                            Go <i class="fa fa-arrow-circle-right"></i>
-                          </a>
-                        </div>
-                      </div><!-- ./col -->
-                      <div class="col-lg-4 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-red">
-                          <div class="inner">
-                            <h3>Credit</h3>
-                            <p>Apply</p>
-                          </div>
-                          <div class="icon" style="margin-top:10px">
-                            <i class="glyphicon glyphicon-user"></i>
-                          </div>
-                          <a href="creditor.php" class="small-box-footer">
-                            Go <i class="fa fa-arrow-circle-right"></i>
-                          </a>
-                        </div>
-                      </div><!-- ./col -->
-
-                      <div class="col-lg-4 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-orange">
-                          <div class="inner">
-                            <h3>Products</h3>
-                            <p>View/Add</p>
-                          </div>
-                          <div class="icon" style="margin-top:10px">
-                            <i class="glyphicon glyphicon-shopping-cart"></i>
-                          </div>
-                          <a href="product.php" class="small-box-footer">
-                            Go <i class="fa fa-arrow-circle-right"></i>
-                          </a>
-                        </div>
-                      </div><!-- ./col -->
-					  
-					  
-                      <div class="col-lg-4 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-green">
-                          <div class="inner">
-                            <h3>History</h3>
-                            <p>Company/Distributor</p>
-                          </div>
-                          <div class="icon" style="margin-top:10px">
-                            <i class="glyphicon glyphicon-time"></i>
-                          </div>
-                          <a href="product.php" class="small-box-footer">
-                            Go <i class="fa fa-arrow-circle-right"></i>
-                          </a>
-                        </div>
-                      </div><!-- ./col -->
-					  
-					  
-                  </div><!--row-->
-                  
-      
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col (right) -->
-            
-        <div class="col-md-4">
-
-              
-              <!-- About Me Box -->
-              <div class="box box-primary">
-                <div class="box-header with-border">
-                  <h3 class="box-title">About Us</h3>
-                </div><!-- /.box-header -->
-    <?php
-    $branch=$_SESSION['branch'];
-	
-    $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die(mysqli_error());
-      $row=mysqli_fetch_array($query);
-      
-?>
-                <div class="box-body">
-                  <strong><i class="glyphicon glyphicon-map-marker margin-r-5"></i> Company Address</strong>
-                  <p class="text-muted">
-                    <?php echo $row['branch_address'];?>
-                  </p>
-
-                  <hr>
-
-                  <strong><i class="glyphicon glyphicon-phone-alt margin-r-5"></i> Contact Number/s</strong>
-                  <p class="text-muted"><?php echo $row['branch_contact'];?></p>
-
-                  <hr>
-
-                  
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div>   
-			
-			
-          </div><!-- /.row -->
-	  
-            
+                  <div class="transactions-wrapper">
+                    <a href="cust_new.php" class="transactions-link">
+                    <div class="transactions-box">
+                      <img src="../dist/img/purchase.png" alt="purchase">
+                      <span class="transactions-title transactions-title-visible">PURCHASE</span>
+                      <span class="transactions-title transactions-title-invisible">VIEW</span>
+                    </div>
+                    </a>
+                    <a href="stockin.php" class="transactions-link">
+                    <div class="transactions-box">
+                      <img src="../dist/img/stockinout.png" alt="purchase">
+                      <span class="transactions-title transactions-title-visible">STOCK IN/OUT</span>
+                      <span class="transactions-title transactions-title-invisible">VIEW</span>
+                    </div>
+                    </a>
+                    <a href="customer.php" class="transactions-link">
+                    <div class="transactions-box">
+                      <img src="../dist/img/payment.png" alt="purchase">
+                      <span class="transactions-title transactions-title-visible">PAYMENT</span>
+                      <span class="transactions-title transactions-title-invisible">VIEW</span>
+                    </div>
+                    </a>
+                    <a href="creditor.php" class="transactions-link">
+                    <div class="transactions-box">
+                      <img src="../dist/img/credit.png" alt="purchase">
+                      <span class="transactions-title transactions-title-visible">CREDIT</span>
+                      <span class="transactions-title transactions-title-invisible">VIEW</span>
+                    </div>
+                    </a>
+                    <a href="product.php" class="transactions-link">
+                    <div class="transactions-box">
+                      <img src="../dist/img/products.png" alt="purchase">
+                      <span class="transactions-title transactions-title-visible">PRODUCTS</span>
+                      <span class="transactions-title transactions-title-invisible">VIEW</span>
+                    </div>
+                    </a>
+                    <a href="expensesinput.php" class="transactions-link">
+                    <div class="transactions-box">
+                      <img src="../dist/img/history.png" alt="purchase">
+                      <span class="transactions-title transactions-title-visible">EXPENSES</span>
+                      <span class="transactions-title transactions-title-invisible">VIEW</span>
+                    </div>
+                    </a>
+                  </div>
           </section><!-- /.content -->
+
+
         </div><!-- /.container -->
       </div><!-- /.content-wrapper -->
       <?php include('../dist/includes/footer.php');?>
     </div><!-- ./wrapper -->
-	<script>
+
+
+      
+      <script>
+        
+          $(document).ready(function(){
+              $('#sidebar-btn').click(function(){
+                $('.sidebar').toggleClass('visible');
+              });
+          });
+
+
+      </script>
+   
+  <script>
     $(function() {
       $(".btn_delete").click(function(){
       var element = $(this);
@@ -247,29 +380,29 @@ endif;
       var dataString = 'id=' + id;
       if(confirm("Sure you want to delete this item?"))
       {
-	$.ajax({
-	type: "GET",
-	url: "temp_trans_del.php",
-	data: dataString,
-	success: function(){
-		
-	      }
-	  });
-	  
-	  $(this).parents(".record").animate({ backgroundColor: "#fbc7c7" }, "fast")
-	  .animate({ opacity: "hide" }, "slow");
+  $.ajax({
+  type: "GET",
+  url: "temp_trans_del.php",
+  data: dataString,
+  success: function(){
+    
+        }
+    });
+    
+    $(this).parents(".record").animate({ backgroundColor: "#fbc7c7" }, "fast")
+    .animate({ opacity: "hide" }, "slow");
       }
       return false;
       });
 
       });
     </script>
-	
-	<script type="text/javascript" src="autosum.js"></script>
+  
+  <script type="text/javascript" src="autosum.js"></script>
   
     <!-- jQuery 2.1.4 -->
     <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
-	<script src="../dist/js/jquery.min.js"></script>
+  <script src="../dist/js/jquery.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="../bootstrap/js/bootstrap.min.js"></script>
     <script src="../plugins/select2/select2.full.min.js"></script>
@@ -283,6 +416,7 @@ endif;
     <script src="../dist/js/demo.js"></script>
     <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script scr="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     
     <script>
       $(function () {

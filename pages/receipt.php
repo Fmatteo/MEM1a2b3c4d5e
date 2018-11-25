@@ -39,8 +39,11 @@ date_default_timezone_set('Asia/Manila');
   width: 12px;
 }
 ::-webkit-scrollbar-thumb{
-  background:linear-gradient(#000, green);
-  border-radius: 6px;
+  background:linear-gradient(darkred,white);
+}
+.container{
+  border:1px solid black;
+
 }
     </style>
  </head>
@@ -49,7 +52,7 @@ date_default_timezone_set('Asia/Manila');
     <div class="wrapper">
       
       <!-- Full Width Column -->
-      <div class="content-wrapper">
+      <div class="">
         <div class="container">
 
           <section class="content">
@@ -233,7 +236,7 @@ $branch=$_SESSION['branch'];
 				</form>	
                 </div><!-- /.box-body -->
                 <a class = "btn btn-success btn-print" href = "" onclick = "window.print()"><i class ="glyphicon glyphicon-print"></i> Print</a>
-                <a class = "btn btn-primary btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>
+                <a class = "btn btn-danger btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>
               </div><!-- /.box -->
             </div><!-- /.col (right) -->
            

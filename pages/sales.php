@@ -56,56 +56,231 @@ endif;
       @media print {
           .btn-print {
             display:none !important;
+          }
 		  }
 		  .main-footer	{
 			display:none !important;
 		  }
-		  .box.box-primary {
-			  border-top:none !important;
-		  }
-		  .angel{
-			  display:none !important;
-		  }
-          
-      }
-      .content{
-        font-family: 'Comfortaa', cursive;
-
-        border-radius: 15px;
-        margin-top: 20px;
-        border:1px solid black;
-        box-shadow: 0px 1px 200px 20px;
-        box-shadow: black;
-        color:black;
-      }
-      
-        .content-wrapper{
-        border-top-left-radius: 100px;
-        border-top-right-radius: 100px;
-      }
+		  
       ::-webkit-scrollbar{
   width: 12px;
 }
 ::-webkit-scrollbar-thumb{
-  background:linear-gradient(#000, green);
-  border-radius: 6px;
+  background:linear-gradient(darkred,white);
 }
+
+    .sidebar {  
+    width: 250;
+    height:100%;
+    display: block;
+    left: -240px;
+    top: 0px;
+    transition: left 0.3s linear;
+    }
+
+    .sidebar.visible {
+    left:0px;
+    transition: left 0.3s linear;
+    }
+
+    .nav-txt {
+      color: white;
+    }
+
+    .subnav-txt:hover {
+      color: #ff0000;
+    }
+
+    .nav-txt:hover {
+      background-color: #7d0000;
+      color: white;
+      transition: all .2s;
+    }
+
+    .main-sidebar {
+      background-image: linear-gradient(to left, rgba(232,76,61,1) , rgba(193,57,43,1));
+      position: fixed;
+      z-index: 5;
+    }
+
+    .main-sidebar * a {
+      color: white;
+    }
+
+    .treeview-menu {
+      background-color: #7d0000;
+    }
+
+    .reorder-count {
+      font-size: 10px !important;
+    }
+
+    .box-header {
+      background-image: linear-gradient(to right, rgba(232,76,61,1) , rgba(193,57,43,1));
+    }
+
+    .menu {
+      list-style-type: none;
+      margin: 0;
+      padding: 10px 15px;
+    }
+
+    .box-title {
+      color: white;
+      text-align: center;
+      display: block !important;
+    }
+
+    body{
+      background-color: white;
+    }
+
     </style>
  </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-  <body class="hold-transition skin-<?php echo $_SESSION['skin'];?> layout-top-nav">
-    <div class="wrapper">
+  <body>
+  <div class="wrapper">
       <?php include('../dist/includes/header.php');?>
       <!-- Full Width Column -->
       <div class="content-wrapper">
-        <div class="container">
+              <!-- Navbar Right Menu -->
+            <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- search form -->
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+             
+            <li class="treeview">
+              <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-refresh text-white"></i> Reorder
+                      <span class="label label-success">
+                      <?php 
+                      $query=mysqli_query($con,"select COUNT(*) as count from product where prod_qty<=reorder and branch_id='$branch'")or die(mysqli_error());
+                      $row=mysqli_fetch_array($query);
+                      echo $row['count'];
+                      ?>  
+                      </span>
+                    </a>  
+              
+            <li class="treeview">
+              <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-wrench text-white"></i> Maintenance
+                      
+                    </a>
+              <ul class="treeview-menu">
+       <li>
+                        
+              <li><!-- start notification -->
+                            <a href="category.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Company Name
+                            </a>
+                          </li><!-- end notification -->
+                          <li class="nav-txt"><!-- start notification -->
+                            <a href="customer.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Customer
+                            </a>
+                          </li><!-- end notification -->
+                          <li class="nav-txt"><!-- start notification -->
+                            <a href="creditor.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Credit Applicants
+                            </a>
+                          </li><!-- end notification -->
+              <li class="nav-txt"><!-- start notification -->
+                            <a href="product.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-cutlery text-white"></i> Product
+                            </a>
+                          </li><!-- end notification -->
+             
+              <li class="nav-txt"><!-- start notification -->
+                            <a href="supplier.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-send text-white"></i> Distributor
+                            </a>
+                          </li><!-- end notification -->
+                         
+             <li><!-- start notification -->
+                            <a href="category.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Expenses
+                            </a>
+                          </li><!-- end notification -->
+
+                        </ul>
+                      </li>
+                     
+                    
+                  </li>
+    <li class="treeview">
+      <a href="stockin.php" class="dropdown-toggle nav-txt">
+                      <i class="glyphicon glyphicon-list text-white"></i> Stock in/out
+                      
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                      </li>
+                     
+                    </ul>
+                  </li>
+    <li class="treeview">
+      <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-stats text-white"></i> Report
+                     
+                    </a>
+                   <ul class="treeview-menu">
+                     
+                          <li><!-- start notification -->
+                            <a href="inventory.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-ok text-white"></i>Inventory
+                            </a>
+                          </li><!-- end notification -->
+                        <li><!-- start notification -->
+                         <a href="sales.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-usd text-white"></i>Sales
+                            </a>
+                          </li><!-- end notification -->
+              <li><!-- start notification -->
+                         <a href="receivables.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-th-list text-white"></i>Account Receivables
+                            </a>
+                          </li><!-- end notification -->
+              <li><!-- start notification -->
+                         <a href="income.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-th-list text-white"></i>Branch Income
+                            </a>
+                          </li><!-- end notification -->
+                          <li><!-- start notification -->
+                         <a href="purchase_request.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-usd text-white"></i>Purchase Request
+                            </a>
+                          </li><!-- end notification -->
+                        </ul>
+                      </li>
+                    
+    <li class="treeview">
+      <a href="profile.php" class="dropdown-toggle nav-txt">
+                      <i class="glyphicon glyphicon-cog text-white"></i>
+                      <?php echo $_SESSION['name'];?>
+                    </a>
+                  </li>
+
+    <li class="treeview">
+       <a href="logout.php" class="dropdown-toggle nav-txt">
+                      <i class="glyphicon glyphicon-off text-white"></i> Logout 
+                      
+                    </a>
+                  </li>       
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+           
+    
           <!-- Content Header (Page header) -->
           
 
           <!-- Main content -->
           <section class="content">
             <div class="col-md-12">
-			  <div class="box box-primary angel">
+			  <div class="box box-danger angel">
 				<div class="box-header">
 				  <h3 class="box-title">Select Date</h3>
 				</div>
@@ -160,7 +335,7 @@ $branch=$_SESSION['branch'];
 				  <h5><b>Cash Sales Report as of <?php echo date("M d, Y",strtotime($start))." to ".date("M d, Y",strtotime($end));?></b></h5>
                   
 				  <a class = "btn btn-success btn-print" href = "" onclick = "window.print()"><i class ="glyphicon glyphicon-print"></i> Print</a>
-							<a class = "btn btn-primary btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
+							<a class = "btn btn-danger btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
 						
 		
 			<table id="example1" class="table table-bordered table-striped">
@@ -172,6 +347,7 @@ $branch=$_SESSION['branch'];
                         <th>Product Code</th>
                         <th>Qty</th>
             					  <th>Selling Price</th>
+                        <th>Total Expenses</th>
                         <th>Total Sales</th>
                         <th>Profit</th>
                         <th>Date Paid</th>
@@ -216,7 +392,7 @@ $branch=$_SESSION['branch'];
             <th style="text-align:right;"><h4><b><?php echo  number_format(($grand-$discount),2);?></b></h4></th>
 			    </tr>	
           <tr>
-            <th colspan="8">Total Profit</th>
+            <th colspan="8">Total Profit less Expenses</th>
 	<th style="text-align:right;"><h4><b><?php echo  number_format(($total_profit),2);}?></b></h4></th>
           </tr> 	
           <tr>
@@ -360,7 +536,7 @@ if(password==pass)
 alert('Correct Password, Click OK to Enter Website.');
 else
 {
-  window.location="http://localhost/sysdevs/pages/home.php"
+  window.location="http://localhost/MEMsol/pages/home.php"
 }
 
 </script>

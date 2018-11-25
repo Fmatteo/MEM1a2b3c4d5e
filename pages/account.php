@@ -25,7 +25,7 @@ endif;
     </style>
  </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-  <body class="hold-transition skin-blue layout-top-nav">
+  <body>
     <div class="wrapper">
       <?php include('../dist/includes/header.php');
       include('../dist/includes/dbcon.php');
