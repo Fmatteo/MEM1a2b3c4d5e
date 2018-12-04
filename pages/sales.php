@@ -67,20 +67,21 @@ endif;
 }
 ::-webkit-scrollbar-thumb{
   background:linear-gradient(darkred,white);
+  border-radius: 6px;
 }
 
     .sidebar {  
-    width: 250;
-    height:100%;
-    display: block;
-    left: -240px;
-    top: 0px;
-    transition: left 0.3s linear;
+      width: 250;
+      height:100%;
+      display: block;
+      left: -240px;
+      top: 0px;
+      transition: left 0.3s linear;
     }
 
     .sidebar.visible {
-    left:0px;
-    transition: left 0.3s linear;
+      left:0px;
+      transition: left 0.3s linear;
     }
 
     .nav-txt {
@@ -88,17 +89,17 @@ endif;
     }
 
     .subnav-txt:hover {
-      color: #ff0000;
+      color: #3498db;
     }
 
     .nav-txt:hover {
-      background-color: #7d0000;
+      background-color: #3a539b;
       color: white;
       transition: all .2s;
     }
 
     .main-sidebar {
-      background-image: linear-gradient(to left, rgba(232,76,61,1) , rgba(193,57,43,1));
+      background-image: linear-gradient(to left, #22a7f0 , #3498db);
       position: fixed;
       z-index: 5;
     }
@@ -108,7 +109,7 @@ endif;
     }
 
     .treeview-menu {
-      background-color: #7d0000;
+      background-color: #3a539b;
     }
 
     .reorder-count {
@@ -116,7 +117,7 @@ endif;
     }
 
     .box-header {
-      background-image: linear-gradient(to right, rgba(232,76,61,1) , rgba(193,57,43,1));
+      background-image: linear-gradient(to left, #22a7f0 , #3498db);
     }
 
     .menu {
@@ -144,74 +145,55 @@ endif;
       <!-- Full Width Column -->
       <div class="content-wrapper">
               <!-- Navbar Right Menu -->
-            <aside class="main-sidebar">
+              <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu">
-             
+          <ul class="sidebar-menu">  
             <li class="treeview">
               <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
-                      <i class="glyphicon glyphicon-refresh text-white"></i> Reorder
-                      <span class="label label-success">
-                      <?php 
-                      $query=mysqli_query($con,"select COUNT(*) as count from product where prod_qty<=reorder and branch_id='$branch'")or die(mysqli_error());
-                      $row=mysqli_fetch_array($query);
-                      echo $row['count'];
-                      ?>  
-                      </span>
-                    </a>  
-              
-            <li class="treeview">
-              <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
-                      <i class="glyphicon glyphicon-wrench text-white"></i> Maintenance
-                      
-                    </a>
+                <i class="glyphicon glyphicon-refresh text-white"></i> Reorder
+                  <span class="label label-success">
+                    <?php 
+                    $query=mysqli_query($con,"select COUNT(*) as count from product where prod_qty<=reorder and branch_id='$branch'")or die(mysqli_error());
+                    $row=mysqli_fetch_array($query);
+                    echo $row['count'];
+                    ?>  
+                  </span>
+              </a>  
+              <li class="treeview">
+                <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                  <i class="glyphicon glyphicon-wrench text-white"></i> Maintenance
+                </a>
               <ul class="treeview-menu">
-       <li>
-                        
-              <li><!-- start notification -->
+                <li>
+                          <li><!-- start notification -->
                             <a href="category.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-user text-white"></i> Company Name
                             </a>
                           </li><!-- end notification -->
-                          <li class="nav-txt"><!-- start notification -->
-                            <a href="customer.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-user text-white"></i> Customer
+                          <li><!-- start notification -->
+                            <a href="category2.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Category
                             </a>
                           </li><!-- end notification -->
-                          <li class="nav-txt"><!-- start notification -->
-                            <a href="creditor.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-user text-white"></i> Credit Applicants
+                          <li><!-- start notification -->
+                            <a href="damaged_item.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Damaged Item
                             </a>
                           </li><!-- end notification -->
-              <li class="nav-txt"><!-- start notification -->
-                            <a href="product.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-cutlery text-white"></i> Product
+                          <li><!-- start notification -->
+                            <a href="branch.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Branch
                             </a>
                           </li><!-- end notification -->
-             
-              <li class="nav-txt"><!-- start notification -->
-                            <a href="supplier.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-send text-white"></i> Distributor
-                            </a>
-                          </li><!-- end notification -->
-                         
-             <li><!-- start notification -->
-                            <a href="category.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-user text-white"></i> Expenses
-                            </a>
-                          </li><!-- end notification -->
-
                         </ul>
                       </li>
-                     
-                    
                   </li>
     <li class="treeview">
       <a href="stockin.php" class="dropdown-toggle nav-txt">
-                      <i class="glyphicon glyphicon-list text-white"></i> Stock in/out
+                      <i class="glyphicon glyphicon-list text-white"></i> Product in/out
                       
                     </a>
                     <ul class="dropdown-menu">
@@ -220,40 +202,53 @@ endif;
                      
                     </ul>
                   </li>
-    <li class="treeview">
-      <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
-                      <i class="glyphicon glyphicon-stats text-white"></i> Report
-                     
-                    </a>
-                   <ul class="treeview-menu">
-                     
+                    <li class="treeview">
+                      <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-stats text-white"></i> Report
+                      </a>
+                        <ul class="treeview-menu">
                           <li><!-- start notification -->
                             <a href="inventory.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-ok text-white"></i>Inventory
                             </a>
                           </li><!-- end notification -->
-                        <li><!-- start notification -->
-                         <a href="sales.php" class="subnav-txt">
+                          <li><!-- start notification -->
+                            <a href="sales.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-usd text-white"></i>Sales
                             </a>
                           </li><!-- end notification -->
-              <li><!-- start notification -->
-                         <a href="receivables.php" class="subnav-txt" style="display:none;">
-                              <i class="glyphicon glyphicon-th-list text-white"></i>Account Receivables
-                            </a>
-                          </li><!-- end notification -->
-              <li><!-- start notification -->
-                         <a href="income.php" class="subnav-txt" style="display:none;">
-                              <i class="glyphicon glyphicon-th-list text-white"></i>Branch Income
-                            </a>
-                          </li><!-- end notification -->
                           <li><!-- start notification -->
-                         <a href="purchase_request.php" class="subnav-txt" style="display:none;">
+                            <a href="purchase_request.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-usd text-white"></i>Purchase Request
                             </a>
                           </li><!-- end notification -->
+                          <li><!-- start notification -->
+                            <a href="reports_per_branch.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-usd text-white"></i>Reports per branch
+                            </a>
+                          </li><!-- end notification -->
+                          <li><!-- start notification -->
+                            <a href="overall_reports.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-usd text-white"></i>Overall reports
+                            </a>
+                          </li><!-- end notification -->
+                          <li><!-- start notification -->
+                            <a href="history_logs.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-usd text-white"></i>History logs
+                            </a>
+                          </li><!-- end notification -->
+                          <li><!-- start notification -->
+                            <a href="receivables.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-th-list text-white"></i>Account Receivables
+                            </a>
+                          </li><!-- end notification -->
+                          <li><!-- start notification -->
+                            <a href="income.php" class="subnav-txt" style="display:none;">
+                              <i class="glyphicon glyphicon-th-list text-white"></i>Branch Income
+                            </a>
+                          </li><!-- end notification -->
                         </ul>
-                      </li>
+                    </li>
                     
     <li class="treeview">
       <a href="profile.php" class="dropdown-toggle nav-txt">
@@ -265,7 +260,6 @@ endif;
     <li class="treeview">
        <a href="logout.php" class="dropdown-toggle nav-txt">
                       <i class="glyphicon glyphicon-off text-white"></i> Logout 
-                      
                     </a>
                   </li>       
           </ul>
@@ -280,7 +274,7 @@ endif;
           <!-- Main content -->
           <section class="content">
             <div class="col-md-12">
-			  <div class="box box-danger angel">
+			  <div class="box box-primary angel">
 				<div class="box-header">
 				  <h3 class="box-title">Select Date</h3>
 				</div>
@@ -536,7 +530,7 @@ if(password==pass)
 alert('Correct Password, Click OK to Enter Website.');
 else
 {
-  window.location="http://localhost/MEMsol/pages/home.php"
+  window.location="http://localhost/MEM1a2b3c4d5e/pages/home.php"
 }
 
 </script>

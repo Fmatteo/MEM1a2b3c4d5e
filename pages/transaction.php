@@ -36,6 +36,7 @@ javascript:window.history.forward(1);
 }
 ::-webkit-scrollbar-thumb{
   background:linear-gradient(darkred,white);
+  border-radius: 6px;
 }
 
   .sidebar {  

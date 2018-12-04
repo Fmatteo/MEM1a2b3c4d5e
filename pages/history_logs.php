@@ -2,15 +2,13 @@
 if(empty($_SESSION['id'])):
 header('Location:../index.php');
 endif;
-if(empty($_SESSION['branch'])):
-header('Location:../index.php');
-endif;
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Product Inventory Report | <?php include('../dist/includes/title.php');?></title>
+    <title>Company Name | <?php include('../dist/includes/title.php');?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -20,33 +18,39 @@ endif;
     <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
+    <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
     <link rel="stylesheet" type="text/css" href="dist/css/sample1.css">
     <link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico|Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 
-    <style type="text/css">
-      h5,h6{
-        text-align:center;
-      }
-    
+    <link href="../admin/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../admin/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../admin/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="..admin/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="..admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="..admin/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="..admin/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <style>
 
-      @media print {
-          .btn-print {
-            display:none !important;
-          }
-      }
-      .main-footer  {
-      display:none !important;
-      }
-      
-      ::-webkit-scrollbar{
-  width: 12px;
-}
-::-webkit-scrollbar-thumb{
-  background:linear-gradient(darkred,white);
-  border-radius: 6px;
-}
+    body {
+      background-color: #ecf0f5;
+    }
+
+    ::-webkit-scrollbar{
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:linear-gradient(darkred, white);
+      border-radius: 6px;
+    }
 
     .sidebar {  
       width: 250;
@@ -114,8 +118,99 @@ endif;
       transition: all .2s linear;
     }
 
+    .content-header {
+      text-align: right;
+      margin-right: 15px;
+    }
+
+    .input-group {
+      text-align: center;
+      width: 100%;
+    }
+
+    .save-btn {
+      margin: 5px;
+      background-color: #3a539b !important;
+    }
+
+    .save-btn:hover {
+      background-color: #3a539b !important;
+    }
+
+    .clear-btn {
+      margin: 5px;
+    }
+
+    .btn:hover {
+      transition: all .2s linear;
+    }
+
+    .cat-list {
+      background-color: #3a539b;
+      padding: 20px 10px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .cat-list h2 {
+      margin: 0;
+      padding: 0;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: white;
+      text-align: center;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .cat-btn {
+      text-align: left;
+      color: #fff !important;
+      font-size: 11.5px;
+      letter-spacing: 1px;
+      padding-left: 25px !important;
+    }
+
+    .cat-btn:hover {
+      background-color: #3a539b;
+      color: #fff;
+    }
+
+    .forms {
+      text-align: center;
+      color: #fff;
+      margin: 15px auto 0 auto;
+      width: 90% !important;
+      font-size: 13px;
+    }
+
+    input[type="text"] {
+      font-size: 13px;
+    }
+
+    .date-wrapper {
+      overflow: hidden;
+    }
+
+    .date-wrapper span {
+      float: left;
+      padding-top: 30px;
+      padding-left: 15px;
+      font-size: 15px;
+      font-weight: 700;
+
+    }
+
+    .date-wrapper a {
+      float: right;
+      margin-right: 15px;
+      margin-top: 15px;
+    }
+
+    ul a {
+      text-decoration: none !important; 
+    }
+     
     </style>
-    
  </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
   <body>
@@ -247,111 +342,52 @@ endif;
         <!-- /.sidebar -->
       </aside>
 
-         
+          <!-- Content Header (Page header) -->
+          <section class="content-header">
+            <h1>
+              <a class="btn btn-md btn-primary" href="home.php">Back</a>
+            </h1>
+          </section>
 
           <!-- Main content -->
           <section class="content">
-            <div class="row">
-      <div class="col-xs-12">
+            <div class="col-sm-12">
               <div class="box box-primary">
-          
-              
+                <div class="box-header">
+                  <h3 class="box-title">Overall reports</h3>
+                </div><!-- /.box-header -->
                 <div class="box-body">
-        <?php
-include('../dist/includes/dbcon.php');
-
-$branch=$_SESSION['branch'];
-    $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die(mysqli_error());
-  
-        $row=mysqli_fetch_array($query);
-        
-?>      
-                  <h5><b><?php echo $row['branch_name'];?></b> </h5>  
-                  <h6>Address: <?php echo $row['branch_address'];?></h6>
-                  <h6>Contact #: <?php echo $row['branch_contact'];?></h6>
-          <h5><b>Product Inventory as of today, <?php echo date("M d, Y h:i a");?></b></h5>
-                  
-          <a class = "btn btn-success btn-print" href = "" onclick = "window.print()"><i class ="glyphicon glyphicon-print"></i> Print</a>
-              <a class = "btn btn-danger btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
-            
-                  <table class="table table-bordered table-striped">
+                  <div class = "x-panel">
+                  <table id="datatable" class="table table-striped table-bordered table-responsive">
                     <thead>
-          
                       <tr>
-                        <th>Product Code</th> 
-                        <th>Product Name</th>
-                        <th>Supplier</th>                        
-                        <th>Qty Left</th>
-            
-                        <th>Price</th>
-                        <th>Total</th>
-                        <th style="text-align:center">Reorder</th>
-                       
+                        <th>Fullname</th>
+                        <th>Activity</th>																
                       </tr>
                     </thead>
                     <tbody>
-<?php
-    $branch=$_SESSION['branch'];
-    $query=mysqli_query($con,"select * from product natural join supplier where branch_id='$branch' order by prod_name")or die(mysqli_error());
-    $grand=0;
-    while($row=mysqli_fetch_array($query)){
-      $total=$row['base_price']*$row['prod_qty'];
-      $grand+=$total;
-?>
+                        <?php	
+                        include 'dbcon.php';								
+                          $query1=mysqli_query($con,"select * from history_log NATURAL JOIN user ORDER BY log_id DESC")or die(mysqli_error($con));
+                          while ($row=mysqli_fetch_array($query1)){
+                            $id=$row['log_id'];										
+                        ?>  
                       <tr>
-                        <td><?php echo $row['serial'];?></td>
-                        <td><?php echo $row['prod_name'];?></td>
-                        <td><?php echo $row['supplier_name'];?></td>
-                        <td><?php echo $row['prod_qty'];?></td>
-            
-            <td><?php echo $row['base_price'];?></td>
-            <td><?php echo number_format($total,2);?></td>
-            <td class="text-center"><?php if ($row['prod_qty']<=$row['reorder'])echo "<span class='badge bg-red'><i class='glyphicon glyphicon-refresh'></i>Reorder</span>"; else echo "<span class='badge bg-green'><i class='glyphicon glyphicon-refresh'></i> Good</span>"; ?></td>                       
+                        <td><?php echo $row['name'];?></td>
+                        <td><?php echo $row['action']. " ".date("F d, Y - - h:i A", strtotime($row['date'])); ?></td>															
                       </tr>
-
-<?php }?>           
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <th colspan="5">Total</th>
-                        
-            
-            <th colspan="2">P<?php echo number_format($grand,2);?></th>
-            
-                        
-                      </tr> 
-                      <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                      </tr> 
-                      <tr>
-                        <th>Prepared by:</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                      </tr> 
-<?php
-    $id=$_SESSION['id'];
-    $query=mysqli_query($con,"select * from user where user_id='$id'")or die(mysqli_error($con));
-    $row=mysqli_fetch_array($query);
- 
-?>                      
-                      <tr>
-                        <th><?php echo $row['name'];?></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                      </tr>           
-                    </tfoot>
+                          <?php include 'update_user_modal.php';?>
+                      <?php }?>
+                    </tbody>								
                   </table>
+						</div>
                 </div><!-- /.box-body -->
-
-        </div><!-- /.box -->
+ 
             </div><!-- /.col -->
-          </div><!-- /.row -->
-
+			
+			
+	  
+            
           </section><!-- /.content -->
         </div><!-- /.container -->
       </div><!-- /.content-wrapper -->
@@ -372,7 +408,16 @@ $branch=$_SESSION['branch'];
     <script src="../dist/js/demo.js"></script>
     <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
-    
+       <style>
+	table tr td{
+		border:1px solid #ddd;
+		padding:8px;
+		
+	}
+	table{
+		margin-bottom:40px;
+	}
+	</style> 
     <script>
       $(function () {
         $("#example1").DataTable();
@@ -384,6 +429,65 @@ $branch=$_SESSION['branch'];
           "info": true,
           "autoWidth": false
         });
+
+        $(".deleteButton").click(function(e) {
+            e.preventDefault();
+			var confirmation = confirm("are you sure you want to remove the item?");
+
+			if (confirmation) {
+              $.ajax({
+                  type: "POST",
+                  url: "ajax.php",
+                  data: { 
+                      cat_name: $(this).val(), // < note use of 'this' here
+                      process: 'categories'
+                  },
+                  success: function(result) {
+                      if(result == ""){ 
+                        if(alert(result)){}
+                            else    window.location.reload(); 
+                        
+                      }else{
+                        if(alert(result)){}
+                            else    window.location.reload(); 
+                      }                    
+                      
+                  },
+                  error: function(result) {
+                      alert('error');
+                  }
+              }); // ajax 
+			}
+		});
+			
+
+			$(".historyButton").click(function(e) {
+              e.preventDefault();
+              $.ajax({
+                  type: "POST",
+                  url: "ajax.php",
+                  data: { 
+                      cat_id: $(this).val(), // < note use of 'this' here
+                      process: 'cat_history'
+                  },
+                  success: function(result) {
+                      if(result == ""){ 
+                          alert("bad")                        
+                      }else{
+                          $(".history").html(result);
+                      }
+                      
+                  },
+                  error: function(result) {
+                      alert('error');
+                  }
+              });
+        }); // ajax 		
+			
+		  $(".glyphicon-edit").click(function(){
+			  $(".history").html("");
+		  })
+
       });
     </script>
   </body>

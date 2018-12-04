@@ -47,6 +47,7 @@ endif;
 }
 ::-webkit-scrollbar-thumb{
   background:linear-gradient(darkred,white);
+  border-radius: 6px;
 }
 
     .btn:hover {

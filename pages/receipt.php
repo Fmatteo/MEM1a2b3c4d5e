@@ -40,6 +40,7 @@ date_default_timezone_set('Asia/Manila');
 }
 ::-webkit-scrollbar-thumb{
   background:linear-gradient(darkred,white);
+  border-radius: 6px;
 }
 .container{
   border:1px solid black;

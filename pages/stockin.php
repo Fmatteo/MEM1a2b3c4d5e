@@ -27,25 +27,31 @@ endif;
     <link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico|Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
     <style>
-    ::-webkit-scrollbar{
-  width: 12px;
-}
-::-webkit-scrollbar-thumb{
-  background:linear-gradient(darkred,white);
-}
 
- .sidebar {  
-    width: 250;
-    height:100%;
-    display: block;
-    left: -240px;
-    top: 0px;
-    transition: left 0.3s linear;
+    body {
+      background-color: #34495e;
+    }
+
+    ::-webkit-scrollbar{
+      width: 12px;
+    }
+    ::-webkit-scrollbar-thumb{
+      background:linear-gradient(darkred,white);
+      border-radius: 6px;
+    }
+
+    .sidebar {  
+      width: 250;
+      height:100%;
+      display: block;
+      left: -240px;
+      top: 0px;
+      transition: left 0.3s linear;
     }
 
     .sidebar.visible {
-    left:0px;
-    transition: left 0.3s linear;
+      left:0px;
+      transition: left 0.3s linear;
     }
 
     .nav-txt {
@@ -53,17 +59,17 @@ endif;
     }
 
     .subnav-txt:hover {
-      color: #ff0000;
+      color: #3498db;
     }
 
     .nav-txt:hover {
-      background-color: #7d0000;
+      background-color: #3a539b;
       color: white;
       transition: all .2s;
     }
 
     .main-sidebar {
-      background-image: linear-gradient(to left, rgba(232,76,61,1) , rgba(193,57,43,1));
+      background-image: linear-gradient(to left, #22a7f0 , #3498db);
       position: fixed;
       z-index: 5;
     }
@@ -73,7 +79,7 @@ endif;
     }
 
     .treeview-menu {
-      background-color: #7d0000;
+      background-color: #3a539b;
     }
 
     .reorder-count {
@@ -81,7 +87,7 @@ endif;
     }
 
     .box-header {
-      background-image: linear-gradient(to right, rgba(232,76,61,1) , rgba(193,57,43,1));
+      background-image: linear-gradient(to left, #22a7f0 , #3498db);
     }
 
     .menu {
@@ -100,6 +106,11 @@ endif;
       transition: all .2s linear;
     }
 
+    .content-header {
+      text-align: right;
+      margin-right: 15px;
+    }
+
     .input-group {
       text-align: center;
       width: 100%;
@@ -112,6 +123,40 @@ endif;
     .stock-btn {
       margin: 5px;
     }
+
+    .cat-list {
+      background-color: #3a539b;
+      padding: 20px 10px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .cat-list h2 {
+      margin: 0;
+      padding: 0;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: white;
+      text-align: center;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .cat-btn {
+      text-align: left;
+      color: #fff !important;
+      font-size: 11.5px;
+      letter-spacing: 1px;
+      padding-left: 25px !important;
+    }
+
+    .cat-btn:hover {
+      background-color: #3a539b;
+      color: #fff;
+    }
+
+    .content-header {
+      text-align: right;
+    }
    
     </style>
  </head>
@@ -123,187 +168,178 @@ endif;
       <div class="content-wrapper">
      
             <!-- Navbar Right Menu -->
-            <aside class="main-sidebar">
+      <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
-             
+            <li class="treeview cat-list">
+              <h2>Category List</h2>
+            </li>
             <li class="treeview">
-              <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
-                      <i class="glyphicon glyphicon-refresh text-white"></i> Reorder
-                      <span class="label label-success">
-                      <?php 
-                      $query=mysqli_query($con,"select COUNT(*) as count from product where prod_qty<=reorder and branch_id='$branch'")or die(mysqli_error());
-                      $row=mysqli_fetch_array($query);
-                      echo $row['count'];
-                      ?>  
-                      </span>
-                    </a>  
-              
+              <a class="btn btn-md cat-btn" href="#add" data-target="#add" data-toggle="modal" class="small-box-footer"><img src="../dist/img/armchair.png" alt="Furniture Icon" height="24" width="24" style="margin-right: 10px;">Furniture</a> 
+            </li>
             <li class="treeview">
-              <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
-                      <i class="glyphicon glyphicon-wrench text-white"></i> Maintenance
-                      
-                    </a>
-              <ul class="treeview-menu">
-       <li>
-                        
-              <li><!-- start notification -->
-                            <a href="category.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-user text-white"></i> Company Name
-                            </a>
-                          </li><!-- end notification -->
-                          <li class="nav-txt"><!-- start notification -->
-                            <a href="customer.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-user text-white"></i> Customer
-                            </a>
-                          </li><!-- end notification -->
-                          <li class="nav-txt"><!-- start notification -->
-                            <a href="creditor.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-user text-white"></i> Credit Applicants
-                            </a>
-                          </li><!-- end notification -->
-              <li class="nav-txt"><!-- start notification -->
-                            <a href="product.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-cutlery text-white"></i> Product
-                            </a>
-                          </li><!-- end notification -->
-             
-              <li class="nav-txt"><!-- start notification -->
-                            <a href="supplier.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-send text-white"></i> Distributor
-                            </a>
-                          </li><!-- end notification -->
-                         
-             <li><!-- start notification -->
-                            <a href="expenses.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-user text-white"></i> Expenses
-                            </a>
-                          </li><!-- end notification -->
-
-                        </ul>
-                      </li>
-                     
-                    
-                  </li>
-    <li class="treeview">
-      <a href="stockin.php" class="dropdown-toggle nav-txt">
-                      <i class="glyphicon glyphicon-list text-white"></i> Stock in/out
-                      
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li>
-                      </li>
-                     
-                    </ul>
-                  </li>
-    <li class="treeview">
-      <a href="#" class="dropdown-toggle nav-txt" data-toggle="dropdown">
-                      <i class="glyphicon glyphicon-stats text-white"></i> Report
-                     
-                    </a>
-                   <ul class="treeview-menu">
-                     
-                          <li><!-- start notification -->
-                            <a href="inventory.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-ok text-white"></i>Inventory
-                            </a>
-                          </li><!-- end notification -->
-                        <li><!-- start notification -->
-                         <a href="sales.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-usd text-white"></i>Sales
-                            </a>
-                          </li><!-- end notification -->
-              <li><!-- start notification -->
-                         <a href="receivables.php" class="subnav-txt" style="display:none;">
-                              <i class="glyphicon glyphicon-th-list text-white"></i>Account Receivables
-                            </a>
-                          </li><!-- end notification -->
-              <li><!-- start notification -->
-                         <a href="income.php" class="subnav-txt" style="display:none;">
-                              <i class="glyphicon glyphicon-th-list text-white"></i>Branch Income
-                            </a>
-                          </li><!-- end notification -->
-                          <li><!-- start notification -->
-                         <a href="purchase_request.php" class="subnav-txt" style="display:none;">
-                              <i class="glyphicon glyphicon-usd text-white"></i>Purchase Request
-                            </a>
-                          </li><!-- end notification -->
-                        </ul>
-                      </li>
-                    
-    <li class="treeview">
-      <a href="profile.php" class="dropdown-toggle nav-txt">
-                      <i class="glyphicon glyphicon-cog text-white"></i>
-                      <?php echo $_SESSION['name'];?>
-                    </a>
-                  </li>
-
-    <li class="treeview">
-       <a href="logout.php" class="dropdown-toggle nav-txt">
-                      <i class="glyphicon glyphicon-off text-white"></i> Logout 
-                      
-                    </a>
-                  </li>       
+              <a class="btn btn-md cat-btn" href="#add" data-target="#add" data-toggle="modal" class="small-box-footer"><img src="../dist/img/soap.png" alt="Beauty Products" height="24" width="24" style="margin-right: 10px;">Beauty Products</a> 
+            </li>
+            <li class="treeview">
+              <a class="btn btn-md cat-btn" href="#add" data-target="#add" data-toggle="modal" class="small-box-footer"><img src="../dist/img/smartphone.png" alt="Mobile Items" height="24" width="24" style="margin-right: 10px;">Mobile Items</a> 
+            </li>      
           </ul>
         </section>
         <!-- /.sidebar -->
       </aside>
 
           <!-- Content Header (Page header) -->
-          <section class="content-header">
-            <h1>
-              <a class="btn btn-lg btn-danger" href="home.php">Back</a>
-              
-            </h1>
-            <ol class="breadcrumb">
-              <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-              <li class="active">Product</li>
-            </ol>
-          </section>
+        <section class="content-header">
+          <h1>
+            <a class="btn btn-md btn-primary" href="home.php">Back</a>
+          </h1>
+        </section>
+
+        <section class="content">
+          <div class="col-sm-12"> <!-- col start -->
+            <div class="nav-tabs-custom"> <!-- nav-tabs-custom start -->
+              <ul class="nav nav-tabs">
+                <li class=""><a href="#fa-icons" data-toggle="tab" aria-expanded="true">Furniture products</a></li>
+                <li class=""><a href="#cash" data-toggle="tab">Beauty products</a></li>
+                <li class=""><a href="#payments" data-toggle="tab" aria-expanded="false">Mobile items</a></li>
+              </ul>
+            <div class="tab-content"> <!-- table content start -->
+              <div class="tab-pane active" id="fa-icons"> <!----- TABLE ACTIVE START ----->
+                <div class="row"> <!-- row start -->
+                  <div class="col-sm-12"> <!-- col start -->
+                    <div class="box box-primary"> <!-- box start -->
+                      <div class="box-header">
+                        <h3 class="box-title">Furniture product list</h3>
+                      </div><!-- /.box-header -->
+                      <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th>Product Name</th>
+                              <th>Qty</th>
+                              <th>Distributor</th>
+                              <th>Date Delivered</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                                $branch=$_SESSION['branch'];
+                                  $sql="
+                                  SELECT * FROM stockin a 
+                                  LEFT JOIN product b ON a.prod_id = b.prod_id 
+                                  LEFT JOIN supplier c ON b.supplier_id = c.supplier_id
+                                  WHERE a.branch_id='$branch'
+                                  order by date desc
+                                  ";
+                                $query=mysqli_query($con,$sql)or die(mysqli_error());
+                                while($row=mysqli_fetch_array($query)){?>
+                            <tr>
+                              <td><?php echo $row['prod_name'];?></td>
+                              <td><?php echo $row['qty'];?></td>
+                              <td><?php echo $row['supplier_name'];?></td>
+                              <td><?php echo $row['date'];?></td>
+                            </tr>               
+                            <?php }?>					  
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <th>Product Name</th>
+                              <th>Qty</th>
+                              <th>Distributor</th>
+                              <th>Date Delivered</th>
+                            </tr>					  
+                          </tfoot>
+                        </table>
+                      </div><!-- /.box-body -->
+                    </div><!-- box end -->
+                  </div> <!-- col end -->
+                </div> <!-- row end -->
+              </div> <!----- TABLE ACTIVE END ----->
+              <div class="tab-pane" id="cash"> <!----- 2ND TABLE START ----->
+                <div class="row">
+
+                </div> <!-- /.col (right) -->
+              </div> <!----- 2ND TABLE END ----->
+            </div> <!-- table content end -->
+            </div> <!-- nav-tabs-custom end -->
+          </div> <!-- col end -->
+        </section>
 
           <!-- Main content -->
-          <section class="content">
             <div class="row">
-	      <div class="col-md-4">
-              <div class="box box-danger">
-                <div class="box-header">
-                  <h3 class="box-title">Stockin Products</h3>
-                </div>
-                <div class="box-body">
-                  <!-- Date range -->
-                  <form method="post" action="stockin_add.php" enctype="multipart/form-data">
-  
+        </div><!-- /.container -->
+      </div><!-- /.content-wrapper -->
+      <?php include('../dist/includes/footer.php');?>
+    </div><!-- ./wrapper -->
+
+         <!-- MODAL --->
+         <div id="add" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+          <div class="modal-dialog">
+            <div class="modal-content" style="height:auto">
+              <div class="modal-header box-header" style="color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title">Add New Product</h4>
+              </div>
+            <div class="modal-body">
+              <form method="post" action="stockin_add.php" enctype="multipart/form-data">
                   <div class="form-group">
-                    <label for="date">Product Name</label>
+                    <label for="date">Model</label>
                     <div class="input-group col-md-12">
-                      <select class="form-control select2" name="prod_name" id="prod_id" required>
-                      <?php
-			 include('../dist/includes/dbcon.php');
-				$query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
-				  while($row=mysqli_fetch_array($query2)){
-		      ?>
-				    <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
-		      <?php }?>
-                    </select>
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Model" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-		  
+                  <div class="form-group">
+                    <label for="date">Description</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Description" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->                 
+                  <div class="form-group">
+                    <label for="date">Company name</label>
+                    <div class="input-group col-md-12">
+                      <select class="form-control select2" name="prod_name" id="prod_id" required>
+                        <?php include('../dist/includes/dbcon.php');
+                          $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
+                          while($row=mysqli_fetch_array($query2)){?>
+                        <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
+                        <?php }?>
+                      </select>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <label for="date">Category</label>
+                    <div class="input-group col-md-12">
+                      <select class="form-control select2" name="prod_name" id="prod_id" required>
+                        <?php include('../dist/includes/dbcon.php');
+                          $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
+                          while($row=mysqli_fetch_array($query2)){?>
+                        <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
+                        <?php }?>
+                      </select>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->   
+                  <div class="form-group">
+                    <label for="date">Reorder</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="0" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->                 
                   <div class="form-group">
                     <label for="date">Quantity</label>
                     <div class="input-group col-md-12">
                       <input type="text" class="form-control pull-right" id="qty" name="qty" placeholder="Input Quantity" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-                   <div class="form-group">
+                  <div class="form-group">
                     <label for="date">Base Price</label>
                     <div class="input-group col-md-12">
                       <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="0" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-                  
                   <div class="form-group">
                     <div class="input-group">
                       <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
@@ -312,77 +348,84 @@ endif;
 					            <div class="btn btn-danger stockoutButton stock-btn">Stock Out</div>
                     </div>
                   </div><!-- /.form group -->
-				</form>	
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col (right) -->
-            
-            <div class="col-xs-8">
-              <div class="box box-danger">
-    
-                <div class="box-header">
-                  <h3 class="box-title">Product Stockin List</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>Product Name</th>
-                        <th>Qty</th>
-				        <th>Distributor</th>
-				        <th>Date Delivered</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-<?php
-		$branch=$_SESSION['branch'];
-			$sql="
-			SELECT * FROM stockin a 
-			LEFT JOIN product b ON a.prod_id = b.prod_id 
-			LEFT JOIN supplier c ON b.supplier_id = c.supplier_id
-			WHERE a.branch_id='$branch'
-			order by date desc
-			";
-		
-		
-		
-		$query=mysqli_query($con,$sql)or die(mysqli_error());
-		while($row=mysqli_fetch_array($query)){
-		
-?>
-                      <tr>
-                        <td><?php echo $row['prod_name'];?></td>
-                        <td><?php echo $row['qty'];?></td>
-            						<td><?php echo $row['supplier_name'];?></td>
-            						<td><?php echo $row['date'];?></td>
-                      
-                      </tr>
-                   
-<?php }?>					  
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>Product Name</th>
-                        <th>Qty</th>
-                        <th>Distributor</th>
-                        <th>Date Delivered</th>
-                        
-                      </tr>					  
-                    </tfoot>
-                  </table>
-                </div><!-- /.box-body -->
- 
-            </div><!-- /.col -->
-			
-			
-          </div><!-- /.row -->
-	  
-            
-          </section><!-- /.content -->
-        </div><!-- /.container -->
-      </div><!-- /.content-wrapper -->
-      <?php include('../dist/includes/footer.php');?>
-    </div><!-- ./wrapper -->
+				        </form>	
+            </div>
+        </div><!--end of modal-dialog-->
+      </div>
+     <!--end of modal-->
+
+    <!-- MODAL FOR MOBILE ITEMS --->
+         <div id="add" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+          <div class="modal-dialog">
+            <div class="modal-content" style="height:auto">
+              <div class="modal-header box-header" style="color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title">Add New Product</h4>
+              </div>
+            <div class="modal-body">
+              <form method="post" action="stockin_add.php" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="date">Model</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Model" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <label for="date">IMEI</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Description" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->                 
+                  <div class="form-group">
+                    <label for="date">Color</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Description" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->    
+                  <div class="form-group">
+                    <label for="date">Category</label>
+                    <div class="input-group col-md-12">
+                      <select class="form-control select2" name="prod_name" id="prod_id" required>
+                        <?php include('../dist/includes/dbcon.php');
+                          $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
+                          while($row=mysqli_fetch_array($query2)){?>
+                        <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
+                        <?php }?>
+                      </select>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->   
+                  <div class="form-group">
+                    <label for="date">Reorder</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="0" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->                 
+                  <div class="form-group">
+                    <label for="date">Quantity</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="qty" name="qty" placeholder="Input Quantity" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <label for="date">Base Price</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="0" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <div class="input-group">
+                      <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
+                        Save
+                      </button>
+					            <div class="btn btn-danger stockoutButton stock-btn">Stock Out</div>
+                    </div>
+                  </div><!-- /.form group -->
+				        </form>	
+            </div>
+        </div><!--end of modal-dialog-->
+      </div>
+     <!--end of modal--> 
 
     <!-- jQuery 2.1.4 -->
     <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>

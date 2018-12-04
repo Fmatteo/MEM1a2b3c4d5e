@@ -189,24 +189,12 @@ endif;
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <form method="post" action="cat_add.php" enctype="multipart/form-data">
             <div class="cat-list">
-              <h2> Add new company </h2>
+              <h2> Add new category </h2>
             </div>
             <div class="form-group">
-              <label for="date">Company name</label>
+              <label for="date">Category name</label>
               <div class="input-group col-md-12">
                 <input type="text" class="form-control pull-center" id="date" name="category" placeholder="Company name" required>
-              </div><!-- /.input group -->
-            </div><!-- /.form group -->
-            <div class="form-group">
-              <label for="date">Company address</label>
-              <div class="input-group col-md-12">
-                <input type="text" class="form-control pull-right" id="date" name="category" placeholder="Company address" required>
-              </div><!-- /.input group -->
-            </div><!-- /.form group -->
-            <div class="form-group">
-              <label for="date">Contact number</label>
-              <div class="input-group col-md-12">
-                <input type="text" class="form-control pull-right" id="date" name="category" placeholder="Company number" required>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
             <div class="form-group">
@@ -236,7 +224,7 @@ endif;
             <div class="col-sm-12">
               <div class="box box-primary">
                 <div class="box-header">
-                  <h3 class="box-title">Company Name List</h3>
+                  <h3 class="box-title">Category name list</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">

@@ -17,18 +17,15 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
 
 .navbar {
   background-color: #fff;
+  padding-left: 430px;
 }
 
 .navbar-brand {
-  background-image: linear-gradient(to left, rgba(232,76,61,1) , rgba(193,57,43,1));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  padding-left: 15px;
+  color: #3498db !important;
 }
 
 .main-header {
   z-index: 0;
-  border-bottom: 1.5px solid #c1392b;
 }
 
 </style>
@@ -36,7 +33,7 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <a href="home.php" class="navbar-brand"><b><i class="glyphicon glyphicon-home"></i> <?php echo $branch_name;?> </b></a>
+              <a href="home.php" class="navbar-brand"><b> <?php echo $branch_name;?> </b></a>
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                 <i class="fa fa-bars"></i>
               </button>

@@ -171,6 +171,10 @@ endif;
     input[type="text"] {
       font-size: 13px;
     }
+
+    .stock-btn {
+      margin: 5px;
+    }
      
     </style>
  </head>
@@ -189,34 +193,30 @@ endif;
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <form method="post" action="cat_add.php" enctype="multipart/form-data">
             <div class="cat-list">
-              <h2> Add new company </h2>
+              <h2> Damaged item </h2>
             </div>
             <div class="form-group">
-              <label for="date">Company name</label>
+              <label for="date">Select item</label>
               <div class="input-group col-md-12">
-                <input type="text" class="form-control pull-center" id="date" name="category" placeholder="Company name" required>
+                <select class="form-control select2" name="prod_name" id="prod_id" required>
+                <?php include('../dist/includes/dbcon.php');
+                $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
+                while($row=mysqli_fetch_array($query2)){?>
+                <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
+                <?php }?>
+                </select>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
             <div class="form-group">
-              <label for="date">Company address</label>
+              <label for="date">Quantity</label>
               <div class="input-group col-md-12">
-                <input type="text" class="form-control pull-right" id="date" name="category" placeholder="Company address" required>
-              </div><!-- /.input group -->
-            </div><!-- /.form group -->
-            <div class="form-group">
-              <label for="date">Contact number</label>
-              <div class="input-group col-md-12">
-                <input type="text" class="form-control pull-right" id="date" name="category" placeholder="Company number" required>
+                <input type="text" class="form-control pull-right" id="qty" name="qty" placeholder="Input Quantity" required>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
             <div class="form-group">
               <div class="input-group">
-                <button class="btn btn-primary save-btn" id="daterange-btn" name="">
-                  Save
-                </button>
-                <button class="btn btn-danger clear-btn" id="daterange-btn">
-                  Clear
-                </button>
+                <div class="btn btn-danger stockoutButton stock-btn">Stock Out</div>
+                <div class="btn btn-success stockoutButton stock-btn">Stock In</div>
               </div>
             </div><!-- /.form group -->
           </form>	
@@ -236,75 +236,47 @@ endif;
             <div class="col-sm-12">
               <div class="box box-primary">
                 <div class="box-header">
-                  <h3 class="box-title">Company Name List</h3>
+                  <h3 class="box-title">Damaged item history</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>Unit</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-<?php
-		
-		$query=mysqli_query($con,"select * from category order by cat_name")or die(mysqli_error());
-		while($row=mysqli_fetch_array($query)){
-		
-?>
-                      <tr>
-                        <td><?php echo $row['cat_name'];?></td>
-                        <td>
-				<a href="#updateordinance<?php echo $row['cat_id'];?>" data-target="#updateordinance<?php echo $row['cat_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
-				
-						</td>
-                      </tr>
-<div id="updateordinance<?php echo $row['cat_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-	<div class="modal-dialog">
-	  <div class="modal-content" style="height:auto">
-              <div class="modal-header box-header" style="color:white">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Update Company Name Details</h4>
-              </div>
-              <div class="modal-body">
-			  <form class="form-horizontal" method="post" action="cat_update.php" enctype='multipart/form-data'>
-                
-				<div class="form-group">
-					<label class="control-label col-lg-3" for="name">Company Name</label>
-					<div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['cat_id'];?>" required>  
-					  <input type="text" class="form-control" id="name" name="category" value="<?php echo $row['cat_name'];?>" required>  
-					</div>
-				</div> 
-				
-				
-              </div><hr>
-			  
-			  				  <div class="history">
-          </div>
-              <div class="modal-footer">
-              	<button class="btn btn-success historyButton" value="<?php echo $row['cat_id'];?>">History</button>
-                <button class="btn btn-danger deleteButton" value="<?php echo $row['cat_name'];?>">Delete</button>
-		<button type="submit" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-
-              </div>
-			  </form>
-            </div>
-			
-        </div><!--end of modal-dialog-->
- </div>
- <!--end of modal-->                    
-<?php }?>					  
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>Unit</th>
-			<th>Action</th>
-                      </tr>					  
-                    </tfoot>
-                  </table>
+                <table id="example1" class="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th>Product Name</th>
+                              <th>Qty</th>
+                              <th>Distributor</th>
+                              <th>Date Delivered</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                                $branch=$_SESSION['branch'];
+                                  $sql="
+                                  SELECT * FROM stockin a 
+                                  LEFT JOIN product b ON a.prod_id = b.prod_id 
+                                  LEFT JOIN supplier c ON b.supplier_id = c.supplier_id
+                                  WHERE a.branch_id='$branch'
+                                  order by date desc
+                                  ";
+                                $query=mysqli_query($con,$sql)or die(mysqli_error());
+                                while($row=mysqli_fetch_array($query)){?>
+                            <tr>
+                              <td><?php echo $row['prod_name'];?></td>
+                              <td><?php echo $row['qty'];?></td>
+                              <td><?php echo $row['supplier_name'];?></td>
+                              <td><?php echo $row['date'];?></td>
+                            </tr>               
+                            <?php }?>					  
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <th>Product Name</th>
+                              <th>Qty</th>
+                              <th>Distributor</th>
+                              <th>Date Delivered</th>
+                            </tr>					  
+                          </tfoot>
+                        </table>
                 </div><!-- /.box-body -->
  
             </div><!-- /.col -->

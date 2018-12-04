@@ -28,6 +28,7 @@ endif;
 }
 ::-webkit-scrollbar-thumb{
   background:linear-gradient(darkred,white);
+  border-radius: 6px;
 }
 
     .sidebar {  
@@ -439,6 +440,9 @@ endif;
       </div><!-- /.content-wrapper -->
       <?php include('../dist/includes/footer.php');?>
     </div><!-- ./wrapper -->
+
+
+    <!-- MODAL --->
 <div id="add" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog">
     <div class="modal-content" style="height:auto">

@@ -5,12 +5,13 @@ endif;
 if(empty($_SESSION['branch'])):
 header('Location:../index.php');
 endif;
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Product Inventory Report | <?php include('../dist/includes/title.php');?></title>
+    <title>Customer | <?php include('../dist/includes/title.php');?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -18,35 +19,26 @@ endif;
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../plugins/select2/select2.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
     <link rel="stylesheet" type="text/css" href="dist/css/sample1.css">
     <link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico|Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <style>
 
-    <style type="text/css">
-      h5,h6{
-        text-align:center;
-      }
-    
+    body {
+      background-color: #ecf0f5;
+    }
 
-      @media print {
-          .btn-print {
-            display:none !important;
-          }
-      }
-      .main-footer  {
-      display:none !important;
-      }
-      
       ::-webkit-scrollbar{
-  width: 12px;
-}
-::-webkit-scrollbar-thumb{
-  background:linear-gradient(darkred,white);
-  border-radius: 6px;
-}
+    width: 12px;
+    }
+    ::-webkit-scrollbar-thumb{
+      background:linear-gradient(darkred,white);
+      border-radius: 6px;
+    }
 
     .sidebar {  
       width: 250;
@@ -114,8 +106,44 @@ endif;
       transition: all .2s linear;
     }
 
+    .content-header {
+      text-align: right;
+      margin-right: 15px;
+    }
+
+    .form-horizontal .control-label {
+      text-align: left;
+    }
+
+    .col-md-8-form-wrapper {
+      overflow: scroll;
+      height: 450px;
+      padding: 0;
+    }
+
+    .tab-content {
+      height: 675px;
+    }
+
+    .form-group-wrapper {
+      display: flex;
+      min-width: 100%;
+    }
+
+    .form-group-box {
+      width: 20%;
+      margin: 5px;
+    }
+
+    .panel-primary>.panel-heading {
+      background-image: linear-gradient(to left, #22a7f0 , #3498db);
+    }
+
+    .panel-box h1 {
+      font-size: 30px;
+    }
+     
     </style>
-    
  </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
   <body>
@@ -247,111 +275,34 @@ endif;
         <!-- /.sidebar -->
       </aside>
 
-         
-
+          <!-- Content Header (Page header) -->
+          <section class="content-header">
+            <h1>
+              <a class="btn btn-md btn-primary" href="home.php">Back</a>
+            </h1>
+          </section>
           <!-- Main content -->
           <section class="content">
-            <div class="row">
-      <div class="col-xs-12">
-              <div class="box box-primary">
-          
-              
-                <div class="box-body">
-        <?php
-include('../dist/includes/dbcon.php');
-
-$branch=$_SESSION['branch'];
-    $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die(mysqli_error());
-  
-        $row=mysqli_fetch_array($query);
-        
-?>      
-                  <h5><b><?php echo $row['branch_name'];?></b> </h5>  
-                  <h6>Address: <?php echo $row['branch_address'];?></h6>
-                  <h6>Contact #: <?php echo $row['branch_contact'];?></h6>
-          <h5><b>Product Inventory as of today, <?php echo date("M d, Y h:i a");?></b></h5>
-                  
-          <a class = "btn btn-success btn-print" href = "" onclick = "window.print()"><i class ="glyphicon glyphicon-print"></i> Print</a>
-              <a class = "btn btn-danger btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
-            
-                  <table class="table table-bordered table-striped">
-                    <thead>
-          
-                      <tr>
-                        <th>Product Code</th> 
-                        <th>Product Name</th>
-                        <th>Supplier</th>                        
-                        <th>Qty Left</th>
-            
-                        <th>Price</th>
-                        <th>Total</th>
-                        <th style="text-align:center">Reorder</th>
-                       
-                      </tr>
-                    </thead>
-                    <tbody>
-<?php
-    $branch=$_SESSION['branch'];
-    $query=mysqli_query($con,"select * from product natural join supplier where branch_id='$branch' order by prod_name")or die(mysqli_error());
-    $grand=0;
-    while($row=mysqli_fetch_array($query)){
-      $total=$row['base_price']*$row['prod_qty'];
-      $grand+=$total;
-?>
-                      <tr>
-                        <td><?php echo $row['serial'];?></td>
-                        <td><?php echo $row['prod_name'];?></td>
-                        <td><?php echo $row['supplier_name'];?></td>
-                        <td><?php echo $row['prod_qty'];?></td>
-            
-            <td><?php echo $row['base_price'];?></td>
-            <td><?php echo number_format($total,2);?></td>
-            <td class="text-center"><?php if ($row['prod_qty']<=$row['reorder'])echo "<span class='badge bg-red'><i class='glyphicon glyphicon-refresh'></i>Reorder</span>"; else echo "<span class='badge bg-green'><i class='glyphicon glyphicon-refresh'></i> Good</span>"; ?></td>                       
-                      </tr>
-
-<?php }?>           
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <th colspan="5">Total</th>
-                        
-            
-            <th colspan="2">P<?php echo number_format($grand,2);?></th>
-            
-                        
-                      </tr> 
-                      <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                      </tr> 
-                      <tr>
-                        <th>Prepared by:</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                      </tr> 
-<?php
-    $id=$_SESSION['id'];
-    $query=mysqli_query($con,"select * from user where user_id='$id'")or die(mysqli_error($con));
-    $row=mysqli_fetch_array($query);
- 
-?>                      
-                      <tr>
-                        <th><?php echo $row['name'];?></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                      </tr>           
-                    </tfoot>
-                  </table>
-                </div><!-- /.box-body -->
-
-        </div><!-- /.box -->
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-
+          <div class="col-md-12 col-sm-12 col-xs-12">
+					<?php 
+					include 'dbcon.php';
+						$query1=mysqli_query($con,"select * from branch ORDER BY branch_name")or die(mysqli_error($con));
+						while ($row=mysqli_fetch_array($query1)){
+						$id=$row['branch_id'];?>
+						<a href  = "page_reports.php?id=<?php echo $row['branch_id'];?>">
+						<div class = "col-md-6 col-6-12 col-6">
+							<div class = "panel panel-primary panel-box">
+								<div class = "panel-heading">
+									<i class = "center fa fa-building"></i>
+								</div>
+								<div class = "panel-body">
+										<h1 class = ""><?php echo $row['branch_name'];?></h1>
+								</div>
+							</div>
+						</div>
+						</a>
+						<?php } ?>						
+				</div>
           </section><!-- /.content -->
         </div><!-- /.container -->
       </div><!-- /.content-wrapper -->
@@ -362,6 +313,7 @@ $branch=$_SESSION['branch'];
     <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../plugins/select2/select2.full.min.js"></script>
     <!-- SlimScroll -->
     <script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -383,6 +335,68 @@ $branch=$_SESSION['branch'];
           "ordering": true,
           "info": true,
           "autoWidth": false
+        });
+      });
+    </script>
+     <script>
+      $(function () {
+        //Initialize Select2 Elements
+        $(".select2").select2();
+
+        //Datemask dd/mm/yyyy
+        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        //Datemask2 mm/dd/yyyy
+        $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+        //Money Euro
+        $("[data-mask]").inputmask();
+
+        //Date range picker
+        $('#reservation').daterangepicker();
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+            {
+              ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+              },
+              startDate: moment().subtract(29, 'days'),
+              endDate: moment()
+            },
+        function (start, end) {
+          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+        );
+
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+          checkboxClass: 'icheckbox_minimal-blue',
+          radioClass: 'iradio_minimal-blue'
+        });
+        //Red color scheme for iCheck
+        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+          checkboxClass: 'icheckbox_minimal-red',
+          radioClass: 'iradio_minimal-red'
+        });
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+          checkboxClass: 'icheckbox_flat-green',
+          radioClass: 'iradio_flat-green'
+        });
+
+        //Colorpicker
+        $(".my-colorpicker1").colorpicker();
+        //color picker with addon
+        $(".my-colorpicker2").colorpicker();
+
+        //Timepicker
+        $(".timepicker").timepicker({
+          showInputs: false
         });
       });
     </script>
