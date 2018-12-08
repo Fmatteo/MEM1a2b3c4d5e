@@ -247,7 +247,7 @@ endif;
                   <div class="form-group form-group-inputs">
                     <div class="input-group inputs-btn">
                       <input class = "btn btn-primary submit-btn save-btn" type="submit" value="Submit">
-					            <button class="btn btn-danger clear-btn" id="daterange-btn">
+					            <button type="reset" class="btn btn-danger clear-btn" id="daterange-btn" value="reset">
                         Clear
                       </button>
                     </div>
@@ -385,7 +385,7 @@ endif;
                       <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
                         Save
                       </button>
-					            <div class="btn btn-danger stockoutButton stock-btn">Clear</div>
+					            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                   </div><!-- /.form group -->
 				        </form>	

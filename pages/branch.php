@@ -218,7 +218,7 @@ endif;
                 <button class="btn btn-primary save-btn" id="daterange-btn" name="">
                   Save
                 </button>
-                <button class="btn btn-danger clear-btn" id="daterange-btn">
+                <button type="reset" class="btn btn-danger clear-btn" id="daterange-btn" value="reset">
                   Clear
                 </button>
               </div>

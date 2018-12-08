@@ -203,7 +203,7 @@ endif;
             <div class="nav-tabs-custom"> <!-- nav-tabs-custom start -->
               <ul class="nav nav-tabs">
                 <li class=""><a href="#fa-icons" data-toggle="tab" aria-expanded="true">Furniture products</a></li>
-                <li class=""><a href="#cash" data-toggle="tab">Beauty products</a></li>
+                <li class=""><a href="#cash" data-toggle="tab" aria-expanded="false">Beauty products</a></li>
                 <li class=""><a href="#payments" data-toggle="tab" aria-expanded="false">Mobile items</a></li>
               </ul>
             <div class="tab-content"> <!-- table content start -->
@@ -259,10 +259,75 @@ endif;
                 </div> <!-- row end -->
               </div> <!----- TABLE ACTIVE END ----->
               <div class="tab-pane" id="cash"> <!----- 2ND TABLE START ----->
-                <div class="row">
+                <div class="row"> <!-- row start -->
+                <div class="col-sm-12"> <!-- col start -->
+                    <div class="box box-primary"> <!-- box start -->
+                      <div class="box-header">
+                        <h3 class="box-title">Beauty product list</h3>
+                      </div><!-- /.box-header -->
+                      <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th>Product Name</th>
+                              <th>Qty</th>
+                              <th>Distributor</th>
+                              <th>Date Delivered</th>
+                            </tr>
+                          </thead>
+                          <tbody>
 
-                </div> <!-- /.col (right) -->
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <th>Product Name</th>
+                              <th>Qty</th>
+                              <th>Distributor</th>
+                              <th>Date Delivered</th>
+                            </tr>					  
+                          </tfoot>
+                        </table>
+                      </div><!-- /.box-body -->
+                    </div><!-- box end -->
+                  </div> <!-- col end -->
+                </div> <!-- row end -->
               </div> <!----- 2ND TABLE END ----->
+
+                <div class="tab-pane" id="payments"> <!----- 2ND TABLE START ----->
+                <div class="row"> <!-- row start -->
+                <div class="col-sm-12"> <!-- col start -->
+                    <div class="box box-primary"> <!-- box start -->
+                      <div class="box-header">
+                        <h3 class="box-title">Mobile item list</h3>
+                      </div><!-- /.box-header -->
+                      <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th>Product Name</th>
+                              <th>Qty</th>
+                              <th>Distributor</th>
+                              <th>Date Delivered</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <th>Product Name</th>
+                              <th>Qty</th>
+                              <th>Distributor</th>
+                              <th>Date Delivered</th>
+                            </tr>					  
+                          </tfoot>
+                        </table>
+                      </div><!-- /.box-body -->
+                    </div><!-- box end -->
+                  </div> <!-- col end -->
+                </div> <!-- row end -->
+              </div> <!----- 2ND TABLE END ----->
+
             </div> <!-- table content end -->
             </div> <!-- nav-tabs-custom end -->
           </div> <!-- col end -->
@@ -345,7 +410,7 @@ endif;
                       <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
                         Save
                       </button>
-					            <div class="btn btn-danger stockoutButton stock-btn">Stock Out</div>
+					            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                   </div><!-- /.form group -->
 				        </form>	
@@ -418,7 +483,7 @@ endif;
                       <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
                         Save
                       </button>
-					            <div class="btn btn-danger stockoutButton stock-btn">Stock Out</div>
+					            <div class="btn btn-danger stockoutButton stock-btn">Cancel</div>
                     </div>
                   </div><!-- /.form group -->
 				        </form>	
