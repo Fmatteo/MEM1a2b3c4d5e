@@ -246,10 +246,10 @@ endif;
                 <table id="example1" class="table table-bordered table-striped">
                           <thead>
                             <tr>
-                              <th>Product Name</th>
-                              <th>Qty</th>
-                              <th>Distributor</th>
-                              <th>Date Delivered</th>
+                              <th>Company name</th>
+                              <th>Address</th>
+                              <th>Contact number</th>
+                              <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -274,10 +274,10 @@ endif;
                           </tbody>
                           <tfoot>
                             <tr>
-                              <th>Product Name</th>
-                              <th>Qty</th>
-                              <th>Distributor</th>
-                              <th>Date Delivered</th>
+                              <th>Company name</th>
+                              <th>Address</th>
+                              <th>Contact number</th>
+                              <th>Action</th>
                             </tr>					  
                           </tfoot>
                         </table>

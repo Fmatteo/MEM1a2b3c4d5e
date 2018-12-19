@@ -530,7 +530,7 @@ if(password==pass)
 alert('Correct Password, Click OK to Enter Website.');
 else
 {
-  window.location="http://localhost/MEM1a2b3c4d5e/pages/home.php"
+  window.location="http://localhost/MEMKristel/pages/home.php"
 }
 
 </script>

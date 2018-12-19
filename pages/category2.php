@@ -230,7 +230,7 @@ endif;
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>Unit</th>
+                        <th>Category name</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -272,7 +272,6 @@ endif;
 			  				  <div class="history">
           </div>
               <div class="modal-footer">
-              	<button class="btn btn-success historyButton" value="<?php echo $row['cat_id'];?>">History</button>
                 <button class="btn btn-danger deleteButton" value="<?php echo $row['cat_name'];?>">Delete</button>
 		<button type="submit" class="btn btn-primary">Save changes</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

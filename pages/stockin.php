@@ -142,16 +142,23 @@ endif;
     }
 
     .cat-btn {
-      text-align: left;
       color: #fff !important;
       font-size: 11.5px;
       letter-spacing: 1px;
-      padding-left: 25px !important;
+      width: 100%;
+      text-align: left;
+      padding-left: 45px;
+      margin-top: 10px;
+      background-color: transparent !important;
+      border: none;
+      border-radius: 0;
     }
 
     .cat-btn:hover {
-      background-color: #3a539b;
+      background-color: #3a539b !important;
       color: #fff;
+      border: none;
+      border-radius: 0;
     }
 
     .content-header {
@@ -178,13 +185,13 @@ endif;
               <h2>Category List</h2>
             </li>
             <li class="treeview">
-              <a class="btn btn-md cat-btn" href="#add" data-target="#add" data-toggle="modal" class="small-box-footer"><img src="../dist/img/armchair.png" alt="Furniture Icon" height="24" width="24" style="margin-right: 10px;">Furniture</a> 
+              <button class="btn btn-md cat-btn small-box-footer" data-toggle="modal" data-target="#modal-1"><img src="../dist/img/armchair.png" alt="Furniture Icon" height="24" width="24" style="margin-right: 10px;">Furniture</button> 
             </li>
             <li class="treeview">
-              <a class="btn btn-md cat-btn" href="#add" data-target="#add" data-toggle="modal" class="small-box-footer"><img src="../dist/img/soap.png" alt="Beauty Products" height="24" width="24" style="margin-right: 10px;">Beauty Products</a> 
+              <button class="btn btn-md cat-btn small-box-footer" data-toggle="modal" data-target="#modal-2"><img src="../dist/img/soap.png" alt="Beauty Products" height="24" width="24" style="margin-right: 10px;">Beauty Products</button> 
             </li>
             <li class="treeview">
-              <a class="btn btn-md cat-btn" href="#add" data-target="#add" data-toggle="modal" class="small-box-footer"><img src="../dist/img/smartphone.png" alt="Mobile Items" height="24" width="24" style="margin-right: 10px;">Mobile Items</a> 
+              <button class="btn btn-md cat-btn small-box-footer" data-toggle="modal" data-target="#modal-3"><img src="../dist/img/smartphone.png" alt="Mobile Items" height="24" width="24" style="margin-right: 10px;">Mobile Items</button> 
             </li>      
           </ul>
         </section>
@@ -338,16 +345,16 @@ endif;
         </div><!-- /.container -->
       </div><!-- /.content-wrapper -->
       <?php include('../dist/includes/footer.php');?>
-    </div><!-- ./wrapper -->
+      
 
-         <!-- MODAL --->
-         <div id="add" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <!-- MODAL FOR FURNITURE -->
+       <div id="modal-1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-title-1" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content" style="height:auto">
               <div class="modal-header box-header" style="color:white">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span></button>
-                  <h4 class="modal-title">Add New Product</h4>
+                  <h4 class="modal-title-1">Add New Product (Furniture)</h4>
               </div>
             <div class="modal-body">
               <form method="post" action="stockin_add.php" enctype="multipart/form-data">
@@ -366,86 +373,7 @@ endif;
                   <div class="form-group">
                     <label for="date">Company name</label>
                     <div class="input-group col-md-12">
-                      <select class="form-control select2" name="prod_name" id="prod_id" required>
-                        <?php include('../dist/includes/dbcon.php');
-                          $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
-                          while($row=mysqli_fetch_array($query2)){?>
-                        <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
-                        <?php }?>
-                      </select>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->
-                  <div class="form-group">
-                    <label for="date">Category</label>
-                    <div class="input-group col-md-12">
-                      <select class="form-control select2" name="prod_name" id="prod_id" required>
-                        <?php include('../dist/includes/dbcon.php');
-                          $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
-                          while($row=mysqli_fetch_array($query2)){?>
-                        <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
-                        <?php }?>
-                      </select>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->   
-                  <div class="form-group">
-                    <label for="date">Reorder</label>
-                    <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="0" required>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->                 
-                  <div class="form-group">
-                    <label for="date">Quantity</label>
-                    <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="qty" name="qty" placeholder="Input Quantity" required>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->
-                  <div class="form-group">
-                    <label for="date">Base Price</label>
-                    <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="0" required>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->
-                  <div class="form-group">
-                    <div class="input-group">
-                      <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
-                        Save
-                      </button>
-					            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                  </div><!-- /.form group -->
-				        </form>	
-            </div>
-        </div><!--end of modal-dialog-->
-      </div>
-     <!--end of modal-->
-
-    <!-- MODAL FOR MOBILE ITEMS --->
-         <div id="add" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-          <div class="modal-dialog">
-            <div class="modal-content" style="height:auto">
-              <div class="modal-header box-header" style="color:white">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                  <h4 class="modal-title">Add New Product</h4>
-              </div>
-            <div class="modal-body">
-              <form method="post" action="stockin_add.php" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label for="date">Model</label>
-                    <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Model" required>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->
-                  <div class="form-group">
-                    <label for="date">IMEI</label>
-                    <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Description" required>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->                 
-                  <div class="form-group">
-                    <label for="date">Color</label>
-                    <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Description" required>
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Company name" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->    
                   <div class="form-group">
@@ -463,19 +391,19 @@ endif;
                   <div class="form-group">
                     <label for="date">Reorder</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="0" required>
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Reorder" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                 
                   <div class="form-group">
                     <label for="date">Quantity</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="qty" name="qty" placeholder="Input Quantity" required>
+                      <input type="text" class="form-control pull-right" id="qty" name="qty" placeholder="Quantity" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <label for="date">Base Price</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="0" required>
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Base price" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
@@ -483,7 +411,81 @@ endif;
                       <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
                         Save
                       </button>
-					            <div class="btn btn-danger stockoutButton stock-btn">Cancel</div>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                  </div><!-- /.form group -->
+				        </form>	
+            </div>
+        </div><!--end of modal-dialog-->
+      </div>
+      </div>
+     <!--end of modal--> 
+
+      <!-- MODAL FOR BEAUTY PRODUCTS -->
+      <div id="modal-2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-title-2" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content" style="height:auto">
+              <div class="modal-header box-header" style="color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title-2">Add New Product (Beauty products)</h4>
+              </div>
+            <div class="modal-body">
+            <form method="post" action="stockin_add.php" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="date">Model</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Model" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <label for="date">Description</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Description" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->                 
+                  <div class="form-group">
+                    <label for="date">Company name</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Company name" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->    
+                  <div class="form-group">
+                    <label for="date">Category</label>
+                    <div class="input-group col-md-12">
+                      <select class="form-control select2" name="prod_name" id="prod_id" required>
+                        <?php include('../dist/includes/dbcon.php');
+                          $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
+                          while($row=mysqli_fetch_array($query2)){?>
+                        <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
+                        <?php }?>
+                      </select>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->   
+                  <div class="form-group">
+                    <label for="date">Reorder</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Reorder" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->                 
+                  <div class="form-group">
+                    <label for="date">Quantity</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="qty" name="qty" placeholder="Quantity" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <label for="date">Base Price</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Base price" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <div class="input-group">
+                      <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
+                        Save
+                      </button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                   </div><!-- /.form group -->
 				        </form>	
@@ -491,6 +493,82 @@ endif;
         </div><!--end of modal-dialog-->
       </div>
      <!--end of modal--> 
+    </div><!-- ./wrapper -->
+
+         <!-- MODAL FOR MOBILE ITEM --->
+         <div id="modal-3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-title-3" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content" style="height:auto">
+              <div class="modal-header box-header" style="color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title-3">Add New Products (Mobile items)</h4>
+              </div>
+            <div class="modal-body">
+            <form method="post" action="stockin_add.php" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="date">Model</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Model" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <label for="date">IMEI</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="IMEI" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->                 
+                  <div class="form-group">
+                    <label for="date">Color</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Color" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->    
+                  <div class="form-group">
+                    <label for="date">Category</label>
+                    <div class="input-group col-md-12">
+                      <select class="form-control select2" name="prod_name" id="prod_id" required>
+                        <?php include('../dist/includes/dbcon.php');
+                          $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
+                          while($row=mysqli_fetch_array($query2)){?>
+                        <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
+                        <?php }?>
+                      </select>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->   
+                  <div class="form-group">
+                    <label for="date">Reorder</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Reorder" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->                 
+                  <div class="form-group">
+                    <label for="date">Quantity</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="qty" name="qty" placeholder="Quantity" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <label for="date">Base Price</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Base price" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <div class="input-group">
+                      <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
+                        Save
+                      </button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                  </div><!-- /.form group -->
+				        </form>	
+            </div>
+        </div><!--end of modal-dialog-->
+      </div>
+     <!--end of modal-->
+
+    <!-- MODAL FOR MOBILE ITEMS --->
 
     <!-- jQuery 2.1.4 -->
     <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>

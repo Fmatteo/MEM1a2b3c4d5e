@@ -280,9 +280,9 @@ endif;
 						 <table id="datatable" class="table table-striped table-bordered table-responsive">
 							 <thead>
 								<tr>
+                  <th>Branch name</th>
 									<th>Fullname</th>
-									<th>Branch Name</th>
-									<th>Username</th>
+                  <th>Username</th>
 									<th>Password</th>
 									<th>Status</th>
 									<th>Action</th>									
@@ -297,8 +297,8 @@ endif;
 											
 									?>  
 								<tr>
+                  <td><?php echo $row['branch_name'];?></td>
 									<td><?php echo $row['name'];?></td>
-									<td><?php echo $row['branch_name'];?></td>
 									<td><?php echo $row['username'];?></td>
 									<td>****</td>
 									<td><?php echo $row['status'];?></td>
