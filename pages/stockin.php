@@ -238,7 +238,9 @@ endif;
                                   SELECT * FROM stockin a 
                                   LEFT JOIN product b ON a.prod_id = b.prod_id 
                                   LEFT JOIN supplier c ON b.supplier_id = c.supplier_id
+                                  LEFT JOIN category d ON b.cat_id= d.cat_id
                                   WHERE a.branch_id='$branch'
+                                  and d.cat_id = '6'
                                   order by date desc
                                   ";
                                 $query=mysqli_query($con,$sql)or die(mysqli_error());
@@ -249,7 +251,7 @@ endif;
                               <td><?php echo $row['supplier_name'];?></td>
                               <td><?php echo $row['date'];?></td>
                             </tr>               
-                            <?php }?>					  
+                            <?php } ?>					  
                           </tbody>
                           <tfoot>
                             <tr>
@@ -283,7 +285,26 @@ endif;
                             </tr>
                           </thead>
                           <tbody>
-
+                            <?php
+                                $branch=$_SESSION['branch'];
+                                  $sql="
+                                  SELECT * FROM stockin a 
+                                  LEFT JOIN product b ON a.prod_id = b.prod_id 
+                                  LEFT JOIN supplier c ON b.supplier_id = c.supplier_id
+                                  LEFT JOIN category d ON b.cat_id= d.cat_id
+                                  WHERE a.branch_id='$branch'
+                                  and d.cat_id = '5'
+                                  order by date desc
+                                  ";
+                                $query=mysqli_query($con,$sql)or die(mysqli_error());
+                                while($row=mysqli_fetch_array($query)){?>
+                            <tr>
+                              <td><?php echo $row['prod_name'];?></td>
+                              <td><?php echo $row['qty'];?></td>
+                              <td><?php echo $row['supplier_name'];?></td>
+                              <td><?php echo $row['date'];?></td>
+                            </tr>               
+                            <?php }?>           
                           </tbody>
                           <tfoot>
                             <tr>
@@ -291,7 +312,7 @@ endif;
                               <th>Qty</th>
                               <th>Distributor</th>
                               <th>Date Delivered</th>
-                            </tr>					  
+                            </tr>           
                           </tfoot>
                         </table>
                       </div><!-- /.box-body -->
@@ -308,6 +329,7 @@ endif;
                         <h3 class="box-title">Mobile item list</h3>
                       </div><!-- /.box-header -->
                       <div class="box-body">
+                        
                         <table id="example1" class="table table-bordered table-striped">
                           <thead>
                             <tr>
@@ -318,7 +340,26 @@ endif;
                             </tr>
                           </thead>
                           <tbody>
-
+                            <?php
+                                $branch=$_SESSION['branch'];
+                                  $sql="
+                                  SELECT * FROM stockin a 
+                                  LEFT JOIN product b ON a.prod_id = b.prod_id 
+                                  LEFT JOIN supplier c ON b.supplier_id = c.supplier_id
+                                  LEFT JOIN category d ON b.cat_id= d.cat_id
+                                  WHERE a.branch_id='$branch'
+                                  and d.cat_id = '7'
+                                  order by date desc
+                                  ";
+                                $query=mysqli_query($con,$sql)or die(mysqli_error());
+                                while($row=mysqli_fetch_array($query)){?>
+                            <tr>
+                              <td><?php echo $row['prod_name'];?></td>
+                              <td><?php echo $row['qty'];?></td>
+                              <td><?php echo $row['supplier_name'];?></td>
+                              <td><?php echo $row['date'];?></td>
+                            </tr>               
+                            <?php }?>           
                           </tbody>
                           <tfoot>
                             <tr>
@@ -326,7 +367,7 @@ endif;
                               <th>Qty</th>
                               <th>Distributor</th>
                               <th>Date Delivered</th>
-                            </tr>					  
+                            </tr>           
                           </tfoot>
                         </table>
                       </div><!-- /.box-body -->
@@ -361,37 +402,41 @@ endif;
                   <div class="form-group">
                     <label for="date">Model</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Model" required>
+                      <input type="text" class="form-control pull-right" id="prod_name" name="prod_name" placeholder="Model" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <label for="date">Description</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Description" required>
+                      <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                 
-                  <div class="form-group">
-                    <label for="date">Company name</label>
-                    <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Company name" required>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->    
-                  <div class="form-group">
-                    <label for="date">Category</label>
-                    <div class="input-group col-md-12">
-                      <select class="form-control select2" name="prod_name" id="prod_id" required>
-                        <?php include('../dist/includes/dbcon.php');
-                          $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
-                          while($row=mysqli_fetch_array($query2)){?>
-                        <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
-                        <?php }?>
-                      </select>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->   
+                              <?php
+                                 $branch=$_SESSION['branch'];
+                                   $sql="SELECT
+                                             *
+                                         from
+                                             supplier      
+                                         order by
+                                             supplier_name asc
+                                           ";
+                                   $supp_query=mysqli_query($con,$sql)or die(mysqli_error());?>
+                              <div class="form-group">
+                                 <label for="supplier_id">Distributor</label>
+                                 <select class="form-control" id="supplier_id" name="supplier_id">
+                                    <?php while($supp_row=mysqli_fetch_array($supp_query)){?>
+                                    <option value="<?php echo $supp_row['supplier_id']?>"><?php echo $supp_row['supplier_name']?></option>
+                                    <?php }?>
+                                 </select>
+                              </div>
+                              <!-- suppier list -->
+                              <!-- category list -->
+                              <input type='hidden' name='cat_id' value='6'>
+
                   <div class="form-group">
                     <label for="date">Reorder</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Reorder" required>
+                      <input type="text" class="form-control pull-right" id="reorder" name="reorder" placeholder="Reorder" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                 
                   <div class="form-group">
@@ -435,37 +480,40 @@ endif;
                   <div class="form-group">
                     <label for="date">Model</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Model" required>
+                      <input type="text" class="form-control pull-right" id="prod_name" name="prod_name" placeholder="Model" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <label for="date">Description</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Description" required>
+                      <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description" required>
                     </div><!-- /.input group -->
-                  </div><!-- /.form group -->                 
-                  <div class="form-group">
-                    <label for="date">Company name</label>
-                    <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Company name" required>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->    
-                  <div class="form-group">
-                    <label for="date">Category</label>
-                    <div class="input-group col-md-12">
-                      <select class="form-control select2" name="prod_name" id="prod_id" required>
-                        <?php include('../dist/includes/dbcon.php');
-                          $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
-                          while($row=mysqli_fetch_array($query2)){?>
-                        <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
-                        <?php }?>
-                      </select>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->   
+                  </div><!-- /.form group -->                  
+                              <?php
+                                 $branch=$_SESSION['branch'];
+                                   $sql="SELECT
+                                             *
+                                         from
+                                             supplier      
+                                         order by
+                                             supplier_name asc
+                                           ";
+                                   $supp_query=mysqli_query($con,$sql)or die(mysqli_error());?>
+                              <div class="form-group">
+                                 <label for="supplier_id">Distributor</label>
+                                 <select class="form-control" id="supplier_id" name="supplier_id">
+                                    <?php while($supp_row=mysqli_fetch_array($supp_query)){?>
+                                    <option value="<?php echo $supp_row['supplier_id']?>"><?php echo $supp_row['supplier_name']?></option>
+                                    <?php }?>
+                                 </select>
+                              </div>
+                              <!-- suppier list -->
+                              <!-- category list -->
+                              <input type='hidden' name='cat_id' value='5'>
                   <div class="form-group">
                     <label for="date">Reorder</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Reorder" required>
+                      <input type="text" class="form-control pull-right" id="reorder" name="reorder" placeholder="Reorder" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                 
                   <div class="form-group">
@@ -509,37 +557,46 @@ endif;
                   <div class="form-group">
                     <label for="date">Model</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Model" required>
+                      <input type="text" class="form-control pull-right" id="prod_name" name="prod_name" placeholder="Model" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
-                    <label for="date">IMEI</label>
+                    <label for="date">Description</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="IMEI" required>
+                      <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description" required>
                     </div><!-- /.input group -->
-                  </div><!-- /.form group -->                 
+                  </div><!-- /.form group -->                   
                   <div class="form-group">
                     <label for="date">Color</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Color" required>
+                      <input type="text" class="form-control pull-right" id="color" name="color" placeholder="Color" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->    
-                  <div class="form-group">
-                    <label for="date">Category</label>
-                    <div class="input-group col-md-12">
-                      <select class="form-control select2" name="prod_name" id="prod_id" required>
-                        <?php include('../dist/includes/dbcon.php');
-                          $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
-                          while($row=mysqli_fetch_array($query2)){?>
-                        <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
-                        <?php }?>
-                      </select>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->   
+                              <?php
+                                 $branch=$_SESSION['branch'];
+                                   $sql="SELECT
+                                             *
+                                         from
+                                             supplier      
+                                         order by
+                                             supplier_name asc
+                                           ";
+                                   $supp_query=mysqli_query($con,$sql)or die(mysqli_error());?>
+                              <div class="form-group">
+                                 <label for="supplier_id">Distributor</label>
+                                 <select class="form-control" id="supplier_id" name="supplier_id">
+                                    <?php while($supp_row=mysqli_fetch_array($supp_query)){?>
+                                    <option value="<?php echo $supp_row['supplier_id']?>"><?php echo $supp_row['supplier_name']?></option>
+                                    <?php }?>
+                                 </select>
+                              </div>
+                              <!-- suppier list -->
+                              <!-- category list -->
+                              <input type='hidden' name='cat_id' value='7'> 
                   <div class="form-group">
                     <label for="date">Reorder</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Reorder" required>
+                      <input type="text" class="form-control pull-right" id="reorder" name="reorder" placeholder="Reorder" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                 
                   <div class="form-group">

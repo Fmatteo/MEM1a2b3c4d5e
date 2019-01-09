@@ -364,7 +364,8 @@ $branch=$_SESSION['branch'];
             <td><?php echo $row['prod_name'];?></td>
             <td><?php echo $row['serial'];?></td>
             <td><?php echo $row['qty'];?></td>
-			<td><?php echo $row['price'];?></td>
+			       <td><?php echo $row['price'];?></td>
+            <td></td>
             <td style="text-align:right"><?php echo number_format($total,2);
 								?></td>
             <td><?php echo $profit;?></td>
@@ -377,16 +378,16 @@ $branch=$_SESSION['branch'];
                     </tbody>
                     <tfoot>
           <tr>
-            <th colspan="8">Total</th>
+            <th colspan="9">Total</th>
             <th style="text-align:right;"><h4><b><?php echo  number_format($grand,2);?></b></h4></th>
           </tr>                
           
           <tr>
-            <th colspan="8">Total Cash Sales</th>
+            <th colspan="9">Total Cash Sales</th>
             <th style="text-align:right;"><h4><b><?php echo  number_format(($grand-$discount),2);?></b></h4></th>
 			    </tr>	
           <tr>
-            <th colspan="8">Total Profit less Expenses</th>
+            <th colspan="9">Total Profit less Expenses</th>
 	<th style="text-align:right;"><h4><b><?php echo  number_format(($total_profit),2);}?></b></h4></th>
           </tr> 	
           <tr>

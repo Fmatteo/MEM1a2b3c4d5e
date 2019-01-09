@@ -367,7 +367,8 @@ endif;
                     </thead>
                     <tbody>
                         <?php	
-                        include 'dbcon.php';								
+                        
+                          include('../dist/includes/dbcon.php');
                           $query1=mysqli_query($con,"select * from history_log NATURAL JOIN user ORDER BY log_id DESC")or die(mysqli_error($con));
                           while ($row=mysqli_fetch_array($query1)){
                             $id=$row['log_id'];										
@@ -376,7 +377,7 @@ endif;
                         <td><?php echo $row['name'];?></td>
                         <td><?php echo $row['action']. " ".date("F d, Y - - h:i A", strtotime($row['date'])); ?></td>															
                       </tr>
-                          <?php include 'update_user_modal.php';?>
+                          <?php // include 'update_user_modal.php';?>
                       <?php }?>
                     </tbody>								
                   </table>

@@ -191,26 +191,26 @@ endif;
         <section class="sidebar">
           <!-- search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <form method="post" action="cat_add.php" enctype="multipart/form-data">
+          <form method="post" action="branch_add.php" enctype="multipart/form-data">
             <div class="cat-list">
               <h2> Add branch </h2>
             </div>
             <div class="form-group">
-              <label for="date">Company name</label>
+              <label for="date">Branch name</label>
               <div class="input-group col-md-12">
-                <input type="text" class="form-control pull-center" id="date" name="category" placeholder="Company name" required>
+                <input type="text" class="form-control pull-center" id="date" name="branch_name" placeholder="Branch Name" required>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
             <div class="form-group">
               <label for="date">Address</label>
               <div class="input-group col-md-12">
-                <input type="text" class="form-control pull-center" id="date" name="category" placeholder="Company name" required>
+                <input type="text" class="form-control pull-center" id="date" name="branch_address" placeholder="Branch Address" required>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
             <div class="form-group">
               <label for="date">Contact #</label>
               <div class="input-group col-md-12">
-                <input type="text" class="form-control pull-center" id="date" name="category" placeholder="Company name" required>
+                <input type="text" class="form-control pull-center" id="date" name="branch_contact" placeholder="Branch Contact" required>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
             <div class="form-group">
@@ -246,7 +246,7 @@ endif;
                 <table id="example1" class="table table-bordered table-striped">
                           <thead>
                             <tr>
-                              <th>Company name</th>
+                              <th>Branch name</th>
                               <th>Address</th>
                               <th>Contact number</th>
                               <th>Action</th>
@@ -254,27 +254,23 @@ endif;
                           </thead>
                           <tbody>
                             <?php
-                                $branch=$_SESSION['branch'];
-                                  $sql="
-                                  SELECT * FROM stockin a 
-                                  LEFT JOIN product b ON a.prod_id = b.prod_id 
-                                  LEFT JOIN supplier c ON b.supplier_id = c.supplier_id
-                                  WHERE a.branch_id='$branch'
-                                  order by date desc
-                                  ";
-                                $query=mysqli_query($con,$sql)or die(mysqli_error());
+                                $query=mysqli_query($con,"select * from branch order by branch_name")or die(mysqli_error());
                                 while($row=mysqli_fetch_array($query)){?>
-                            <tr>
-                              <td><?php echo $row['prod_name'];?></td>
-                              <td><?php echo $row['qty'];?></td>
-                              <td><?php echo $row['supplier_name'];?></td>
-                              <td><?php echo $row['date'];?></td>
+                                <tr>
+                              <td><?php echo $row['branch_name'];?></td>
+                              <td><?php echo $row['branch_address'];?></td>
+                              <td><?php echo $row['branch_contact'];?></td>   
+                                                      <td>
+        <a href="#updateordinance<?php echo $row['cat_id'];?>" data-target="#updateordinance<?php echo $row['cat_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+        
+            </td>                           
                             </tr>               
                             <?php }?>					  
                           </tbody>
                           <tfoot>
                             <tr>
-                              <th>Company name</th>
+                            <tr>
+                              <th>Branch name</th>
                               <th>Address</th>
                               <th>Contact number</th>
                               <th>Action</th>

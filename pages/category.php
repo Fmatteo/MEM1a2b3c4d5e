@@ -187,26 +187,26 @@ endif;
         <section class="sidebar">
           <!-- search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <form method="post" action="cat_add.php" enctype="multipart/form-data">
+          <form method="post" action="supplier_add.php" enctype="multipart/form-data">
             <div class="cat-list">
               <h2> Add new company </h2>
             </div>
             <div class="form-group">
-              <label for="date">Company name</label>
+              <label for="cat_name">Company name</label>
               <div class="input-group col-md-12">
-                <input type="text" class="form-control pull-center" id="date" name="category" placeholder="Company name" required>
+                <input type="text" class="form-control pull-center" id="supplier_name" name="supplier_name" placeholder="Company name" required>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
             <div class="form-group">
-              <label for="date">Company address</label>
+              <label for="supplier_address">Company address</label>
               <div class="input-group col-md-12">
-                <input type="text" class="form-control pull-right" id="date" name="category" placeholder="Company address" required>
+                <input type="text" class="form-control pull-right" id="supplier_address" name="supplier_address" placeholder="Company address" required>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
             <div class="form-group">
-              <label for="date">Contact number</label>
+              <label for="supplier_contact">Contact number</label>
               <div class="input-group col-md-12">
-                <input type="text" class="form-control pull-right" id="date" name="category" placeholder="Company number" required>
+                <input type="text" class="form-control pull-right" id="supplier_address" name="supplier_contact" placeholder="Company Contact" required>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
             <div class="form-group">
@@ -251,12 +251,14 @@ endif;
                     <tbody>
 <?php
 		
-		$query=mysqli_query($con,"select * from category order by cat_name")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from supplier order by supplier_name")or die(mysqli_error());
 		while($row=mysqli_fetch_array($query)){
 		
 ?>
                       <tr>
-                        <td><?php echo $row['cat_name'];?></td>
+                        <td><?php echo $row['supplier_name'];?></td>
+                        <td><?php echo $row['supplier_address'];?></td>
+                        <td><?php echo $row['supplier_contact'];?></td>
                         <td>
 				<a href="#updateordinance<?php echo $row['cat_id'];?>" data-target="#updateordinance<?php echo $row['cat_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
 				
@@ -275,8 +277,8 @@ endif;
                 
 				<div class="form-group">
 					<label class="control-label col-lg-3" for="name">Company Name</label>
-					<div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['cat_id'];?>" required>  
-					  <input type="text" class="form-control" id="name" name="category" value="<?php echo $row['cat_name'];?>" required>  
+					<div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['supplier_id'];?>" required>  
+					  <input type="text" class="form-control" id="name" name="category" value="<?php echo $row['supplier_name'];?>" required>  
 					</div>
 				</div> 
 				
@@ -366,8 +368,8 @@ endif;
                   type: "POST",
                   url: "ajax.php",
                   data: { 
-                      cat_name: $(this).val(), // < note use of 'this' here
-                      process: 'categories'
+                      supplier_name: $(this).val(), // < note use of 'this' here
+                      process: 'supplier'
                   },
                   success: function(result) {
                       if(result == ""){ 

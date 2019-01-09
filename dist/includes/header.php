@@ -89,7 +89,7 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                         <!-- Inner Menu: contains the notifications -->
                         <ul class="menu">
               <li><!-- start notification -->
-                            <a href="category.php">
+                            <a href="supplier.php">
                               <i class="glyphicon glyphicon-user text-green"></i> Company Name
                             </a>
                           </li><!-- end notification -->
