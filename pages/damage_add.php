@@ -10,7 +10,8 @@ include('../dist/includes/dbcon.php');
 	$remarks = $_POST['remarks'];		
 	date_default_timezone_set('Asia/Manila');
 	$date = date("Y-m-d H:i:s");
-	$id=$_SESSION['id'];	
+	$id=$_SESSION['id'];
+		
 	if($prod_qty > $qty){
 	$prod_left = $prod_qty - $qty;
 	mysqli_query($con,"INSERT INTO damage(prod_id,damage_qty,date,remarks,branch_id) VALUES('$prod_id','$qty','$date','$remarks','$branch')")or die(mysqli_error($con));

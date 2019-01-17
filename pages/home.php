@@ -2,9 +2,12 @@
 if(empty($_SESSION['id'])):
 header('Location:../index.php');
 endif;
-if(empty($_SESSION['branch'])):
-header('Location:../index.php');
-endif;
+include('../dist/includes/dbcon.php');
+$id = $_SESSION['id'];
+$query_role=mysqli_query($con,"select * from user where user_id = '$id' ")or die(mysqli_error());
+while($rowrole=mysqli_fetch_array($query_role)){ 
+$role_permission = $rowrole['role'];
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -232,9 +235,11 @@ endif;
                             </a>
                           </li><!-- end notification -->
                           <li><!-- start notification -->
+                             <?php if ($role_permission == 'admin'){?>
                             <a href="sales.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-usd text-white"></i>Sales
                             </a>
+
                           </li><!-- end notification -->
                           <li><!-- start notification -->
                             <a href="purchase_request.php" class="subnav-txt">
@@ -256,6 +261,7 @@ endif;
                               <i class="glyphicon glyphicon-usd text-white"></i>History logs
                             </a>
                           </li><!-- end notification -->
+                          <?php }?>
                           <li><!-- start notification -->
                             <a href="receivables.php" class="subnav-txt" style="display:none;">
                               <i class="glyphicon glyphicon-th-list text-white"></i>Account Receivables

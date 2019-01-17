@@ -1,11 +1,22 @@
 <?php session_start();
 if(empty($_SESSION['id'])):
+
 header('Location:../index.php');
 endif;
+include('../dist/includes/dbcon.php');
 $id = $_SESSION['id'];
+$branch=$_SESSION['branch'];
+$query_role=mysqli_query($con,"select * from user where user_id = '$id' ")or die(mysqli_error());
+while($rowrole=mysqli_fetch_array($query_role)){ 
+$role_permission = $rowrole['role'];
+}
 
-    $branch=$_SESSION['branch'];
+
 ?>
+                          
+                          
+                        
+     
 <!DOCTYPE html>
 <html>
   <head>
@@ -200,6 +211,7 @@ $id = $_SESSION['id'];
  </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
   <body>
+
   <div class="wrapper">
       <?php include('../dist/includes/header.php');?>
       <!-- Full Width Column -->
@@ -215,7 +227,7 @@ $id = $_SESSION['id'];
             <div class="cat-list">
               <h2> Update account </h2>
             </div>
-            <?php    $query=mysqli_query($con,"select * from user where user_id = '$id'")or die(mysqli_error());
+            <?php    $query=mysqli_query($con,"select * from user a left join branch b on a.branch_id = b.branch_id where user_id = '$id'")or die(mysqli_error());
     while($row=mysqli_fetch_array($query)){ ?>
             <div class="form-group form-group-inputs">
                     <label for="date">Full Name</label>
@@ -226,7 +238,7 @@ $id = $_SESSION['id'];
 				  <div class="form-group form-group-inputs">
                     <label for="date">Username</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" value="<?php echo $row['username'];?>" name="username" placeholder="Username" required>
+                      <input type="text" class="form-control pull-right" value="<?php echo $row['username'];?>" name="username" placeholder="User Name" required>   
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
 				  <div class="form-group form-group-inputs">
@@ -241,14 +253,39 @@ $id = $_SESSION['id'];
                       <input type="password" class="form-control pull-right" id="cfmPassword" name="newpassword" placeholder="Reenter new password">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-					<div class="form-group form-group-inputs">
+				<!-- 	<div class="form-group form-group-inputs">
                     <label for="date">Enter Old Password to confirm changes</label>
                     <div class="input-group col-md-12">
                       <input type="password" class="form-control pull-right" id="date" name="passwordold" placeholder="Type old password" required>
-                    </div><!-- /.input group -->
+                    </div>
 					
+                  </div> -->
+          <div class="form-group form-group-inputs">
+            <label for="role">Branch</label>                
+                  <select class="form-control select2" name="branch_id" id="branch_id" required>
+                        <?php
+                          $query2=mysqli_query($con,"select * from branch")or die(mysqli_error());
+                          while($row=mysqli_fetch_array($query2)){?>
+                        <option value="<?php echo $row['branch_id'];?>"><?php echo $row['branch_name'];?></option>
+                        <?php }?>
+                   </select>   
+          </div>
+
+          <div class="form-group form-group-inputs">
+            <label for="role">Role</label>
+            <select class="form-control" id="role" name="role">              
+              <option value="encoder" selected>Encoder</option>         
+              <option value="admin">Admin</option>     
+            </select>
+          </div>
+
+          <div class="form-group form-group-inputs">
+                    <label for="date">Role</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" value="<?php echo $row['username'];?>" name="username" placeholder="Username" required>
+                    </div><!-- /.input group -->
                   </div><!-- /.form group -->
-				  
+
                   <div class="form-group form-group-inputs">
                     <div class="input-group inputs-btn">
                       <input class = "btn btn-primary submit-btn save-btn" type="submit" value="Submit">
@@ -257,7 +294,7 @@ $id = $_SESSION['id'];
                       </button>
                     </div>
                   </div><!-- /.form group -->
-                 <?php } ?> 
+         <?php }?>
           </form>	
         </section>
         <!-- /.sidebar -->
@@ -267,10 +304,13 @@ $id = $_SESSION['id'];
           <section class="content-header">
             <h1>
               <a class="btn btn-md btn-primary btn-1" href="home.php">Back</a>
-              <a class="btn btn-md btn-success btn-2" href="#add" data-target="#add" data-toggle="modal" style="color:#fff;">Add new user <i class="glyphicon glyphicon-plus text-white"></i></a>
+                    <?php if ($role_permission == 'admin'){?>
+<a class="btn btn-md btn-success btn-2" href="#add" data-target="#add" data-toggle="modal" style="color:#fff;">Add new user <i class="glyphicon glyphicon-plus text-white"></i></a><?php }?>
             </h1>
           </section>
+          <?php if ($role_permission == 'admin'){?>
 
+          
           <!-- Main content -->
           <section class="content">
             <div class="col-sm-12">
@@ -284,10 +324,10 @@ $id = $_SESSION['id'];
 								<tr>
                   <th>Branch name</th>
 									<th>Fullname</th>
-                  <th>Username</th>
-									<th>Password</th>
+                  <th>Role</th>
+                  <th>Username</th>									
 									<th>Status</th>
-									<th>Action</th>									
+							
 								</tr>
 							 </thead>
 							 <tbody>
@@ -296,14 +336,9 @@ $id = $_SESSION['id'];
 								<tr>
                   <td><?php echo $row['branch_name'];?></td>
 									<td><?php echo $row['name'];?></td>
-									<td><?php echo $row['username'];?></td>
-									<td>****</td>
-									<td><?php echo $row['status'];?></td>
-									<td>
-										<a href="#update<?php echo $id;?>" class="btn btn-success btn-xs" data-toggle = "modal" data-target="#update<?php echo $id;?>"><i class = "fa fa-pencil"></i> Edit</a>
-										
-									</td>
-																
+                  <td><?php echo $row['role'];?></td>
+									<td><?php echo $row['username'];?></td>									
+									<td><?php echo $row['status'];?></td>																
 								</tr>
                                 <?php }?>
 								<?php   //   include 'update_user_modal.php';?>
@@ -318,6 +353,7 @@ $id = $_SESSION['id'];
 	  
             
           </section><!-- /.content -->
+<?php } ?>
         </div><!-- /.container -->
       </div><!-- /.content-wrapper -->
       <?php include('../dist/includes/footer.php');?>
@@ -340,13 +376,19 @@ $id = $_SESSION['id'];
                       <input type="text" class="form-control" name="username" required="">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
+                
                   <div class="form-group">
                     <label for="date">Password</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control" name="name" required="">
+                      <input type="password" class="form-control" name="password" required="">
                     </div><!-- /.input group -->
-                  </div><!-- /.form group -->                 
-                  <div class="form-group">
+                  </div><!-- /.form group -->    
+                   <div class="form-group">
+                    <label for="date">Confirm New Password</label>
+                    <div class="input-group col-md-12">
+                      <input type="password" class="form-control pull-right" id="cfmPassword" name="newpassword" placeholder="Reenter new password">
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
                   <div class="form-group">
                     <label for="date">Fullname</label>
                     <div class="input-group col-md-12">
@@ -354,30 +396,27 @@ $id = $_SESSION['id'];
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <input type="hidden" name="status" value="active">                
-                    <label for="date">Branch</label>
-                    <div class="input-group col-md-12">
-                    <select name="branch_id" class="form-control">
-						 								<option value="1">AHIRA APPLIANCE CENTER</option>	
-														<option value="2">ASHER ALLIED MARKETING</option>	
-														<option value="3">SINGER</option>	
-														<option value="4">GOLDEN ARROW</option>	
-														<option value="5">123</option>								 
-						         </select>
-                          <span class="fa form-control-feedback right" aria-hidden="true"></span>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->
+                  <label for="date">Branch</label>
                   <div class="form-group">
-                    <label for="date">Role</label>
                     <div class="input-group col-md-12">
-                      <select class="form-control select2" name="prod_name" id="prod_id" required>
-                        <?php include('../dist/includes/dbcon.php');
-                          $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
+                          <select class="form-control select2" name="branch_id" id="branch_id" required>
+                        <?php
+                          $query2=mysqli_query($con,"select * from branch")or die(mysqli_error());
                           while($row=mysqli_fetch_array($query2)){?>
-                        <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
+                        <option value="<?php echo $row['branch_id'];?>"><?php echo $row['branch_name'];?></option>
                         <?php }?>
-                      </select>
+                      </select>                      
                     </div><!-- /.input group -->
-                  </div><!-- /.form group -->   
+                  </div><!-- /.input group -->
+
+                  <div class="form-group">
+                    <label for="role">Role</label>
+                    <select class="form-control" id="role" name="role">              
+                      <option value="encoder" selected>Encoder</option>         
+                      <option value="admin">Admin</option>     
+                    </select>
+                  </div>
+
                   <div class="form-group">
                     <div class="input-group inputs-btn">
                       <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
