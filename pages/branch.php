@@ -278,19 +278,19 @@ endif;
               <div class="modal-body row">
        
         <div class="form-group">
-          <label class="control-label col-lg-12" for="name">Branch Name</label>
+          <label class="control-label col-lg-12 text-black text-left" for="name">Branch Name</label>
           <div class="col-lg-12">
-            <input type="text" class="form-control" id="name" name="name" value="<?php echo $row['branch_name'];?>" required>  
+            <input type="text" class="form-control" id="name" name="name" value="<?php echo $row['branch_name'];?>" required style="margin-bottom: 25px !important">  
           </div>
         </div> 
          <div class="form-group">
-          <label class="control-label col-lg-12" for="address">Branch Address</label>
+          <label class="control-label col-lg-12 text-black text-left" for="address">Branch Address</label>
           <div class="col-lg-12">
-            <input type="text" class="form-control" id="address" name="address" value="<?php echo $row['branch_address'];?>" required> 
+            <input type="text" class="form-control" id="address" name="address" value="<?php echo $row['branch_address'];?>" required style="margin-bottom: 25px !important"> 
           </div>
         </div> 
         <div class="form-group">
-          <label class="control-label col-lg-12" for="contact">Branch Contact</label>
+          <label class="control-label col-lg-12 text-black text-left" for="contact">Branch Contact</label>
           <div class="col-lg-12">
             <input type="text" class="form-control" id="contact" name="contact" value="<?php echo $row['branch_contact'];?>" required>  
           </div>

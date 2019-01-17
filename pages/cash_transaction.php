@@ -39,18 +39,18 @@ javascript:window.history.forward(1);
   border-radius: 6px;
 }
 
-    .sidebar {  
-    width: 250;
-    height:100%;
-    display: block;
-    left: -240px;
-    top: 0px;
-    transition: left 0.3s linear;
+       .sidebar {  
+      width: 250;
+      height:100%;
+      display: block;
+      left: -240px;
+      top: 0px;
+      transition: left 0.3s linear;
     }
 
     .sidebar.visible {
-    left:0px;
-    transition: left 0.3s linear;
+      left:0px;
+      transition: left 0.3s linear;
     }
 
     .nav-txt {
@@ -58,17 +58,17 @@ javascript:window.history.forward(1);
     }
 
     .subnav-txt:hover {
-      color: #ff0000;
+      color: #3498db;
     }
 
     .nav-txt:hover {
-      background-color: #7d0000;
+      background-color: #3a539b;
       color: white;
       transition: all .2s;
     }
 
     .main-sidebar {
-      background-image: linear-gradient(to left, rgba(232,76,61,1) , rgba(193,57,43,1));
+      background-image: linear-gradient(to left, #22a7f0 , #3498db);
       position: fixed;
       z-index: 5;
     }
@@ -78,7 +78,7 @@ javascript:window.history.forward(1);
     }
 
     .treeview-menu {
-      background-color: #7d0000;
+      background-color: #3a539b;
     }
 
     .reorder-count {
@@ -86,7 +86,7 @@ javascript:window.history.forward(1);
     }
 
     .box-header {
-      background-image: linear-gradient(to right, rgba(232,76,61,1) , rgba(193,57,43,1));
+      background-image: linear-gradient(to left, #22a7f0 , #3498db);
     }
 
     .menu {
@@ -103,6 +103,11 @@ javascript:window.history.forward(1);
 
     .btn:hover {
       transition: all .2s linear;
+    }
+
+    .content-header {
+      text-align: right;
+      margin-right: 15px;
     }
 
       
@@ -248,20 +253,15 @@ javascript:window.history.forward(1);
           <!-- Content Header (Page header) -->
           <section class="content-header">
             <h1>
-              <a class="btn btn-lg btn-danger" href="home.php">Back</a>
-              
+              <a class="btn btn-md btn-primary" href="home.php">Back</a>
             </h1>
-            <ol class="breadcrumb">
-              <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-              <li class="active">Product</li>
-            </ol>
           </section>
 
           <!-- Main content -->
           <section class="content">
             <div class="row">
 	      <div class="col-md-9">
-              <div class="box box-danger">
+              <div class="box box-primary">
                 <div class="box-header">
                   <h3 class="box-title">Sales Transaction</h3>
                 </div>
@@ -313,7 +313,7 @@ javascript:window.history.forward(1);
 						</div>	
 					</form>	
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-12" style="background-color: transparent;">
 <?php 
 $base_total = 0;
 $total_profit = 0;

@@ -225,10 +225,13 @@ endif;
                         <table id="example1" class="table table-bordered table-striped">
                           <thead>
                             <tr>
-                              <th>Product Name</th>
-                              <th>Qty</th>
-                              <th>Distributor</th>
-                              <th>Date Delivered</th>
+                              <th>Model</th>
+                              <th>Description</th>
+                              <th>Company name</th>
+                              <th>Category</th>
+                              <th>Reorder</th>
+                              <th>Quantity</th>
+                              <th>Base price</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -255,10 +258,13 @@ endif;
                           </tbody>
                           <tfoot>
                             <tr>
-                              <th>Product Name</th>
-                              <th>Qty</th>
-                              <th>Distributor</th>
-                              <th>Date Delivered</th>
+                              <th>Model</th>
+                              <th>Description</th>
+                              <th>Company name</th>
+                              <th>Category</th>
+                              <th>Reorder</th>
+                              <th>Quantity</th>
+                              <th>Base price</th>
                             </tr>					  
                           </tfoot>
                         </table>
@@ -278,10 +284,13 @@ endif;
                         <table id="example1" class="table table-bordered table-striped">
                           <thead>
                             <tr>
-                              <th>Product Name</th>
-                              <th>Qty</th>
-                              <th>Distributor</th>
-                              <th>Date Delivered</th>
+                              <th>Model</th>
+                              <th>Description</th>
+                              <th>Company name</th>
+                              <th>Category</th>
+                              <th>Reorder</th>
+                              <th>Quantity</th>
+                              <th>Base price</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -308,10 +317,13 @@ endif;
                           </tbody>
                           <tfoot>
                             <tr>
-                              <th>Product Name</th>
-                              <th>Qty</th>
-                              <th>Distributor</th>
-                              <th>Date Delivered</th>
+                              <th>Model</th>
+                              <th>Description</th>
+                              <th>Company name</th>
+                              <th>Category</th>
+                              <th>Reorder</th>
+                              <th>Quantity</th>
+                              <th>Base price</th>
                             </tr>           
                           </tfoot>
                         </table>
@@ -333,10 +345,13 @@ endif;
                         <table id="example1" class="table table-bordered table-striped">
                           <thead>
                             <tr>
-                              <th>Product Name</th>
-                              <th>Qty</th>
-                              <th>Distributor</th>
-                              <th>Date Delivered</th>
+                              <th>Model</th>
+                              <th>IMEI</th>
+                              <th>Color</th>
+                              <th>Category</th>
+                              <th>Reorder</th>
+                              <th>Quantity</th>
+                              <th>Base price</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -363,10 +378,13 @@ endif;
                           </tbody>
                           <tfoot>
                             <tr>
-                              <th>Product Name</th>
-                              <th>Qty</th>
-                              <th>Distributor</th>
-                              <th>Date Delivered</th>
+                              <th>Model</th>
+                              <th>IMEI</th>
+                              <th>Color</th>
+                              <th>Category</th>
+                              <th>Reorder</th>
+                              <th>Quantity</th>
+                              <th>Base price</th>
                             </tr>           
                           </tfoot>
                         </table>
@@ -410,7 +428,13 @@ endif;
                     <div class="input-group col-md-12">
                       <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description" required>
                     </div><!-- /.input group -->
-                  </div><!-- /.form group -->                 
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <label for="date">Company name</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->                         
                               <?php
                                  $branch=$_SESSION['branch'];
                                    $sql="SELECT
@@ -422,7 +446,7 @@ endif;
                                            ";
                                    $supp_query=mysqli_query($con,$sql)or die(mysqli_error());?>
                               <div class="form-group">
-                                 <label for="supplier_id">Distributor</label>
+                                 <label for="supplier_id">Category</label>
                                  <select class="form-control" id="supplier_id" name="supplier_id">
                                     <?php while($supp_row=mysqli_fetch_array($supp_query)){?>
                                     <option value="<?php echo $supp_row['supplier_id']?>"><?php echo $supp_row['supplier_name']?></option>
@@ -488,7 +512,13 @@ endif;
                     <div class="input-group col-md-12">
                       <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description" required>
                     </div><!-- /.input group -->
-                  </div><!-- /.form group -->                  
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <label for="date">Company name</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->                        
                               <?php
                                  $branch=$_SESSION['branch'];
                                    $sql="SELECT
@@ -500,7 +530,7 @@ endif;
                                            ";
                                    $supp_query=mysqli_query($con,$sql)or die(mysqli_error());?>
                               <div class="form-group">
-                                 <label for="supplier_id">Distributor</label>
+                                 <label for="supplier_id">Category</label>
                                  <select class="form-control" id="supplier_id" name="supplier_id">
                                     <?php while($supp_row=mysqli_fetch_array($supp_query)){?>
                                     <option value="<?php echo $supp_row['supplier_id']?>"><?php echo $supp_row['supplier_name']?></option>
@@ -561,7 +591,7 @@ endif;
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
-                    <label for="date">Description</label>
+                    <label for="date">IMEI</label>
                     <div class="input-group col-md-12">
                       <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description" required>
                     </div><!-- /.input group -->
@@ -583,7 +613,7 @@ endif;
                                            ";
                                    $supp_query=mysqli_query($con,$sql)or die(mysqli_error());?>
                               <div class="form-group">
-                                 <label for="supplier_id">Distributor</label>
+                                 <label for="supplier_id">Category</label>
                                  <select class="form-control" id="supplier_id" name="supplier_id">
                                     <?php while($supp_row=mysqli_fetch_array($supp_query)){?>
                                     <option value="<?php echo $supp_row['supplier_id']?>"><?php echo $supp_row['supplier_name']?></option>

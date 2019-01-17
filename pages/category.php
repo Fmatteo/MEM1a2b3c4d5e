@@ -1,4 +1,4 @@
-<?php session_start();
+  <?php session_start();
 if(empty($_SESSION['id'])):
 header('Location:../index.php');
 endif;
@@ -277,19 +277,19 @@ endif;
               <div class="modal-body row">
 			 
 				<div class="form-group">
-					<label class="control-label col-lg-12" for="name">Company Name</label>
+					<label class="control-label col-lg-12 text-black text-left" for="name">Company Name</label>
 					<div class="col-lg-12">
-					  <input type="text" class="form-control" id="name" name="name" value="<?php echo $row['supplier_name'];?>" required>  
+					  <input type="text" class="form-control" id="name" name="name" value="<?php echo $row['supplier_name'];?>" required style="margin-bottom: 25px !important">  
 					</div>
 				</div> 
 	       <div class="form-group">
-          <label class="control-label col-lg-12" for="address">Company Address</label>
+          <label class="control-label col-lg-12 text-black text-left" for="address">Company Address</label>
           <div class="col-lg-12">
-            <input type="text" class="form-control" id="address" name="address" value="<?php echo $row['supplier_address'];?>" required> 
+            <input type="text" class="form-control" id="address" name="address" value="<?php echo $row['supplier_address'];?>" required style="margin-bottom: 25px !important"> 
           </div>
         </div> 
         <div class="form-group">
-          <label class="control-label col-lg-12" for="contact">Company Contact</label>
+          <label class="control-label col-lg-12 text-black text-left" for="contact">Company Contact</label>
           <div class="col-lg-12">
             <input type="text" class="form-control" id="contact" name="contact" value="<?php echo $row['supplier_contact'];?>" required>  
           </div>
