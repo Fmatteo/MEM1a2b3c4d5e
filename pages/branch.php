@@ -8,7 +8,7 @@ endif;
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Company Name | <?php include('../dist/includes/title.php');?></title>
+    <title>branch Name | <?php include('../dist/includes/title.php');?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -240,7 +240,7 @@ endif;
             <div class="col-sm-12">
               <div class="box box-primary">
                 <div class="box-header">
-                  <h3 class="box-title">Company Name List</h3>
+                  <h3 class="box-title">branch Name List</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                 <table id="example1" class="table table-bordered table-striped">
@@ -261,10 +261,57 @@ endif;
                               <td><?php echo $row['branch_address'];?></td>
                               <td><?php echo $row['branch_contact'];?></td>   
                                                       <td>
-        <a href="#updateordinance<?php echo $row['cat_id'];?>" data-target="#updateordinance<?php echo $row['cat_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+        <a href="#updateordinance<?php echo $row['branch_id'];?>" data-target="#updateordinance<?php echo $row['branch_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
         
             </td>                           
-                            </tr>               
+                            </tr>   
+<div id="updateordinance<?php echo $row['branch_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content" style="height:auto">
+              <div class="modal-header box-header" style="color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Update Branch Name Details</h4>
+              </div>
+               <form class="form-horizontal" method="post" action="branch_update.php" enctype='multipart/form-data'>
+                <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['branch_id'];?>" required>  
+              <div class="modal-body row">
+       
+        <div class="form-group">
+          <label class="control-label col-lg-12" for="name">Branch Name</label>
+          <div class="col-lg-12">
+            <input type="text" class="form-control" id="name" name="name" value="<?php echo $row['branch_name'];?>" required>  
+          </div>
+        </div> 
+         <div class="form-group">
+          <label class="control-label col-lg-12" for="address">Branch Address</label>
+          <div class="col-lg-12">
+            <input type="text" class="form-control" id="address" name="address" value="<?php echo $row['branch_address'];?>" required> 
+          </div>
+        </div> 
+        <div class="form-group">
+          <label class="control-label col-lg-12" for="contact">Branch Contact</label>
+          <div class="col-lg-12">
+            <input type="text" class="form-control" id="contact" name="contact" value="<?php echo $row['branch_contact'];?>" required>  
+          </div>
+        </div> 
+  
+  
+          <div class="history">
+          </div>
+          </div>
+              <div class="modal-footer" style="margin-top:20px">
+                <button class="btn btn-danger deleteButton" value="<?php echo $row['branch_name'];?>">Delete</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+              </div>
+
+        </form>
+      
+      
+        </div><!--end of modal-dialog-->
+ </div> </div>
                             <?php }?>					  
                           </tbody>
                           <tfoot>
@@ -335,8 +382,8 @@ endif;
                   type: "POST",
                   url: "ajax.php",
                   data: { 
-                      cat_name: $(this).val(), // < note use of 'this' here
-                      process: 'categories'
+                      branch_name: $(this).val(), // < note use of 'this' here
+                      process: 'branch'
                   },
                   success: function(result) {
                       if(result == ""){ 

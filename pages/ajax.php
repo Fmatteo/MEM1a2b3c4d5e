@@ -68,6 +68,22 @@ if($_POST['process']=='categories'){
 
 }
 
+if($_POST['process']=='branch'){
+	$branch_name = $_POST['branch_name'];
+	if(! $con ) {
+	      die('Could not connect: ' . mysqli_error());
+	   }
+	   echo 'Connected successfully, ';
+	   $sql = " DELETE FROM branch WHERE branch_name = '$branch_name'";
+	   
+	   if (mysqli_query($con, $sql)) {
+	      	echo "Record deleted successfully ";
+	   } else {
+	   		echo "Not successfully ";
+	   }
+	   mysqli_close($con);
+}
+
 if($_POST['process']=='customer'){
 	$cust_id = $_POST['cust_id'];	
 	if(! $con ) {

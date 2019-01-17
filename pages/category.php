@@ -260,11 +260,11 @@ endif;
                         <td><?php echo $row['supplier_address'];?></td>
                         <td><?php echo $row['supplier_contact'];?></td>
                         <td>
-				<a href="#updateordinance<?php echo $row['cat_id'];?>" data-target="#updateordinance<?php echo $row['cat_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
-				
+				<a href="#updateordinance<?php echo $row['supplier_id'];?>" data-target="#updateordinance<?php echo $row['supplier_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+
 						</td>
                       </tr>
-<div id="updateordinance<?php echo $row['cat_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="updateordinance<?php echo $row['supplier_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 	<div class="modal-dialog">
 	  <div class="modal-content" style="height:auto">
               <div class="modal-header box-header" style="color:white">
@@ -272,32 +272,45 @@ endif;
                   <span aria-hidden="true">×</span></button>
                 <h4 class="modal-title">Update Company Name Details</h4>
               </div>
-              <div class="modal-body">
-			  <form class="form-horizontal" method="post" action="cat_update.php" enctype='multipart/form-data'>
-                
+               <form class="form-horizontal" method="post" action="supplier_update.php" enctype='multipart/form-data'>
+                <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['supplier_id'];?>" required>  
+              <div class="modal-body row">
+			 
 				<div class="form-group">
-					<label class="control-label col-lg-3" for="name">Company Name</label>
-					<div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['supplier_id'];?>" required>  
-					  <input type="text" class="form-control" id="name" name="category" value="<?php echo $row['supplier_name'];?>" required>  
+					<label class="control-label col-lg-12" for="name">Company Name</label>
+					<div class="col-lg-12">
+					  <input type="text" class="form-control" id="name" name="name" value="<?php echo $row['supplier_name'];?>" required>  
 					</div>
 				</div> 
-				
-				
-              </div><hr>
-			  
-			  				  <div class="history">
+	       <div class="form-group">
+          <label class="control-label col-lg-12" for="address">Company Address</label>
+          <div class="col-lg-12">
+            <input type="text" class="form-control" id="address" name="address" value="<?php echo $row['supplier_address'];?>" required> 
           </div>
-              <div class="modal-footer">
-                <button class="btn btn-danger deleteButton" value="<?php echo $row['cat_name'];?>">Delete</button>
+        </div> 
+        <div class="form-group">
+          <label class="control-label col-lg-12" for="contact">Company Contact</label>
+          <div class="col-lg-12">
+            <input type="text" class="form-control" id="contact" name="contact" value="<?php echo $row['supplier_contact'];?>" required>  
+          </div>
+        </div> 
+	
+	
+			  	<div class="history">
+          </div>
+          </div>
+              <div class="modal-footer" style="margin-top:20px">
+                <button class="btn btn-danger deleteButton" value="<?php echo $row['supplier_name'];?>">Delete</button>
 		            <button type="submit" class="btn btn-primary">Save changes</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 
               </div>
+
 			  </form>
-            </div>
+      
 			
         </div><!--end of modal-dialog-->
- </div>
+ </div> </div>
  <!--end of modal-->                    
 <?php }?>					  
                     </tbody>

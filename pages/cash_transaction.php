@@ -483,9 +483,16 @@ $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or
 							
 								<input type="text" style="text-align:right" class="form-control" id="amount_due" name="amount_due" placeholder="Amount Due" value="<?php echo number_format($grand,2);?>" readonly>
 							
-						  </div><!-- /.form group -->
-              
-						 
+						  </div><!-- /.form group -->    
+
+              <div class="form-group">
+                <label for="modeofpayment">Mode of payment</label>
+                <select class="form-control" id="modeofpayment" name="modeofpayment">
+                  <option value="cash" selected>Cash</option>
+                  <option value="homecredit">Home Credit</option>
+                  <option value="check">Check</option>                  
+                </select>
+              </div>
               <div class="form-group" id="tendered">
                 <label for="date">Cash Tendered</label><br>
                 <input type="text" style="text-align:right" class="form-control" onFocus="startCalc();" onBlur="stopCalc();"  id="cash" name="tendered" placeholder="Cash Tendered" required>

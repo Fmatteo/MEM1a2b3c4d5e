@@ -14,12 +14,12 @@ include('../dist/includes/dbcon.php');
 	
 	$total=$amount_due-$discount;
 	$cid=$_REQUEST['cid'];
-
+		$modeofpayment = $_POST['modeofpayment'];
 		$tendered = $_POST['tendered'];
 		$change = $_POST['change'];
 
 		mysqli_query($con,"INSERT INTO sales(cust_id,user_id,discount,amount_due,total,date_added,modeofpayment,cash_tendered,cash_change,branch_id) 
-	VALUES('$cid','$id','$discount','$amount_due','$total','$date','cash','$tendered','$change','$branch')")or die(mysqli_error($con));
+	VALUES('$cid','$id','$discount','$amount_due','$total','$date','$modeofpayment','$tendered','$change','$branch')")or die(mysqli_error($con));
 		
 	$sales_id=mysqli_insert_id($con);
 	$_SESSION['sid']=$sales_id;

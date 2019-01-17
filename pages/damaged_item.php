@@ -191,32 +191,41 @@ endif;
         <section class="sidebar">
           <!-- search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <form method="post" action="cat_add.php" enctype="multipart/form-data">
+          <form method="post" action="damage_add.php" enctype="multipart/form-data">
             <div class="cat-list">
               <h2> Damaged item </h2>
             </div>
             <div class="form-group">
               <label for="date">Select item</label>
               <div class="input-group col-md-12">
-                <select class="form-control select2" name="prod_name" id="prod_id" required>
+                <select class="form-control select2" name="prod_id" id="prod_id" required>
                 <?php include('../dist/includes/dbcon.php');
                 $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
                 while($row=mysqli_fetch_array($query2)){?>
                 <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
-                <?php }?>
+
+                <?php 
+                $prod_qty = $row['prod_qty'];
+                }?>
                 </select>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
             <div class="form-group">
-              <label for="date">Quantity</label>
+              <label for="date">Quantity</label>+
+              <input type="hidden" name="prod_qty" value="<?php echo $prod_qty;?>">
               <div class="input-group col-md-12">
                 <input type="text" class="form-control pull-right" id="qty" name="qty" placeholder="Input Quantity" required>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
             <div class="form-group">
-              <div class="input-group">
-                <div class="btn btn-danger stockoutButton stock-btn">Stock Out</div>
-                <div class="btn btn-success stockoutButton stock-btn">Stock In</div>
+              <label for="remarks">Remarks</label>
+              <div class="input-group col-md-12">
+                <input type="text" class="form-control pull-right" id="remarks" name="remarks" placeholder="Remarks">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
+            <div class="form-group">
+              <div class="input-group">                
+                <button type="submit" class="btn btn-success stockoutButton stock-btn">Add Damaged</button>
               </div>
             </div><!-- /.form group -->
           </form>	
@@ -236,16 +245,16 @@ endif;
             <div class="col-sm-12">
               <div class="box box-primary">
                 <div class="box-header">
-                  <h3 class="box-title">Damaged item history</h3>
+                  <h3 class="box-title">Damaged item list</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                 <table id="example1" class="table table-bordered table-striped">
                           <thead>
                             <tr>
                               <th>Model</th>
-                              <th>Company name</th>
-                              <th>Category</th>
                               <th>Qty</th>
+                              <th>Supplier</th>
+                              <th>Category</th>                              
                               <th>Notification</th>
                               <th>Date</th>
                             </tr>
@@ -254,19 +263,22 @@ endif;
                             <?php
                                 $branch=$_SESSION['branch'];
                                   $sql="
-                                  SELECT * FROM stockin a 
+                                  SELECT * FROM damage a 
                                   LEFT JOIN product b ON a.prod_id = b.prod_id 
                                   LEFT JOIN supplier c ON b.supplier_id = c.supplier_id
+                                  LEFT JOIN category d ON b.cat_id = d.cat_id
                                   WHERE a.branch_id='$branch'
                                   order by date desc
                                   ";
                                 $query=mysqli_query($con,$sql)or die(mysqli_error());
                                 while($row=mysqli_fetch_array($query)){?>
                             <tr>
-                              <td><?php echo $row['prod_name'];?></td>
-                              <td><?php echo $row['qty'];?></td>
-                              <td><?php echo $row['supplier_name'];?></td>
-                              <td><?php echo $row['date'];?></td>
+                              <td><?php if (isset($row['prod_name'])) echo $row['prod_name'];?></td>
+                              <td><?php if (isset($row['damage_qty'])) echo $row['damage_qty'];?></td>
+                              <td><?php if (isset($row['supplier_name']))echo $row['supplier_name'];?></td>
+                              <td><?php if (isset($row['cat_name']))echo $row['cat_name'];?></td>                              
+                              <td></td>                              
+                              <td><?php if (isset($row['date'])) echo $row['date'];?></td>
                             </tr>               
                             <?php }?>					  
                           </tbody>

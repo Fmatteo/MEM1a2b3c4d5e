@@ -299,7 +299,7 @@ $branch=$_SESSION['branch'];
       $grand+=$total;
 ?>
                       <tr>
-                        <td><?php echo $row['serial'];?></td>
+                        <td><?php echo $row['prod_id'];?></td>
                         <td><?php echo $row['prod_name'];?></td>
                         <td><?php echo $row['supplier_name'];?></td>
                         <td><?php echo $row['prod_qty'];?></td>

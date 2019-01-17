@@ -2,6 +2,9 @@
 if(empty($_SESSION['id'])):
 header('Location:../index.php');
 endif;
+$id = $_SESSION['id'];
+
+    $branch=$_SESSION['branch'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -208,10 +211,12 @@ endif;
         <section class="sidebar">
           <!-- search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <form id = "formE" method="post" action="profile_update.php" onsubmit="return myFunction()">
+          <form id = "formE" method="post" action="profile_update.php" onsubmit="">
             <div class="cat-list">
               <h2> Update account </h2>
             </div>
+            <?php    $query=mysqli_query($con,"select * from user where user_id = '$id'")or die(mysqli_error());
+    while($row=mysqli_fetch_array($query)){ ?>
             <div class="form-group form-group-inputs">
                     <label for="date">Full Name</label>
                     <div class="input-group col-md-12">
@@ -252,6 +257,7 @@ endif;
                       </button>
                     </div>
                   </div><!-- /.form group -->
+                 <?php } ?> 
           </form>	
         </section>
         <!-- /.sidebar -->
@@ -264,11 +270,7 @@ endif;
               <a class="btn btn-md btn-success btn-2" href="#add" data-target="#add" data-toggle="modal" style="color:#fff;">Add new user <i class="glyphicon glyphicon-plus text-white"></i></a>
             </h1>
           </section>
-<?php
-		    $id=$_SESSION['id'];
-		      $query=mysqli_query($con,"select * from user where user_id='$id'")or die(mysqli_error());
-				$row=mysqli_fetch_array($query);
-		  ?>	
+
           <!-- Main content -->
           <section class="content">
             <div class="col-sm-12">
@@ -289,13 +291,8 @@ endif;
 								</tr>
 							 </thead>
 							 <tbody>
-									<?php	
-									include 'dbcon.php';								
-										$query1=mysqli_query($con,"select * from user NATURAL JOIN branch ORDER BY user_id ASC")or die(mysqli_error($con));
-										while ($row=mysqli_fetch_array($query1)){
-											$id=$row['user_id'];
-											
-									?>  
+          <?php    $query=mysqli_query($con,"select * from user left join branch on user.branch_id = branch.branch_id")or die(mysqli_error());
+    while($row=mysqli_fetch_array($query)){ ?>
 								<tr>
                   <td><?php echo $row['branch_name'];?></td>
 									<td><?php echo $row['name'];?></td>
@@ -308,8 +305,9 @@ endif;
 									</td>
 																
 								</tr>
-										<?php include 'update_user_modal.php';?>
-								<?php }?>
+                                <?php }?>
+								<?php   //   include 'update_user_modal.php';?>
+
 							 </tbody>								
 						 </table>
 						</div>

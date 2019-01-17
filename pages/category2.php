@@ -256,18 +256,19 @@ endif;
                   <span aria-hidden="true">×</span></button>
                 <h4 class="modal-title">Update Company Name Details</h4>
               </div>
-              <div class="modal-body">
-			  <form class="form-horizontal" method="post" action="cat_update.php" enctype='multipart/form-data'>
+                      <form class="form-horizontal" method="post" action="cat_update.php" enctype='multipart/form-data'>
+              <div class="modal-body row">
+
                 
 				<div class="form-group">
-					<label class="control-label col-lg-3" for="name">Company Name</label>
-					<div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['cat_id'];?>" required>  
+					<label class="control-label col-lg-12" for="name">Company Name</label>
+					<div class="col-lg-12"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['cat_id'];?>" required>  
 					  <input type="text" class="form-control" id="name" name="category" value="<?php echo $row['cat_name'];?>" required>  
 					</div>
 				</div> 
 				
 				
-              </div><hr>
+              </div>
 			  
 			  				  <div class="history">
           </div>
