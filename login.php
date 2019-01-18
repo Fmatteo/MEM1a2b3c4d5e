@@ -284,7 +284,6 @@ $user = mysqli_real_escape_string($con,$user_unsafe);
 $pass1 = mysqli_real_escape_string($con,$pass_unsafe);
 
 $pass=md5($pass1);
-$salt="a1Bz20ydqelm8m1wql";
 $pass=$salt.$pass;
 
 date_default_timezone_set('Asia/Manila');
@@ -308,7 +307,7 @@ $query=mysqli_query($con,"select * from user natural join branch where username=
 	  } 
 	  elseif ($counter > 0)
 	  {
-	  $_SESSION['id']=$id;	
+	  $_SESSION['id']=$row['user_id'];	
 	  $_SESSION['name']=$name;		
 	  
 
