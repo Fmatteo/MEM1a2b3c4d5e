@@ -1,5 +1,6 @@
 <?php
-$con = mysqli_connect("localhost","root","","inventory");
+$con = mysqli_connect("localhost","root","","inventorykristel");
+$salt="a1Bz20ydqelm8m1wql";
 
 // Check connection
 if (mysqli_connect_errno())

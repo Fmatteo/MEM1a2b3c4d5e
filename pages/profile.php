@@ -215,50 +215,57 @@ $id = $_SESSION['id'];
             <div class="cat-list">
               <h2> Update account </h2>
             </div>
-            <?php    $query=mysqli_query($con,"select * from user where user_id = '$id'")or die(mysqli_error());
-    while($row=mysqli_fetch_array($query)){ ?>
+            <?php
+              $query = "SELECT * FROM user WHERE user_id = '$id'";
+              $sql = mysqli_query($con, $query);
+
+              while ($row = mysqli_fetch_array($sql))
+              {
+                $name = $row['name'];
+                $uname = $row['username']
+            ?>
             <div class="form-group form-group-inputs">
                     <label for="date">Full Name</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" value="<?php echo $row['name'];?>" name="name" placeholder="Full Name" required>
+                      <input type="text" class="form-control pull-right" value="<?php echo $name; ?>" name="name" placeholder="Full Name" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-				  <div class="form-group form-group-inputs">
+          <div class="form-group form-group-inputs">
                     <label for="date">Username</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" value="<?php echo $row['username'];?>" name="username" placeholder="Username" required>
+                      <input type="text" class="form-control pull-right" value="<?php echo $uname; ?>" name="username" placeholder="Username" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-				  <div class="form-group form-group-inputs">
+            <?php }?>
+          <div class="form-group form-group-inputs">
                     <label for="date">Change Password</label>
                     <div class="input-group col-md-12">
                       <input type="password" class="form-control pull-right" id="password" name="password" placeholder="Type new password">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-				  <div class="form-group form-group-inputs">
+          <div class="form-group form-group-inputs">
                     <label for="date">Confirm New Password</label>
                     <div class="input-group col-md-12">
                       <input type="password" class="form-control pull-right" id="cfmPassword" name="newpassword" placeholder="Reenter new password">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-					<div class="form-group form-group-inputs">
+          <div class="form-group form-group-inputs">
                     <label for="date">Enter Old Password to confirm changes</label>
                     <div class="input-group col-md-12">
                       <input type="password" class="form-control pull-right" id="date" name="passwordold" placeholder="Type old password" required>
                     </div><!-- /.input group -->
-					
+          
                   </div><!-- /.form group -->
-				  
+          
                   <div class="form-group form-group-inputs">
                     <div class="input-group inputs-btn">
                       <input class = "btn btn-primary submit-btn save-btn" type="submit" value="Submit">
-					            <button type="reset" class="btn btn-danger clear-btn" id="daterange-btn" value="reset">
+                      <button type="reset" class="btn btn-danger clear-btn" id="daterange-btn" value="reset">
                         Clear
                       </button>
                     </div>
                   </div><!-- /.form group -->
-                 <?php } ?> 
-          </form>	
+          </form> 
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -279,40 +286,41 @@ $id = $_SESSION['id'];
                   <h3 class="box-title">Account list</h3>
                 </div><!-- /.box-header -->
                 <div class = "x-panel">
-						 <table id="datatable" class="table table-striped table-bordered table-responsive">
-							 <thead>
-								<tr>
+             <table id="datatable" class="table table-striped table-bordered table-responsive">
+               <thead>
+                <tr>
                   <th>Branch name</th>
-									<th>Fullname</th>
+                  <th>Fullname</th>
                   <th>Username</th>
-									<th>Password</th>
-									<th>Status</th>
-									<th>Action</th>									
-								</tr>
-							 </thead>
-							 <tbody>
+                  <th>Password</th>
+                  <th>Status</th>
+                  <th>Action</th>                 
+                </tr>
+               </thead>
+               <tbody>
           <?php    $query=mysqli_query($con,"select * from user left join branch on user.branch_id = branch.branch_id")or die(mysqli_error());
     while($row=mysqli_fetch_array($query)){ ?>
-								<tr>
+                <tr>
                   <td><?php echo $row['branch_name'];?></td>
-									<td><?php echo $row['name'];?></td>
-									<td><?php echo $row['username'];?></td>
-									<td>****</td>
-									<td><?php echo $row['status'];?></td>
-									<td>
-										<a href="#update<?php echo $id;?>" class="btn btn-success btn-xs" data-toggle = "modal" data-target="#update<?php echo $id;?>"><i class = "fa fa-pencil"></i> Edit</a>
-										
-									</td>
-																
-								</tr>
+                  <td><?php echo $row['name'];?></td>
+                  <td><?php echo $row['username'];?></td>
+                  <td>****</td>
+                  <td><?php echo $row['status'];?></td>
+                  <td>
+                    <a href="#update<?php echo $id;?>" class="btn btn-success btn-xs" data-toggle = "modal" data-target="#update<?php echo $id;?>"><i class = "fa fa-pencil"></i> Edit</a>
+                    
+                  </td>
+                                
+                </tr>
                                 <?php }?>
-								<?php   //   include 'update_user_modal.php';?>
+                <?php   //   include 'update_user_modal.php';?>
 
-							 </tbody>								
-						 </table>
-						</div>
+               </tbody>               
+             </table>
+            </div>
  
             </div><!-- /.col -->
+<<<<<<< HEAD
 			       
 
 <!-- EDIT MODAL START ------------------------------------------------------------------------------------------------->
@@ -373,6 +381,11 @@ $id = $_SESSION['id'];
 <!--EDIT MODAL END ---------------------------------------------------------------------------------------------------->
 			
 	  
+=======
+      
+      
+    
+>>>>>>> c5037e831018a997c205764bd551fd45423f1405
             
           </section><!-- /.content -->
         </div><!-- /.container -->
@@ -390,48 +403,52 @@ $id = $_SESSION['id'];
                   <h4 class="modal-title">Add New User</h4>
               </div>
             <div class="modal-body">
-              <form action="add_user.php" method="POST" enctype="multipart/form-data">
+              <form action="user_add.php" method="POST" enctype="multipart/form-data">
                   <div class="form-group">
                     <label for="date">Username</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control" name="username" required="">
+                      <input type="text" class="form-control" name="username" value = "<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>" required="">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <label for="date">Password</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control" name="name" required="">
+                      <input type="password" class="form-control" name="password" value = "<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>" required="">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                 
                   <div class="form-group">
                   <div class="form-group">
                     <label for="date">Fullname</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control" name="name" required="">
+                      <input type="text" class="form-control" name="name" value = "<?php echo isset($_POST['name']) ? $_POST['name'] : '' ?>" required="">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <input type="hidden" name="status" value="active">                
                     <label for="date">Branch</label>
                     <div class="input-group col-md-12">
                     <select name="branch_id" class="form-control">
-						 								<option value="1">AHIRA APPLIANCE CENTER</option>	
-														<option value="2">ASHER ALLIED MARKETING</option>	
-														<option value="3">SINGER</option>	
-														<option value="4">GOLDEN ARROW</option>	
-														<option value="5">123</option>								 
-						         </select>
+                      <?php 
+                        $query = "SELECT * FROM branch";
+                        $sql = mysqli_query($con, $query);
+
+                        while ($row = mysqli_fetch_array($sql))
+                        {
+                          $branch_id = $row['branch_id'];
+                          $branch_name = $row['branch_name'];
+                      ?>
+                            <option value="<?php echo $branch_id; ?>"><?php echo $branch_name; ?></option>      
+                      <?php }?>          
+                     </select>
                           <span class="fa form-control-feedback right" aria-hidden="true"></span>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <label for="date">Role</label>
                     <div class="input-group col-md-12">
-                      <select class="form-control select2" name="prod_name" id="prod_id" required>
-                        <?php include('../dist/includes/dbcon.php');
-                          $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
-                          while($row=mysqli_fetch_array($query2)){?>
-                        <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
-                        <?php }?>
+                      <select class="form-control select2" name="role" id="prod_id" required>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="CASHIER">CASHIER</option>
+                        <option value="ENCODER">ENCODER</option>
                       </select>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->   
@@ -440,10 +457,10 @@ $id = $_SESSION['id'];
                       <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
                         Save
                       </button>
-					            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                   </div><!-- /.form group -->
-				        </form>	
+                </form> 
             </div>
         </div><!--end of modal-dialog-->
       </div>
@@ -477,7 +494,7 @@ $id = $_SESSION['id'];
         });
       });
     </script>
-	<script>
+  <script>
 function myFunction() {
     var pass1 = document.getElementById("password").value;
     var pass2 = document.getElementById("cfmPassword").value;
@@ -493,6 +510,6 @@ function myFunction() {
     }
     return ok;
 }
-	</script>
+  </script>
   </body>
 </html>
