@@ -261,7 +261,7 @@ endif;
 
                 
 				<div class="form-group">
-					<label class="control-label col-lg-12" for="name">Company Name</label>
+					<label class="control-label col-lg-12 text-black text-left" for="name">Company Name</label>
 					<div class="col-lg-12"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['cat_id'];?>" required>  
 					  <input type="text" class="form-control" id="name" name="category" value="<?php echo $row['cat_name'];?>" required>  
 					</div>

@@ -245,16 +245,16 @@ endif;
             <div class="col-sm-12">
               <div class="box box-primary">
                 <div class="box-header">
-                  <h3 class="box-title">Damaged item list</h3>
+                  <h3 class="box-title">Damaged item history</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                 <table id="example1" class="table table-bordered table-striped">
                           <thead>
                             <tr>
                               <th>Model</th>
-                              <th>Qty</th>
-                              <th>Supplier</th>
-                              <th>Category</th>                              
+                              <th>Company name</th>
+                              <th>Category</th>
+                              <th>Qty</th>                              
                               <th>Notification</th>
                               <th>Date</th>
                             </tr>
@@ -287,7 +287,7 @@ endif;
                               <th>Model</th>
                               <th>Company name</th>
                               <th>Category</th>
-                              <th>Qty</th>
+                              <th>Qty</th>                              
                               <th>Notification</th>
                               <th>Date</th>
                             </tr>					  
