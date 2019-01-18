@@ -320,10 +320,10 @@ $id = $_SESSION['id'];
             </div>
  
             </div><!-- /.col -->
-<<<<<<< HEAD
+
 			       
 
-<!-- EDIT MODAL START ------------------------------------------------------------------------------------------------->
+<!-- EDIT MODAL START->
        <div id = "update<?php echo $id;?>" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
            <div class="modal-dialog modal-md">
                       <div class="modal-content">
@@ -378,7 +378,7 @@ $id = $_SESSION['id'];
                       </div>
                     </div>
         </div>
-<!--EDIT MODAL END ---------------------------------------------------------------------------------------------------->
+<!-EDIT MODAL END->
 			
 	  
 =======
