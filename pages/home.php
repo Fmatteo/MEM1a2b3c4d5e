@@ -241,11 +241,11 @@ $role_permission = $rowrole['role'];
                             </a>
 
                           </li><!-- end notification -->
-                          <li><!-- start notification -->
+                         <!--  <li>
                             <a href="purchase_request.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-usd text-white"></i>Purchase Request
                             </a>
-                          </li><!-- end notification -->
+                          </li> -->
                           <li><!-- start notification -->
                             <a href="reports_per_branch.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-usd text-white"></i>Reports per branch

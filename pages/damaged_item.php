@@ -254,9 +254,9 @@ endif;
                               <th>Model</th>
                               <th>Company name</th>
                               <th>Category</th>
-                              <th>Qty</th>                              
-                              <th>Notification</th>
-                              <th>Date</th>
+                              <th>Qty</th>  
+                              <th>Date</th>                           
+                              <th>Notification</th>                              
                             </tr>
                           </thead>
                           <tbody>
@@ -276,9 +276,24 @@ endif;
                               <td><?php if (isset($row['prod_name'])) echo $row['prod_name'];?></td>
                               <td><?php if (isset($row['damage_qty'])) echo $row['damage_qty'];?></td>
                               <td><?php if (isset($row['supplier_name']))echo $row['supplier_name'];?></td>
-                              <td><?php if (isset($row['cat_name']))echo $row['cat_name'];?></td>                              
-                              <td></td>                              
+                              <td><?php if (isset($row['cat_name']))echo $row['cat_name'];?></td>
+                              <?php 
+                              $diff = abs(strtotime(date("Y-m-d")) - strtotime($row['date']));                                            
+                              $days = floor($diff/24/60/60);
+                              $weeks = floor($days / 7);
+                              if($weeks <= 2 ){
+                                $color = '#3498db';
+                                $text = 'All good';
+                              }elseif(( $weeks > 2) && ( $weeks <= 8)){
+                                $color = '#f1c40f';
+                                $text = 'Its over ' . $weeks . ' weeks';
+                              }else{
+                                $color = '#c0392b';
+                                $text = 'Its over a month now';
+                              }
+                              ?>                              
                               <td><?php if (isset($row['date'])) echo $row['date'];?></td>
+                              <td style="background: <?php echo $color;?>;color:#fff;font-weight: 800;"><?php echo $text; ?></td>                              
                             </tr>               
                             <?php }?>					  
                           </tbody>

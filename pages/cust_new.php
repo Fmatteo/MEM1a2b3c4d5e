@@ -281,7 +281,7 @@ endif;
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                   <li class=""><a href="#fa-icons" data-toggle="tab" aria-expanded="true">Add new customer</a></li>
-                  <li class=""><a href="#cash" data-toggle="tab">Add item</a></li>
+               <!--    <li class=""><a href="#cash" data-toggle="tab">Add item</a></li> -->
                   <li class=""><a href="#payments" data-toggle="tab" aria-expanded="false" style="display: none;">Payments</a></li>
                 </ul>
                 <div class="tab-content">
