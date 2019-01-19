@@ -257,6 +257,7 @@ endif;
                               <th>Qty</th>  
                               <th>Date</th>                           
                               <th>Notification</th>                              
+                              <th>Action</th> 
                             </tr>
                           </thead>
                           <tbody>
@@ -273,10 +274,10 @@ endif;
                                 $query=mysqli_query($con,$sql)or die(mysqli_error());
                                 while($row=mysqli_fetch_array($query)){?>
                             <tr>
-                              <td><?php if (isset($row['prod_name'])) echo $row['prod_name'];?></td>
-                              <td><?php if (isset($row['damage_qty'])) echo $row['damage_qty'];?></td>
+                              <td><?php if (isset($row['prod_name'])) echo $row['prod_name'];?></td>                              
                               <td><?php if (isset($row['supplier_name']))echo $row['supplier_name'];?></td>
                               <td><?php if (isset($row['cat_name']))echo $row['cat_name'];?></td>
+                              <td><?php if (isset($row['damage_qty'])) echo $row['damage_qty'];?></td>
                               <?php 
                               $diff = abs(strtotime(date("Y-m-d")) - strtotime($row['date']));                                            
                               $days = floor($diff/24/60/60);
@@ -293,8 +294,46 @@ endif;
                               }
                               ?>                              
                               <td><?php if (isset($row['date'])) echo $row['date'];?></td>
-                              <td style="background: <?php echo $color;?>;color:#fff;font-weight: 800;"><?php echo $text; ?></td>                              
-                            </tr>               
+                              <td style="background: <?php echo $color;?>;color:#fff;font-weight: 800;"><?php echo $text; ?></td>
+                              <td>
+                                <a href="#updateitem<?php echo $row['prod_id'];?>" data-target="#updateitem<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+                              </td>
+                            </tr>
+
+<div id="updateitem<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content" style="height:auto">
+         <div class="modal-header box-header" style="color:white">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">Return damaged <?php if (isset($row['prod_name'])) echo $row['prod_name'];?></h4>
+         </div>
+     <form class="form-horizontal" method="post" action="damage_update.php" enctype='multipart/form-data'>
+         <div class="modal-body">
+               <div class="form-group">
+                  <label for='qty' class="control-label col-lg-3" style="color:#000;text-align: left">Quantity</label>
+                  <div class="col-lg-12">
+                     <input type="number" class="form-control" id="qty" name="qty" max="<?php echo $row['damage_qty'];?>" value="<?php echo $row['damage_qty'];?>" required>  
+                  </div>
+                      <input type="hidden" name='damage_qty' value="<?php echo $row['damage_qty'];?>" required>  
+                      <input type="hidden" name='damage_id' value="<?php echo $row['damage_id'];?>" required>  
+                      <input type="hidden" name='prod_id' value="<?php echo $row['prod_id'];?>" required>  
+                      <input type="hidden" name='prod_qty' value="<?php echo $row['prod_qty'];?>" required>  
+               </div>          
+         </div>
+         <div class="clearfix"></div>
+         <hr>
+         <div class="row modal-footer" style="padding-right:50px">
+         <button type="submit" name = "furniture" class="btn btn-primary">Save changes</button>
+         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>        
+         </div>
+          </form>
+      </div>
+      <!-- END OF MODAL DIALOG -->
+   </div>
+   <!-- END OF MODAL CONTENT -->
+</div>
+<!-- END OF MODAL -->
                             <?php }?>					  
                           </tbody>
                           <tfoot>
