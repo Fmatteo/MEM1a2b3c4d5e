@@ -5,8 +5,17 @@ endif;
 if(empty($_SESSION['branch'])):
 header('Location:../index.php');
 endif;
+include('../dist/includes/dbcon.php');
+$id = $_SESSION['id'];
+$branch=$_SESSION['branch'];
+$query_role=mysqli_query($con,"select * from user where user_id = '$id' ")or die(mysqli_error());
+while($rowrole=mysqli_fetch_array($query_role)){ 
+$role_permission = $rowrole['role'];
+}
 ?>
-<!DOCTYPE html>
+
+<?php if ($role_permission == 'admin'){?>
+  <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -51,17 +60,17 @@ endif;
       h5,h6{
         text-align:center;
       }
-		
+    
 
       @media print {
           .btn-print {
             display:none !important;
           }
-		  }
-		  .main-footer	{
-			display:none !important;
-		  }
-		  
+      }
+      .main-footer  {
+      display:none !important;
+      }
+      
       ::-webkit-scrollbar{
   width: 12px;
 }
@@ -274,46 +283,46 @@ endif;
           <!-- Main content -->
           <section class="content">
             <div class="col-md-12">
-			  <div class="box box-primary angel">
-				<div class="box-header">
-				  <h3 class="box-title">Select Date</h3>
-				</div>
-				<div class="box-body">
-				
-				  <!-- /.form group -->
-				  <form method="post">
-					<div class="form-group col-md-6">
-						<label>Date range:</label>
+        <div class="box box-primary angel">
+        <div class="box-header">
+          <h3 class="box-title">Select Date</h3>
+        </div>
+        <div class="box-body">
+        
+          <!-- /.form group -->
+          <form method="post">
+          <div class="form-group col-md-6">
+            <label>Date range:</label>
 
-						<div class="input-group">
-						  <div class="input-group-addon">
-							<i class="fa fa-calendar"></i>
-						  </div>
-						<input type="text" name="date" class="form-control pull-right active" id="reservation" required>
-					</div>
+            <div class="input-group">
+              <div class="input-group-addon">
+              <i class="fa fa-calendar"></i>
+              </div>
+            <input type="text" name="date" class="form-control pull-right active" id="reservation" required>
+          </div>
                 <!-- /.input group -->
-					</div>
+          </div>
               <!-- /.form group --><br>
-					<button type="submit" class="btn btn-primary" name="display">Display</button>
-				</form>
-				
+          <button type="submit" class="btn btn-primary" name="display">Display</button>
+        </form>
+        
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->       
         </div>
-		<?php
-		if (isset($_POST['display']))
-	{
-		$date=$_POST['date'];
-		$date=explode('-',$date);
-		$branch=$_SESSION['branch'];		
-			$start=date("Y/m/d",strtotime($date[0]));
-			$end=date("Y/m/d",strtotime($date[1]));
-		
-		?>
-		<div class="col-md-12">
-		<?php
+    <?php
+    if (isset($_POST['display']))
+  {
+    $date=$_POST['date'];
+    $date=explode('-',$date);
+    $branch=$_SESSION['branch'];    
+      $start=date("Y/m/d",strtotime($date[0]));
+      $end=date("Y/m/d",strtotime($date[1]));
+    
+    ?>
+    <div class="col-md-12">
+    <?php
 include('../dist/includes/dbcon.php');
 
 $branch=$_SESSION['branch'];
@@ -326,13 +335,13 @@ $branch=$_SESSION['branch'];
                   <h6>Address: <?php echo $row['branch_address'];?></h6>
                   <h6>Contact #: <?php echo $row['branch_contact'];?></h6>
                   
-				  <h5><b>Cash Sales Report as of <?php echo date("M d, Y",strtotime($start))." to ".date("M d, Y",strtotime($end));?></b></h5>
+          <h5><b>Cash Sales Report as of <?php echo date("M d, Y",strtotime($start))." to ".date("M d, Y",strtotime($end));?></b></h5>
                   
-				  <a class = "btn btn-success btn-print" href = "" onclick = "window.print()"><i class ="glyphicon glyphicon-print"></i> Print</a>
-							<a class = "btn btn-danger btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
-						
-		
-			<table id="example1" class="table table-bordered table-striped">
+          <a class = "btn btn-success btn-print" href = "" onclick = "window.print()"><i class ="glyphicon glyphicon-print"></i> Print</a>
+              <a class = "btn btn-danger btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
+            
+    
+      <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>Transaction #</th>
@@ -340,7 +349,7 @@ $branch=$_SESSION['branch'];
                         <th>Product</th>
                         <th>Product Code</th>
                         <th>Qty</th>
-            					  <th>Selling Price</th>
+                        <th>Selling Price</th>
                         <th>Total Expenses</th>
                         <th>Total Sales</th>
                         <th>Profit</th>
@@ -349,14 +358,14 @@ $branch=$_SESSION['branch'];
                     </thead>
                     <tbody>
 <?php
-	$query=mysqli_query($con,"select * from sales natural join sales_details natural join product natural join customer where date(date_added)>='$start' and date(date_added)<='$end' and branch_id='$branch' and modeofpayment='cash'")or die(mysqli_error($con));
-		$qty=0;$grand=0;$discount=0;$total_profit=0;
-								while($row=mysqli_fetch_array($query)){
+  $query=mysqli_query($con,"select * from sales natural join sales_details natural join product natural join customer where date(date_added)>='$start' and date(date_added)<='$end' and branch_id='$branch' and modeofpayment='cash'")or die(mysqli_error($con));
+    $qty=0;$grand=0;$discount=0;$total_profit=0;
+                while($row=mysqli_fetch_array($query)){
                 $total=$row['qty']*$row['price'];
-								$grand=$grand+$total-$row['discount'];
-				$profit = ($row['price'] * $row['qty']) - ($row['base_price'] * $row['qty']);
-				$total_profit = $total_profit + $profit;
-				
+                $grand=$grand+$total-$row['discount'];
+        $profit = ($row['price'] * $row['qty']) - ($row['base_price'] * $row['qty']);
+        $total_profit = $total_profit + $profit;
+        
 ?>
             <tr>
             <td><?php echo $row['sales_id'];;?></td>
@@ -364,17 +373,17 @@ $branch=$_SESSION['branch'];
             <td><?php echo $row['prod_name'];?></td>
             <td><?php echo $row['serial'];?></td>
             <td><?php echo $row['qty'];?></td>
-			       <td><?php echo $row['price'];?></td>
+             <td><?php echo $row['price'];?></td>
             <td></td>
             <td style="text-align:right"><?php echo number_format($total,2);
-								?></td>
+                ?></td>
             <td><?php echo $profit;?></td>
             <td><?php echo date("M d, Y h:i a",strtotime($row['date_added']));?></td>    
-			
-		
+      
+    
  <?php }?>                       
                       </tr>
-		
+    
                     </tbody>
                     <tfoot>
           <tr>
@@ -385,11 +394,11 @@ $branch=$_SESSION['branch'];
           <tr>
             <th colspan="9">Total Cash Sales</th>
             <th style="text-align:right;"><h4><b><?php echo  number_format(($grand-$discount),2);?></b></h4></th>
-			    </tr>	
+          </tr> 
           <tr>
             <th colspan="9">Total Profit less Expenses</th>
-	<th style="text-align:right;"><h4><b><?php echo  number_format(($total_profit),2);}?></b></h4></th>
-          </tr> 	
+  <th style="text-align:right;"><h4><b><?php echo  number_format(($total_profit),2);}?></b></h4></th>
+          </tr>   
           <tr>
                         <th></th>
                         <th></th>
@@ -413,10 +422,10 @@ $branch=$_SESSION['branch'];
                         <th></th>
                         <th></th>
                         <th></th>
-                      </tr>  			  
+                      </tr>         
         </tfoot>
        </table>
-		</div>
+    </div>
             
           </section><!-- /.content -->
         </div><!-- /.container -->
@@ -425,33 +434,33 @@ $branch=$_SESSION['branch'];
     </div><!-- ./wrapper -->
 
     <script src="../plugins/jQuery/jQuery-2.2.0.min.js"></script>
-	<!-- Bootstrap 3.3.6 -->
-	<script src="../bootstrap/js/bootstrap.min.js"></script>
-	<!-- Select2 -->
-	<script src="../plugins/select2/select2.full.min.js"></script>
-	<!-- InputMask -->
-	<script src="../plugins/input-mask/jquery.inputmask.js"></script>
-	<script src="../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-	<script src="../plugins/input-mask/jquery.inputmask.extensions.js"></script>
-	<!-- date-range-picker -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-	<script src="../plugins/daterangepicker/daterangepicker.js"></script>
-	<!-- bootstrap datepicker -->
-	<script src="../plugins/datepicker/bootstrap-datepicker.js"></script>
-	<!-- bootstrap color picker -->
-	<script src="../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-	<!-- bootstrap time picker -->
-	<script src="../plugins/timepicker/bootstrap-timepicker.min.js"></script>
-	<!-- SlimScroll 1.3.0 -->
-	<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
-	<!-- iCheck 1.0.1 -->
-	<script src="../plugins/iCheck/icheck.min.js"></script>
-	<!-- FastClick -->
-	<script src="../plugins/fastclick/fastclick.js"></script>
-	<!-- AdminLTE App -->
-	<script src="../dist/js/app.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="../dist/js/demo.js"></script>
+  <!-- Bootstrap 3.3.6 -->
+  <script src="../bootstrap/js/bootstrap.min.js"></script>
+  <!-- Select2 -->
+  <script src="../plugins/select2/select2.full.min.js"></script>
+  <!-- InputMask -->
+  <script src="../plugins/input-mask/jquery.inputmask.js"></script>
+  <script src="../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+  <script src="../plugins/input-mask/jquery.inputmask.extensions.js"></script>
+  <!-- date-range-picker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+  <script src="../plugins/daterangepicker/daterangepicker.js"></script>
+  <!-- bootstrap datepicker -->
+  <script src="../plugins/datepicker/bootstrap-datepicker.js"></script>
+  <!-- bootstrap color picker -->
+  <script src="../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+  <!-- bootstrap time picker -->
+  <script src="../plugins/timepicker/bootstrap-timepicker.min.js"></script>
+  <!-- SlimScroll 1.3.0 -->
+  <script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+  <!-- iCheck 1.0.1 -->
+  <script src="../plugins/iCheck/icheck.min.js"></script>
+  <!-- FastClick -->
+  <script src="../plugins/fastclick/fastclick.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../dist/js/app.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="../dist/js/demo.js"></script>
     <script>
   $(function () {
     //Initialize Select2 Elements
@@ -527,3 +536,8 @@ $branch=$_SESSION['branch'];
 
   </body>
 </html>
+<?php 
+}else{
+  echo "<script>document.location='home.php'</script>";  
+}
+?>

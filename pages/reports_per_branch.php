@@ -5,7 +5,16 @@ endif;
 if(empty($_SESSION['branch'])):
 header('Location:../index.php');
 endif;
+include('../dist/includes/dbcon.php');
+$id = $_SESSION['id'];
+$branch=$_SESSION['branch'];
+$query_role=mysqli_query($con,"select * from user where user_id = '$id' ")or die(mysqli_error());
+while($rowrole=mysqli_fetch_array($query_role)){ 
+$role_permission = $rowrole['role'];
+}
 ?>
+
+<?php if ($role_permission == 'admin'){?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -285,7 +294,7 @@ endif;
           <section class="content">
           <div class="col-md-12 col-sm-12 col-xs-12">
 					<?php 
-					include 'dbcon.php';
+					
 						$query1=mysqli_query($con,"select * from branch ORDER BY branch_name")or die(mysqli_error($con));
 						while ($row=mysqli_fetch_array($query1)){
 						$id=$row['branch_id'];?>
@@ -402,3 +411,8 @@ endif;
     </script>
   </body>
 </html>
+<?php 
+}else{
+  echo "<script>document.location='home.php'</script>";  
+}
+?>

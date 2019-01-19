@@ -2,7 +2,19 @@
 if(empty($_SESSION['id'])):
 header('Location:../index.php');
 endif;
+if(empty($_SESSION['branch'])):
+header('Location:../index.php');
+endif;
+include('../dist/includes/dbcon.php');
+$id = $_SESSION['id'];
+$branch=$_SESSION['branch'];
+$query_role=mysqli_query($con,"select * from user where user_id = '$id' ")or die(mysqli_error());
+while($rowrole=mysqli_fetch_array($query_role)){ 
+$role_permission = $rowrole['role'];
+}
 ?>
+
+<?php if ($role_permission == 'admin'){?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -578,3 +590,8 @@ endif;
     </script>
   </body>
 </html>
+<?php 
+}else{
+  echo "<script>document.location='home.php'</script>";  
+}
+?>
