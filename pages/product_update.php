@@ -4,55 +4,64 @@ header('Location:../index.php');
 endif;
 
 include('../dist/includes/dbcon.php');
-	$id = $_POST['id'];
-	$name =$_POST['prod_name'];
-	$supplier =$_POST['supplier'];
-	$price = 0;
-	$reorder = $_POST['reorder'];
-	$category = $_POST['category'];
-	$serial = $_POST['serial'];
-	$desc = $_POST['desc'];
-	
-	$pic = $_FILES["image"]["name"];
-			if ($pic=="")
-			{	
-				if ($_POST['image1']<>""){
-					$pic=$_POST['image1'];
-				}
-				else{
-					$pic="default.gif";
-				}
-			}
-			else
-			{
-				$pic = $_FILES["image"]["name"];
-				$type = $_FILES["image"]["type"];
-				$size = $_FILES["image"]["size"];
-				$temp = $_FILES["image"]["tmp_name"];
-				$error = $_FILES["image"]["error"];
-			
-				if ($error > 0){
-					die("Error uploading file! Code $error.");
-					}
-				else{
-					if($size > 100000000000) //conditions for the file
-						{
-						die("Format is not allowed or file size is too big!");
-						}
-					
-						else
-				      {
-					move_uploaded_file($temp, "../dist/uploads/".$pic);
-				      }
-				}
-			
-			}
-			
-	mysqli_query($con,"update product set prod_name='$name',base_price='$price',prod_price='0',
-	reorder='$reorder',supplier_id='$supplier',cat_id='$category',prod_pic='$pic',serial='$serial',prod_desc='$desc' where prod_id='$id'")or die(mysqli_error($con));
-	
-	echo "<script type='text/javascript'>alert('Successfully updated product details!');</script>";
-	echo "<script>document.location='product.php'</script>";  
+$branch = $_SESSION['branch'];
+$id = $_GET['id'];
 
+$model = $_POST['model'];
+
+$query = "SELECT * FROM product WHERE branch_id = '$branch' AND prod_name='$model' AND prod_id != '$id'";
+$sql = mysqli_query($con, $query);
+$count = mysqli_num_rows($sql);
+
+if ($count == 0) // CHECKS IF THERE IS ALREADY SAME NAME EXISTING
+{
+	if (isset($_POST['furniture']))
+	{
+		// FURNITURE BUTTON WAS SENT
+		$desc = $_POST['desc'];
+		$supplier = $_POST['supplier'];
+		$category = $_POST['category'];
+		$reorder = $_POST['reorder'];
+		$qty = $_POST['qty'];
+		$price = $_POST['price'];
+
+		mysqli_query($con, "UPDATE product SET prod_name = '$model', prod_desc = '$desc', cat_id = '$category', prod_qty = '$qty', reorder = '$reorder', supplier_id = '$supplier', base_price = '$price' WHERE prod_id = '$id' AND branch_id = '$branch'")or die(mysqli_error($con));
+	}
+
+	if (isset($_POST['cosmetics']))
+	{
+		// COSMETICS BUTTON WAS SENT
+		$desc = $_POST['desc'];
+		$supplier = $_POST['supplier'];
+		$category = $_POST['category'];
+		$reorder = $_POST['reorder'];
+		$qty = $_POST['qty'];
+		$price = $_POST['price'];
+
+		mysqli_query($con, "UPDATE product SET prod_name = '$model', prod_desc = '$desc', cat_id = '$category', prod_qty = '$qty', reorder = '$reorder', supplier_id = '$supplier', base_price = '$price' WHERE prod_id = '$id' AND branch_id = '$branch'")or die(mysqli_error($con));
+	}
+
+
+	if (isset($_POST['mobile']))
+	{
+		// MOBILE BUTTON WAS SENT
+		$imei = $_POST['imei'];
+		$color = $_POST['color'];
+		$category = $_POST['category'];
+		$manufacturer = $_POST['manufacturer'];
+		$reorder = $_POST['reorder'];
+		$qty = $_POST['qty'];
+		$price = $_POST['price'];
+
+		mysqli_query($con, "UPDATE product SET prod_name = '$model', cat_id = '$category', prod_qty = '$qty', reorder = '$reorder', base_price = '$price', imei='$imei', color = '$color', manufacturer = '$manufacturer' WHERE prod_id = '$id' AND branch_id = '$branch'")or die(mysqli_error($con));
+	}
+	echo "<script type='text/javascript'>alert('Successfully updated product details!');</script>";
+	echo "<script>document.location='stockin.php'</script>";  
+}
+else
+{
+	echo "<script type='text/javascript'>alert('This model is already existing. Pick another model name.');</script>";
+	echo "<script>window.history.back();</script>";  
+}
 	
 ?>

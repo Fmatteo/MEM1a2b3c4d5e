@@ -232,28 +232,122 @@ endif;
                               <th>Reorder</th>
                               <th>Quantity</th>
                               <th>Base price</th>
+                              <th>Actions</th>
                             </tr>
                           </thead>
                           <tbody>
                             <?php
                                 $branch=$_SESSION['branch'];
                                   $sql="
-                                  SELECT * FROM stockin a 
-                                  LEFT JOIN product b ON a.prod_id = b.prod_id 
-                                  LEFT JOIN supplier c ON b.supplier_id = c.supplier_id
-                                  LEFT JOIN category d ON b.cat_id= d.cat_id
-                                  WHERE a.branch_id='$branch'
-                                  and d.cat_id = '6'
-                                  order by date desc
+                                  SELECT * FROM product a
+                                  LEFT JOIN supplier b on a.supplier_id = b.supplier_id
+                                  LEFT JOIN category c on a.cat_id = c.cat_id
+                                  WHERE a.branch_id = '$branch' AND a.type='furniture' order by prod_name
                                   ";
                                 $query=mysqli_query($con,$sql)or die(mysqli_error());
                                 while($row=mysqli_fetch_array($query)){?>
                             <tr>
                               <td><?php echo $row['prod_name'];?></td>
-                              <td><?php echo $row['qty'];?></td>
+                              <td><?php echo $row['prod_desc'];?></td>
                               <td><?php echo $row['supplier_name'];?></td>
-                              <td><?php echo $row['date'];?></td>
-                            </tr>               
+                              <td><?php echo $row['cat_name'];?></td>
+                              <td><?php echo $row['reorder'];?></td>
+                              <td><?php echo $row['prod_qty'];?></td>
+                              <td><?php echo number_format($row['base_price'], 2);?></td>
+                              <td>
+                                <a href="#updateitem<?php echo $row['prod_id'];?>" data-target="#updateitem<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+                                <a href="stockin_del.php?id=<?php echo $row['prod_id']; ?>" onclick="return confirm('Are you sure to delete this item?');" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-trash text-blue"></i></a>
+                              </td>
+                            </tr> 
+
+                            <div id="updateitem<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content" style="height:auto">
+                                  <div class="modal-header box-header" style="color:white">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Update Product Details</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form class="form-horizontal" method="post" action="product_update.php?id=<?php echo $row['prod_id']; ?>" enctype='multipart/form-data'>
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Model</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="model" name="model" value="<?php echo $row['prod_name'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Description</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="desc" name="desc" value="<?php echo $row['prod_desc'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Company Name</label>
+                                        <div class="col-lg-9">
+                                          <select name = "supplier" class = "form-control" required>
+                                            <?php 
+                                              $query1 = "SELECT * FROM supplier order by supplier_name";
+                                              $sql1 = mysqli_query($con, $query1)or die(mysqli_error($con));
+
+                                              while($row1 = mysqli_fetch_array($sql1))
+                                              {
+                                            ?>
+                                              <option value = "<?php echo $row1['supplier_id']; ?>"> <?php echo $row1['supplier_name']; ?> </option>
+                                            <?php }?>
+                                          </select>
+                                          
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Category</label>
+                                        <div class="col-lg-9">
+                                          <select name = "category" class = "form-control" required>
+                                            <?php 
+                                              $query2 = "SELECT * FROM category WHERE cat_for='Furniture' order by cat_name";
+                                              $sql2 = mysqli_query($con, $query2)or die(mysqli_error($con));
+
+                                              while($row2 = mysqli_fetch_array($sql2))
+                                              {
+                                            ?>
+                                              <option value = "<?php echo $row2['cat_id']; ?>"> <?php echo $row2['cat_name']; ?> </option>
+                                            <?php }?>
+                                          </select>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Reorder</label>
+                                        <div class="col-lg-9">
+                                          <input type="number" class="form-control" id="reorder" name="reorder" value="<?php echo $row['reorder'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Quantity</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="qty" name="qty" value="<?php echo $row['prod_qty'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Base Price</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="price" name="price" value="<?php echo $row['base_price'];?>" required>  
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="submit" name = "furniture" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                  </form>
+                                  </div>
+                                </div> <!-- END OF MODAL DIALOG -->
+                              </div> <!-- END OF MODAL CONTENT -->
+                            </div> <!-- END OF MODAL -->              
                             <?php } ?>					  
                           </tbody>
                           <tfoot>
@@ -265,6 +359,7 @@ endif;
                               <th>Reorder</th>
                               <th>Quantity</th>
                               <th>Base price</th>
+                              <th>Actions</th>
                             </tr>					  
                           </tfoot>
                         </table>
@@ -273,6 +368,9 @@ endif;
                   </div> <!-- col end -->
                 </div> <!-- row end -->
               </div> <!----- TABLE ACTIVE END ----->
+
+                                 
+
               <div class="tab-pane" id="cash"> <!----- 2ND TABLE START ----->
                 <div class="row"> <!-- row start -->
                 <div class="col-sm-12"> <!-- col start -->
@@ -281,7 +379,7 @@ endif;
                         <h3 class="box-title">Beauty product list</h3>
                       </div><!-- /.box-header -->
                       <div class="box-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example2" class="table table-bordered table-striped">
                           <thead>
                             <tr>
                               <th>Model</th>
@@ -291,28 +389,119 @@ endif;
                               <th>Reorder</th>
                               <th>Quantity</th>
                               <th>Base price</th>
+                              <th>Actions</th>
                             </tr>
                           </thead>
                           <tbody>
                             <?php
                                 $branch=$_SESSION['branch'];
-                                  $sql="
-                                  SELECT * FROM stockin a 
-                                  LEFT JOIN product b ON a.prod_id = b.prod_id 
-                                  LEFT JOIN supplier c ON b.supplier_id = c.supplier_id
-                                  LEFT JOIN category d ON b.cat_id= d.cat_id
-                                  WHERE a.branch_id='$branch'
-                                  and d.cat_id = '5'
-                                  order by date desc
-                                  ";
+                                  $sql = "SELECT * FROM product a
+                                  LEFT JOIN supplier b ON a.supplier_id = b.supplier_id
+                                  LEFT JOIN category c ON a.cat_id = c.cat_id
+                                  WHERE a.branch_id = '$branch' AND a.type = 'cosmetics'";
                                 $query=mysqli_query($con,$sql)or die(mysqli_error());
                                 while($row=mysqli_fetch_array($query)){?>
                             <tr>
                               <td><?php echo $row['prod_name'];?></td>
-                              <td><?php echo $row['qty'];?></td>
+                              <td><?php echo $row['prod_desc'];?></td>
                               <td><?php echo $row['supplier_name'];?></td>
-                              <td><?php echo $row['date'];?></td>
-                            </tr>               
+                              <td><?php echo $row['cat_name'];?></td>
+                              <td><?php echo $row['reorder'];?></td>
+                              <td><?php echo $row['prod_qty'];?></td>
+                              <td><?php echo number_format($row['base_price'], 2);?></td>
+                              <td>
+                                <a href="#updatecostmetics<?php echo $row['prod_id'];?>" data-target="#updatecostmetics<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+                                <a href="stockin_del.php?id=<?php echo $row['prod_id']; ?>" onclick="return confirm('Are you sure to delete this item?');" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-trash text-blue"></i></a>
+                              </td>
+                            </tr>   
+                            <div id="updatecostmetics<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content" style="height:auto">
+                                  <div class="modal-header box-header" style="color:white">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Update Product Details</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form class="form-horizontal" method="post" action="product_update.php?id=<?php echo $row['prod_id']; ?>" enctype='multipart/form-data'>
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Model</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="model" name="model" value="<?php echo $row['prod_name'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Description</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="desc" name="desc" value="<?php echo $row['prod_desc'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Company Name</label>
+                                        <div class="col-lg-9">
+                                          <select name = "supplier" class = "form-control" required>
+                                            <?php 
+                                              $query1 = "SELECT * FROM supplier order by supplier_name";
+                                              $sql1 = mysqli_query($con, $query1)or die(mysqli_error($con));
+
+                                              while($row1 = mysqli_fetch_array($sql1))
+                                              {
+                                            ?>
+                                              <option value = "<?php echo $row1['supplier_id']; ?>"> <?php echo $row1['supplier_name']; ?> </option>
+                                            <?php }?>
+                                          </select>
+                                          
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Category</label>
+                                        <div class="col-lg-9">
+                                          <select name = "category" class = "form-control" required>
+                                            <?php 
+                                              $query2 = "SELECT * FROM category WHERE cat_for='Beauty Products' order by cat_name";
+                                              $sql2 = mysqli_query($con, $query2)or die(mysqli_error($con));
+
+                                              while($row2 = mysqli_fetch_array($sql2))
+                                              {
+                                            ?>
+                                              <option value = "<?php echo $row2['cat_id']; ?>"> <?php echo $row2['cat_name']; ?> </option>
+                                            <?php }?>
+                                          </select>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Reorder</label>
+                                        <div class="col-lg-9">
+                                          <input type="number" class="form-control" id="reorder" name="reorder" value="<?php echo $row['reorder'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Quantity</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="qty" name="qty" value="<?php echo $row['prod_qty'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Base Price</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="price" name="price" value="<?php echo $row['base_price'];?>" required>  
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="submit" name = "cosmetics" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                  </form>
+                                  </div>
+                                </div> <!-- END OF MODAL DIALOG -->
+                              </div> <!-- END OF MODAL CONTENT -->
+                            </div> <!-- END OF MODAL -->             
                             <?php }?>           
                           </tbody>
                           <tfoot>
@@ -324,6 +513,7 @@ endif;
                               <th>Reorder</th>
                               <th>Quantity</th>
                               <th>Base price</th>
+                              <th>Actions</th>
                             </tr>           
                           </tfoot>
                         </table>
@@ -333,7 +523,7 @@ endif;
                 </div> <!-- row end -->
               </div> <!----- 2ND TABLE END ----->
 
-                <div class="tab-pane" id="payments"> <!----- 2ND TABLE START ----->
+                <div class="tab-pane" id="payments"> <!----- 3RD TABLE START ----->
                 <div class="row"> <!-- row start -->
                 <div class="col-sm-12"> <!-- col start -->
                     <div class="box box-primary"> <!-- box start -->
@@ -342,38 +532,131 @@ endif;
                       </div><!-- /.box-header -->
                       <div class="box-body">
                         
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example3" class="table table-bordered table-striped">
                           <thead>
                             <tr>
                               <th>Model</th>
                               <th>IMEI</th>
                               <th>Color</th>
                               <th>Category</th>
+                              <th>Manufacturer</th>
                               <th>Reorder</th>
                               <th>Quantity</th>
                               <th>Base price</th>
+                              <th>Actions</th>
                             </tr>
                           </thead>
                           <tbody>
                             <?php
                                 $branch=$_SESSION['branch'];
-                                  $sql="
-                                  SELECT * FROM stockin a 
-                                  LEFT JOIN product b ON a.prod_id = b.prod_id 
-                                  LEFT JOIN supplier c ON b.supplier_id = c.supplier_id
-                                  LEFT JOIN category d ON b.cat_id= d.cat_id
-                                  WHERE a.branch_id='$branch'
-                                  and d.cat_id = '7'
-                                  order by date desc
-                                  ";
+
+                                  $sql = "
+                                  SELECT * FROM product a
+                                  LEFT JOIN supplier b ON a.supplier_id = b.supplier_id
+                                  LEFT JOIN category c ON a.cat_id = c.cat_id
+                                  WHERE a.branch_id='$branch' AND a.type = 'mobile'";
                                 $query=mysqli_query($con,$sql)or die(mysqli_error());
                                 while($row=mysqli_fetch_array($query)){?>
                             <tr>
                               <td><?php echo $row['prod_name'];?></td>
-                              <td><?php echo $row['qty'];?></td>
-                              <td><?php echo $row['supplier_name'];?></td>
-                              <td><?php echo $row['date'];?></td>
-                            </tr>               
+                              <td><?php echo $row['imei'];?></td>
+                              <td><?php echo $row['color'];?></td>
+                              <td><?php echo $row['cat_name'];?></td>
+                              <td><?php echo $row['manufacturer'];?></td>
+                              <td><?php echo $row['reorder'];?></td>
+                              <td><?php echo $row['prod_qty'];?></td>
+                              <td><?php echo $row['base_price'];?></td>
+                              <td>
+                                <a href="#updatemobile<?php echo $row['prod_id'];?>" data-target="#updatemobile<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+                                <a href="stockin_del.php?id=<?php echo $row['prod_id']; ?>" onclick="return confirm('Are you sure to delete this item?');" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-trash text-blue"></i></a>
+                              </td>
+                            </tr>     
+
+                            <div id="updatemobile<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content" style="height:auto">
+                                  <div class="modal-header box-header" style="color:white">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Update Product Details</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form class="form-horizontal" method="post" action="product_update.php?id=<?php echo $row['prod_id']; ?>" enctype='multipart/form-data'>
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Model</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="model" name="model" value="<?php echo $row['prod_name'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">IMEI</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="desc" name="imei" value="<?php echo $row['imei'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Color</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="desc" name="color" value="<?php echo $row['color'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Category</label>
+                                        <div class="col-lg-9">
+                                          <select name = "category" class = "form-control" required>
+                                            <?php 
+                                              $query2 = "SELECT * FROM category WHERE cat_for='Mobile' order by cat_name";
+                                              $sql2 = mysqli_query($con, $query2)or die(mysqli_error($con));
+
+                                              while($row2 = mysqli_fetch_array($sql2))
+                                              {
+                                            ?>
+                                              <option value = "<?php echo $row2['cat_id']; ?>"> <?php echo $row2['cat_name']; ?> </option>
+                                            <?php }?>
+                                          </select>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Manufacturer</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" name="manufacturer" value="<?php echo $row['manufacturer']; ?>" required>
+                                          
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Reorder</label>
+                                        <div class="col-lg-9">
+                                          <input type="number" class="form-control" id="reorder" name="reorder" value="<?php echo $row['reorder'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Quantity</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="qty" name="qty" value="<?php echo $row['prod_qty'];?>" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Base Price</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="price" name="price" value="<?php echo $row['base_price'];?>" required>  
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="submit" name = "mobile" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                  </form>
+                                  </div>
+                                </div> <!-- END OF MODAL DIALOG -->
+                              </div> <!-- END OF MODAL CONTENT -->
+                            </div> <!-- END OF MODAL -->            
                             <?php }?>           
                           </tbody>
                           <tfoot>
@@ -382,9 +665,11 @@ endif;
                               <th>IMEI</th>
                               <th>Color</th>
                               <th>Category</th>
+                              <th>Manufacturer</th>
                               <th>Reorder</th>
                               <th>Quantity</th>
                               <th>Base price</th>
+                              <th>Actions</th>
                             </tr>           
                           </tfoot>
                         </table>
@@ -430,26 +715,36 @@ endif;
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
-                    <label for="date">Company name</label>
+                    <label for="date">Category(Sub-category)</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description" required>
+                      <select class="form-control" name="prod_cat" required>
+                        <?php 
+                          $query = "SELECT * FROM category WHERE cat_for='Furniture' ORDER BY cat_name";
+                          $sql = mysqli_query($con, $query)or die(mysqli_error());
+
+                          while ($row = mysqli_fetch_array($sql))
+                          {
+                            $cat_id = $row[0];
+                            $cat_name = $row[1];
+                        ?>
+                          <option value = "<?php echo $cat_id; ?>"> <?php echo $cat_name; ?> </option>
+                        <?php }?>
+                      </select>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                         
-                              <?php
-                                 $branch=$_SESSION['branch'];
-                                   $sql="SELECT
-                                             *
-                                         from
-                                             supplier      
-                                         order by
-                                             supplier_name asc
-                                           ";
-                                   $supp_query=mysqli_query($con,$sql)or die(mysqli_error());?>
                               <div class="form-group">
-                                 <label for="supplier_id">Category</label>
-                                 <select class="form-control" id="supplier_id" name="supplier_id">
-                                    <?php while($supp_row=mysqli_fetch_array($supp_query)){?>
-                                    <option value="<?php echo $supp_row['supplier_id']?>"><?php echo $supp_row['supplier_name']?></option>
+                                 <label for="supplier_id">Company</label>
+                                 <select class="form-control" id="supplier_id" name="supplier_id" required>
+                                    <?php 
+                                      $query = "SELECT * FROM supplier";
+                                      $sql = mysqli_query($con, $query)or die(mysqli_error());
+
+                                      while ($row = mysqli_fetch_array($sql))
+                                      {
+                                        $supplier_id = $row[0];
+                                        $supplier_name = $row[1];
+                                    ?>
+                                      <option value="<?php echo $supplier_id; ?>"> <?php echo $supplier_name; ?> </option>
                                     <?php }?>
                                  </select>
                               </div>
@@ -460,24 +755,24 @@ endif;
                   <div class="form-group">
                     <label for="date">Reorder</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="reorder" name="reorder" placeholder="Reorder" required>
+                      <input type="number" class="form-control pull-right" id="reorder" name="reorder" placeholder="Reorder" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                 
                   <div class="form-group">
                     <label for="date">Quantity</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="qty" name="qty" placeholder="Quantity" required>
+                      <input type="number" class="form-control pull-right" id="qty" name="qty" placeholder="Quantity" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <label for="date">Base Price</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Base price" required>
+                      <input type="number" class="form-control pull-right" id="base_price" name="base_price" placeholder="Base price" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <div class="input-group">
-                      <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
+                      <button type="submit" name = "furniture" class="btn btn-primary save-btn" id="daterange-btn" name="">
                         Save
                       </button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -514,32 +809,37 @@ endif;
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
-                    <label for="date">Company name</label>
+                    <label for="date">Category(Sub-category)</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description" required>
+                      <select name = "prod_cat" class="form-control" required>
+                        <?php 
+                          $query = "SELECT * FROM category WHERE cat_for ='Beauty Products' order by cat_name";
+                          $sql = mysqli_query($con, $query)or die(mysqli_error());
+
+                          while($row = mysqli_fetch_array($sql))
+                          {
+                        ?>
+                          <option value="<?php echo $row['cat_id']; ?>"> <?php echo $row['cat_name']; ?> </option>
+                        <?php }?>
+                      </select>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                        
-                              <?php
-                                 $branch=$_SESSION['branch'];
-                                   $sql="SELECT
-                                             *
-                                         from
-                                             supplier      
-                                         order by
-                                             supplier_name asc
-                                           ";
-                                   $supp_query=mysqli_query($con,$sql)or die(mysqli_error());?>
-                              <div class="form-group">
-                                 <label for="supplier_id">Category</label>
-                                 <select class="form-control" id="supplier_id" name="supplier_id">
-                                    <?php while($supp_row=mysqli_fetch_array($supp_query)){?>
-                                    <option value="<?php echo $supp_row['supplier_id']?>"><?php echo $supp_row['supplier_name']?></option>
-                                    <?php }?>
-                                 </select>
-                              </div>
-                              <!-- suppier list -->
-                              <!-- category list -->
-                              <input type='hidden' name='cat_id' value='5'>
+                  <div class="form-group">
+                    <label for="date">Company</label>
+                    <div class="input-group col-md-12">
+                      <select name = "supplier_id" class="form-control" required>
+                        <?php 
+                          $query = "SELECT * FROM supplier order by supplier_name";
+                          $sql = mysqli_query($con, $query)or die(mysqli_error());
+
+                          while($row = mysqli_fetch_array($sql))
+                          {
+                        ?>
+                          <option value = "<?php echo $row['supplier_id']; ?>"> <?php echo $row['supplier_name']; ?> </option>
+                        <?php }?>
+                      </select>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->                        
                   <div class="form-group">
                     <label for="date">Reorder</label>
                     <div class="input-group col-md-12">
@@ -560,7 +860,7 @@ endif;
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <div class="input-group">
-                      <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
+                      <button type="submit" name="cosmetics" class="btn btn-primary save-btn" id="daterange-btn" name="">
                         Save
                       </button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -593,36 +893,37 @@ endif;
                   <div class="form-group">
                     <label for="date">IMEI</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description" required>
+                      <input type="text" class="form-control pull-right" id="prod_imei" name="prod_imei" placeholder="Description" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                   
                   <div class="form-group">
                     <label for="date">Color</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="color" name="color" placeholder="Color" required>
+                      <input type="text" class="form-control pull-right" id="prod_color" name="prod_color" placeholder="Color" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->    
-                              <?php
-                                 $branch=$_SESSION['branch'];
-                                   $sql="SELECT
-                                             *
-                                         from
-                                             supplier      
-                                         order by
-                                             supplier_name asc
-                                           ";
-                                   $supp_query=mysqli_query($con,$sql)or die(mysqli_error());?>
-                              <div class="form-group">
-                                 <label for="supplier_id">Category</label>
-                                 <select class="form-control" id="supplier_id" name="supplier_id">
-                                    <?php while($supp_row=mysqli_fetch_array($supp_query)){?>
-                                    <option value="<?php echo $supp_row['supplier_id']?>"><?php echo $supp_row['supplier_name']?></option>
-                                    <?php }?>
-                                 </select>
-                              </div>
-                              <!-- suppier list -->
-                              <!-- category list -->
-                              <input type='hidden' name='cat_id' value='7'> 
+                  <div class="form-group">
+                    <label for="date">Category</label>
+                    <div class="input-group col-md-12">
+                      <select class="form-control" name="prod_cat" required>
+                        <?php 
+                          $query = "SELECT * FROM category WHERE cat_for='Mobile' order by cat_name";
+                          $sql = mysqli_query($con, $query)or die(mysqli_error());
+
+                          while ($row = mysqli_fetch_array($sql))
+                          {
+                        ?>
+                          <option value="<?php echo $row['cat_id']; ?>"><?php echo $row['cat_name']; ?> </option>
+                        <?php }?>
+                      </select>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group --> 
+                  <div class="form-group">
+                    <label for="date">Manufacturer</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="color" name="prod_manufacturer" placeholder="Manufacturer" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->     
                   <div class="form-group">
                     <label for="date">Reorder</label>
                     <div class="input-group col-md-12">
@@ -643,7 +944,7 @@ endif;
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <div class="input-group">
-                      <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
+                      <button type="submit" name="mobile" class="btn btn-primary save-btn" id="daterange-btn" name="">
                         Save
                       </button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -676,7 +977,9 @@ endif;
     <script>
       $(function () {
         $("#example1").DataTable();
-        $('#example2').DataTable({
+        $("#example2").DataTable();
+        $("#example3").DataTable();
+        $('#example').DataTable({
           "paging": true,
           "lengthChange": false,
           "searching": false,

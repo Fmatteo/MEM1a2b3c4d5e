@@ -279,13 +279,6 @@ $role_permission = $rowrole['role'];
             </select>
           </div>
 
-          <div class="form-group form-group-inputs">
-                    <label for="date">Role</label>
-                    <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" value="<?php echo $row['username'];?>" name="username" placeholder="Username" required>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->
-
                   <div class="form-group form-group-inputs">
                     <div class="input-group inputs-btn">
                       <input class = "btn btn-primary submit-btn save-btn" type="submit" value="Submit">

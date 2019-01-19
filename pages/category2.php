@@ -192,6 +192,16 @@ endif;
               <h2> Add new category </h2>
             </div>
             <div class="form-group">
+              <label for="date">Category for</label>
+              <div class="input-group col-md-12">
+                <select class="form-control" required>
+                  <option value="Furniture" selected>Furniture</option>
+                  <option value="Beauty Products">Beauty Products</option>
+                  <option value="Mobile">Mobile</option>
+                </select>
+              </div><!-- /.input group -->
+            </div>
+            <div class="form-group">
               <label for="date">Category name</label>
               <div class="input-group col-md-12">
                 <input type="text" class="form-control pull-center" id="date" name="category" placeholder="Company name" required>
@@ -230,6 +240,7 @@ endif;
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
+                        <th>Category for</th>
                         <th>Category name</th>
                         <th>Action</th>
                       </tr>
@@ -242,9 +253,11 @@ endif;
 		
 ?>
                       <tr>
+                        <td><?php echo $row['cat_for'];?></td>
                         <td><?php echo $row['cat_name'];?></td>
                         <td>
 				<a href="#updateordinance<?php echo $row['cat_id'];?>" data-target="#updateordinance<?php echo $row['cat_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+        <a href="cat_del.php?id=<?php echo $row['cat_id'];?>" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-trash text-blue" onclick="return confirm('Are you sure to delete this category?')"></i></a>
 				
 						</td>
                       </tr>
@@ -259,11 +272,21 @@ endif;
                       <form class="form-horizontal" method="post" action="cat_update.php" enctype='multipart/form-data'>
               <div class="modal-body row">
 
+        <div class="form-group">
+          <label class="control-label col-lg-12 text-black text-left" for="name">Category For</label>
+          <div class="col-lg-12">
+            <select class="form-control" name="cat_for" required>
+              <option value="Furniture" selected>Furniture</option>
+              <option value="Beauty Products">Beauty Products</option>
+              <option value="Mobile">Mobile</option>
+            </select>
+          </div>
+        </div> 
                 
 				<div class="form-group">
-					<label class="control-label col-lg-12 text-black text-left" for="name">Company Name</label>
+					<label class="control-label col-lg-12 text-black text-left" for="name">Category Name</label>
 					<div class="col-lg-12"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['cat_id'];?>" required>  
-					  <input type="text" class="form-control" id="name" name="category" value="<?php echo $row['cat_name'];?>" required>  
+					  <input type="text" class="form-control" id="name" name="cat_name" value="<?php echo $row['cat_name'];?>" required>  
 					</div>
 				</div> 
 				
@@ -273,8 +296,7 @@ endif;
 			  				  <div class="history">
           </div>
               <div class="modal-footer">
-                <button class="btn btn-danger deleteButton" value="<?php echo $row['cat_name'];?>">Delete</button>
-		<button type="submit" class="btn btn-primary">Save changes</button>
+		            <button type="submit" class="btn btn-primary">Save changes</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 
               </div>
@@ -288,7 +310,8 @@ endif;
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th>Unit</th>
+                        <th>Category for</th>
+                        <th>Category name</th>
 			<th>Action</th>
                       </tr>					  
                     </tfoot>

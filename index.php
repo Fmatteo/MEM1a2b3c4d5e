@@ -172,7 +172,13 @@
               $query3=mysqli_query($con,"select * from branch order by branch_name")or die(mysqli_error($con));
               while($row3=mysqli_fetch_array($query3)){
             ?>
-          <option value="<?php echo $row3['branch_id'];?>"><?php echo $row3['branch_name'];?></option>
+            <option value="<?php echo $row3['branch_id'];?>"><?php echo $row3['branch_name'];?></option>
+          <?php }
+            $count = mysqli_num_rows($query3);
+            if ($count == 0)
+            {
+          ?>
+            <option value="0"> ADMIN LOGIN </option>
           <?php }?>
           </select>
       </div>
