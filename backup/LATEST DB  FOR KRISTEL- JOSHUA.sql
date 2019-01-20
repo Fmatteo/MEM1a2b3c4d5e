@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2019 at 09:19 PM
+-- Generation Time: Jan 20, 2019 at 10:13 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -38,13 +38,6 @@ CREATE TABLE `branch` (
   `skin` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `branch`
---
-
-INSERT INTO `branch` (`branch_id`, `branch_name`, `branch_address`, `branch_contact`, `skin`) VALUES
-(6, 'Branch 1', 'Branch address', '1234', '');
-
 -- --------------------------------------------------------
 
 --
@@ -56,15 +49,6 @@ CREATE TABLE `category` (
   `cat_name` varchar(30) NOT NULL,
   `cat_for` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `category`
---
-
-INSERT INTO `category` (`cat_id`, `cat_name`, `cat_for`) VALUES
-(7, 'Mobile Items', 'Mobile'),
-(8, 'Furniture Items', 'Furniture'),
-(9, 'Beauty Products Items', 'Beauty Products');
 
 -- --------------------------------------------------------
 
@@ -110,14 +94,6 @@ CREATE TABLE `customer` (
   `income` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `customer`
---
-
-INSERT INTO `customer` (`cust_id`, `cust_first`, `cust_last`, `cust_address`, `cust_contact`, `balance`, `cust_pic`, `bday`, `nickname`, `house_status`, `years`, `rent`, `emp_name`, `emp_no`, `emp_address`, `emp_year`, `occupation`, `salary`, `spouse`, `spouse_no`, `spouse_emp`, `spouse_details`, `spouse_income`, `comaker`, `comaker_details`, `branch_id`, `credit_status`, `ci_remarks`, `ci_name`, `ci_date`, `payslip`, `valid_id`, `cert`, `cedula`, `income`) VALUES
-(10, '', 'Walk in', '', '', '0.00', 'default.gif', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0.00', '', '', 1, '', '', '', '0000-00-00', 0, 0, 0, 0, 0),
-(11, 'tae', 'sdf', '290A Greenfield Subd. Brgy. Sampalocan Pagsanjan Laguna', '09268498059', '0.00', 'default.gif', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0.00', '', '', 1, '', '', '', '0000-00-00', 0, 0, 0, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -143,14 +119,6 @@ CREATE TABLE `expenses` (
   `exp_id` int(10) NOT NULL,
   `exp_name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `expenses`
---
-
-INSERT INTO `expenses` (`exp_id`, `exp_name`) VALUES
-(0, 'gas'),
-(0, 'Water bill');
 
 -- --------------------------------------------------------
 
@@ -178,143 +146,6 @@ CREATE TABLE `history_log` (
   `action` varchar(100) NOT NULL,
   `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `history_log`
---
-
-INSERT INTO `history_log` (`log_id`, `user_id`, `action`, `date`) VALUES
-(1, 9, 'has logged in the system at ', '2019-01-06 14:29:33'),
-(2, 9, 'has logged in the system at ', '2019-01-06 14:29:57'),
-(3, 9, 'has logged in the system at ', '2019-01-06 17:30:10'),
-(4, 9, 'added 50 of ', '2019-01-06 17:30:41'),
-(5, 9, 'has logged in the system at ', '2019-01-06 22:18:44'),
-(6, 9, 'added 40 of ', '2019-01-06 22:36:01'),
-(7, 9, 'added 40 of ', '2019-01-06 22:37:51'),
-(8, 9, 'added 40 of ', '2019-01-06 22:38:47'),
-(9, 9, 'added 40 of ', '2019-01-06 22:39:46'),
-(10, 9, 'added 40 of ', '2019-01-06 22:27:26'),
-(11, 9, 'has logged in the system at ', '2019-01-06 22:27:46'),
-(12, 9, 'added 11 of ', '2019-01-06 22:28:41'),
-(13, 9, 'added 11 of ', '2019-01-06 22:30:24'),
-(14, 9, 'added 11 of ', '2019-01-06 22:30:44'),
-(15, 9, 'added 11 of ', '2019-01-06 22:31:03'),
-(16, 9, 'added 11 of ', '2019-01-06 22:51:07'),
-(17, 9, 'has logged in the system at ', '2019-01-06 22:51:53'),
-(18, 9, 'added 11 of ', '2019-01-06 22:52:38'),
-(19, 9, 'added 11 of ', '2019-01-06 22:53:24'),
-(20, 9, 'added 11 of ', '2019-01-06 22:53:49'),
-(21, 9, 'added 11 of tae', '2019-01-06 22:54:36'),
-(22, 9, 'has logged in the system at ', '2019-01-06 22:54:55'),
-(23, 9, 'added 50 of tae', '2019-01-06 21:57:57'),
-(24, 9, 'added 50 of tae2', '2019-01-06 22:09:45'),
-(25, 9, 'has logged in the system at ', '2019-01-10 05:57:21'),
-(26, 9, 'has logged in the system at ', '2019-01-10 05:39:48'),
-(27, 9, 'added 50 of tae', '2019-01-10 06:08:29'),
-(28, 9, 'added 50 of tae2', '2019-01-10 06:10:59'),
-(29, 9, 'added 50 of tae3', '2019-01-10 06:11:49'),
-(30, 9, 'added 50 of tae', '2019-01-10 06:14:43'),
-(31, 9, 'added 50 of tae', '2019-01-10 06:18:23'),
-(32, 9, 'added 5 of tae2', '2019-01-10 06:18:38'),
-(33, 9, 'added 50 of tae3', '2019-01-10 06:19:55'),
-(34, 9, 'has logged in the system at ', '2019-01-10 05:35:30'),
-(35, 9, 'has logged in the system at ', '2019-01-10 05:35:51'),
-(36, 9, 'has logged in the system at ', '2019-01-10 13:31:16'),
-(37, 9, 'has logged in the system at ', '2019-01-10 13:06:45'),
-(38, 9, 'has logged in the system at ', '2019-01-10 13:53:12'),
-(39, 9, 'has logged in the system at ', '2019-01-10 13:03:15'),
-(40, 9, 'has logged in the system at ', '2019-01-10 13:04:11'),
-(41, 9, 'has logged in the system at ', '2019-01-10 13:15:14'),
-(42, 9, '', '2019-01-10 13:17:19'),
-(43, 9, 'added 50 of tae', '2019-01-10 13:35:38'),
-(44, 9, '', '2019-01-10 13:35:55'),
-(45, 9, '', '2019-01-10 13:36:10'),
-(46, 9, '', '2019-01-10 13:37:54'),
-(47, 9, '', '2019-01-10 13:38:13'),
-(48, 9, '', '2019-01-10 13:39:16'),
-(49, 9, '', '2019-01-10 13:40:51'),
-(50, 9, '', '2019-01-10 13:53:29'),
-(51, 9, 'has logged in the system at ', '2019-01-17 23:43:50'),
-(52, 9, '', '2019-01-18 00:02:28'),
-(53, 9, '', '2019-01-18 00:02:56'),
-(54, 9, '', '2019-01-18 00:05:05'),
-(55, 9, '', '2019-01-18 00:05:11'),
-(56, 9, '', '2019-01-18 00:06:14'),
-(57, 9, '', '2019-01-18 00:06:18'),
-(58, 9, '', '2019-01-18 00:07:14'),
-(59, 9, '', '2019-01-18 00:07:19'),
-(60, 9, '', '2019-01-18 00:10:14'),
-(61, 9, '', '2019-01-18 00:10:21'),
-(62, 9, '', '2019-01-18 00:12:42'),
-(63, 9, '', '2019-01-18 00:12:48'),
-(64, 9, '', '2019-01-18 00:13:26'),
-(65, 9, '', '2019-01-18 00:13:39'),
-(66, 9, '', '2019-01-18 00:14:04'),
-(67, 9, '', '2019-01-18 00:14:34'),
-(68, 9, '', '2019-01-18 00:15:09'),
-(69, 9, '', '2019-01-18 00:15:46'),
-(70, 9, '', '2019-01-18 00:16:36'),
-(71, 9, '', '2019-01-18 00:18:08'),
-(72, 9, '', '2019-01-18 00:18:50'),
-(73, 9, '', '2019-01-18 00:22:36'),
-(74, 9, '', '2019-01-18 00:23:18'),
-(75, 9, '', '2019-01-18 00:23:22'),
-(76, 9, '', '2019-01-18 00:24:33'),
-(77, 9, 'added 50 of tae', '2019-01-18 00:25:35'),
-(78, 9, '', '2019-01-17 23:28:37'),
-(79, 9, '', '2019-01-17 23:28:50'),
-(80, 9, '', '2019-01-17 23:29:32'),
-(81, 9, '', '2019-01-17 23:29:41'),
-(82, 9, '', '2019-01-17 23:30:06'),
-(83, 9, '', '2019-01-17 23:32:01'),
-(84, 9, '', '2019-01-17 23:34:44'),
-(85, 9, 'has logged in the system at ', '2019-01-17 23:34:54'),
-(86, 9, 'has logged in the system at ', '2019-01-17 23:35:26'),
-(87, 9, 'added 50 of tae', '2019-01-17 23:36:11'),
-(88, 9, 'added 55 of tae2', '2019-01-17 23:36:40'),
-(89, 9, 'has logged in the system at ', '2019-01-17 23:28:21'),
-(90, 9, 'has logged out the system at ', '2019-01-17 23:53:15'),
-(91, 9, 'has logged in the system at ', '2019-01-17 23:53:20'),
-(92, 9, 'has logged out the system at ', '2019-01-17 23:53:51'),
-(93, 13, 'has logged in the system at ', '2019-01-17 23:54:07'),
-(94, 9, 'has logged in the system at ', '2019-01-17 23:28:18'),
-(95, 9, 'has logged out the system at ', '2019-01-17 23:28:46'),
-(96, 13, 'has logged in the system at ', '2019-01-17 23:28:53'),
-(97, 13, 'has logged out the system at ', '2019-01-17 23:38:23'),
-(98, 13, 'has logged in the system at ', '2019-01-17 23:38:31'),
-(99, 13, 'has logged out the system at ', '2019-01-17 23:39:01'),
-(100, 9, 'has logged in the system at ', '2019-01-17 23:39:06'),
-(101, 9, 'added 50 of tae4544', '2019-01-17 23:46:18'),
-(102, 9, 'has logged out the system at ', '2019-01-19 22:55:23'),
-(103, 9, 'has logged in the system at ', '2019-01-19 22:55:28'),
-(104, 9, 'added 200 of Sample Furniture', '2019-01-19 23:00:02'),
-(105, 10, 'has logged out the system at ', '2019-01-20 00:09:58'),
-(106, 9, 'has logged in the system at ', '2019-01-20 00:10:09'),
-(107, 9, 'added 200 of Sample Model', '2019-01-20 00:33:56'),
-(108, 9, 'added 200 of Sample New', '2019-01-20 00:56:28'),
-(109, 9, 'added 232 of asda', '2019-01-20 00:56:42'),
-(110, 9, 'added 200 of Sample Model', '2019-01-20 00:57:38'),
-(111, 9, 'added 200 of Sample Model', '2019-01-20 00:58:26'),
-(112, 9, 'added 200 of Sample Model', '2019-01-20 01:02:11'),
-(113, 9, 'has logged out the system at ', '2019-01-20 01:29:31'),
-(114, 9, 'has logged in the system at ', '2019-01-20 01:29:36'),
-(115, 9, 'has logged in the system at ', '2019-01-20 01:48:49'),
-(116, 9, 'added 200 of Sample Product', '2019-01-20 02:09:10'),
-(117, 9, 'added 200 of Polbo', '2019-01-20 02:19:51'),
-(118, 9, 'added 200 of Samsung J7 2018', '2019-01-20 03:05:39'),
-(119, 9, 'added 200 of SAMSUNG J7 2018', '2019-01-20 03:07:07'),
-(120, 9, 'added 200 of IPHONE 11', '2019-01-20 03:08:17'),
-(121, 9, 'added 200 of IPHONE 11', '2019-01-20 03:09:09'),
-(122, 9, 'added 200 of IPHONE 12', '2019-01-20 03:09:24'),
-(123, 9, 'added 200 of IPHONE 13', '2019-01-20 03:10:07'),
-(124, 9, 'added 200 of IPHONE 13', '2019-01-20 03:10:20'),
-(125, 9, 'has logged out the system at ', '2019-01-20 03:38:58'),
-(126, 8, 'has logged in the system at ', '2019-01-20 03:49:15'),
-(127, 8, 'has logged out the system at ', '2019-01-20 03:49:31'),
-(128, 8, 'has logged in the system at ', '2019-01-20 03:49:36'),
-(129, 8, 'has logged in the system at ', '2019-01-20 03:50:11'),
-(130, 8, 'has logged out the system at ', '2019-01-20 03:51:50'),
-(131, 15, 'has logged in the system at ', '2019-01-20 03:52:23');
 
 -- --------------------------------------------------------
 
@@ -396,7 +227,8 @@ CREATE TABLE `sales` (
   `date_added` datetime NOT NULL,
   `modeofpayment` varchar(15) NOT NULL,
   `branch_id` int(11) NOT NULL,
-  `total` decimal(10,2) NOT NULL
+  `total` decimal(10,2) NOT NULL,
+  `extra` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -440,19 +272,6 @@ CREATE TABLE `supplier` (
   `supplier_address` varchar(300) NOT NULL,
   `supplier_contact` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `supplier`
---
-
-INSERT INTO `supplier` (`supplier_id`, `supplier_name`, `supplier_address`, `supplier_contact`) VALUES
-(2, 'LG Philippines', 'Makati City, Philippines', '423-4444'),
-(3, 'Union Home Appliances', 'Binondo, Manila', '98878'),
-(4, 'Hanabishi', 'Bacolod City', '034-666-087611'),
-(5, 'Samsung Philippines', 'Philippines', '42424'),
-(6, 'Avon', 'Bacolod City', '15562'),
-(7, 'iStore PH', 'Manila City,Philippines', '09134567890'),
-(10, 'sdfsdf', 'sdfsdf', 'sdfdsf');
 
 -- --------------------------------------------------------
 
@@ -508,15 +327,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `password`, `name`, `role`, `status`, `branch_id`) VALUES
-(6, 'administrator', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 'Giu Matthew', 'admin', 'active', 0),
-(8, 'admin', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 'Mark', 'admin', 'active', 5),
-(9, 'admin', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 'Michael', 'admin', 'active', 1),
-(10, 'tae', 'a1Bz20ydqelm8m1wql4752d51bd71f704beec34b798c76ca9e', 'tae', 'encoder', 'active', 0),
-(11, 'tae2', 'a1Bz20ydqelm8m1wql4752d51bd71f704beec34b798c76ca9e', 'tae2', 'encoder', 'active', 0),
-(12, 'tae2', 'a1Bz20ydqelm8m1wql4752d51bd71f704beec34b798c76ca9e', 'tae2', 'encoder', 'active', 0),
-(13, 'tae4', 'a1Bz20ydqelm8m1wql4752d51bd71f704beec34b798c76ca9e', 'tae', 'encoder', 'active', 1),
-(14, 'tae4', 'a1Bz20ydqelm8m1wql4752d51bd71f704beec34b798c76ca9e', 'tae', 'encoder', 'active', 1),
-(15, '@ming', 'a1Bz20ydqelm8m1wql1a1dc91c907325c69271ddf0c944bc72', 'Joshua Ming', 'admin', 'active', 6);
+(19, 'admin', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 'admin', 'admin', 'active', 1);
 
 --
 -- Indexes for dumped tables
@@ -632,19 +443,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `branch`
 --
 ALTER TABLE `branch`
-  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `damage`
@@ -656,7 +467,7 @@ ALTER TABLE `damage`
 -- AUTO_INCREMENT for table `history_log`
 --
 ALTER TABLE `history_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -698,13 +509,13 @@ ALTER TABLE `stockin`
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `temp_trans`
 --
 ALTER TABLE `temp_trans`
-  MODIFY `temp_trans_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `temp_trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `term`
@@ -716,7 +527,7 @@ ALTER TABLE `term`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
