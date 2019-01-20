@@ -191,6 +191,11 @@ $role_permission = $rowrole['role'];
               <ul class="treeview-menu">
                 <li>
                           <li><!-- start notification -->
+                            <a href="customer.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Customer
+                            </a>
+                          </li><!-- end notification -->
+                          <li><!-- start notification -->
                             <a href="category.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-user text-white"></i> Company Name
                             </a>
