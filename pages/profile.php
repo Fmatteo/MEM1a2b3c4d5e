@@ -1,21 +1,21 @@
 <?php session_start();
 if(empty($_SESSION['id'])):
-
+ 
 header('Location:../index.php');
 endif;
 include('../dist/includes/dbcon.php');
 $id = $_SESSION['id'];
 $branch=$_SESSION['branch'];
 $query_role=mysqli_query($con,"select * from user where user_id = '$id' ")or die(mysqli_error());
-while($rowrole=mysqli_fetch_array($query_role)){ 
+while($rowrole=mysqli_fetch_array($query_role)){
 $role_permission = $rowrole['role'];
 }
-
-
+ 
+ 
 ?>
-                          
-                          
-                        
+                         
+                         
+                       
      
 <!DOCTYPE html>
 <html>
@@ -37,20 +37,20 @@ $role_permission = $rowrole['role'];
     <link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico|Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
     <style>
-
+ 
     body {
       background-color: #ecf0f5;
     }
-
+ 
     ::-webkit-scrollbar{
       width: 12px;
     }
-
+ 
     ::-webkit-scrollbar-thumb{
       background:linear-gradient(darkred, white);
       border-radius: 6px;
     }
-
+ 
    .sidebar {  
       width: 250;
       height:100%;
@@ -59,110 +59,110 @@ $role_permission = $rowrole['role'];
       top: 0px;
       transition: left 0.3s linear;
     }
-
+ 
     .sidebar.visible {
       left:0px;
       transition: left 0.3s linear;
     }
-
+ 
     .nav-txt {
       color: white;
     }
-
+ 
     .subnav-txt:hover {
       color: #3498db;
     }
-
+ 
     .nav-txt:hover {
       background-color: #3a539b;
       color: white;
       transition: all .2s;
     }
-
+ 
     .main-sidebar {
       background-image: linear-gradient(to left, #22a7f0 , #3498db);
       position: fixed;
       z-index: 5;
     }
-
+ 
     .main-sidebar * a {
       color: white;
     }
-
+ 
     .treeview-menu {
       background-color: #3a539b;
     }
-
+ 
     .reorder-count {
       font-size: 10px !important;
     }
-
+ 
     .box-header {
       background-image: linear-gradient(to left, #22a7f0 , #3498db);
     }
-
+ 
     .menu {
       list-style-type: none;
       margin: 0;
       padding: 10px 15px;
     }
-
+ 
     .box-title {
       color: white;
       text-align: center;
       display: block !important;
     }
-
+ 
     .btn:hover {
       transition: all .2s linear;
     }
-
+ 
     .content-header {
       text-align: right;
       margin-right: 15px;
       overflow: hidden;
     }
-
+ 
     .content-header .btn-1 {
       float: right;
     }
-
+ 
     .content-header .btn-2 {
       float: left;
       margin-left: 15px;
     }
-
+ 
     .input-group {
       text-align: center;
     }
-    
+   
     .inputs-btn {
       width: 100%;
     }
-
+ 
     .save-btn {
       margin: 5px;
       background-color: #3a539b !important;
     }
-
+ 
     .save-btn:hover {
       background-color: #3a539b !important;
     }
-
+ 
     .clear-btn {
       margin: 5px;
     }
-
+ 
     .btn:hover {
       transition: all .2s linear;
     }
-
+ 
     .cat-list {
       background-color: #3a539b;
       padding: 20px 10px !important;
       border-bottom: 1px solid rgba(255, 255, 255, .1);
     }
-
+ 
     .cat-list h2 {
       margin: 0;
       padding: 0;
@@ -173,7 +173,7 @@ $role_permission = $rowrole['role'];
       text-transform: uppercase;
       color: #fff;
     }
-
+ 
     .cat-btn {
       text-align: left;
       color: #fff !important;
@@ -181,12 +181,12 @@ $role_permission = $rowrole['role'];
       letter-spacing: 1px;
       padding-left: 25px !important;
     }
-
+ 
     .cat-btn:hover {
       background-color: #3a539b;
       color: #fff;
     }
-
+ 
     .form-group-inputs {
       text-align: center;
       color: #fff;
@@ -194,24 +194,24 @@ $role_permission = $rowrole['role'];
       width: 90% !important;
       font-size: 13px;
     }
-
+ 
     input[type="text"] {
       font-size: 13px;
     }
-
+ 
     .save-btn {
     margin: 5px;
     background-color: #3a539b !important;
     }
-    
+   
     .add-new-user-modal {
     }
-  
+ 
     </style>
  </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
   <body>
-
+ 
   <div class="wrapper">
       <?php include('../dist/includes/header.php');?>
       <!-- Full Width Column -->
@@ -235,30 +235,30 @@ $role_permission = $rowrole['role'];
                       <input type="text" class="form-control pull-right" value="<?php echo $row['name'];?>" name="name" placeholder="Full Name" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-				  <div class="form-group form-group-inputs">
+                  <div class="form-group form-group-inputs">
                     <label for="date">Username</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" value="<?php echo $row['username'];?>" name="username" placeholder="User Name" required>   
+                      <input type="text" class="form-control pull-right" value="<?php echo $row['username'];?>" name="username" placeholder="User Name" required>  
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-				  <div class="form-group form-group-inputs">
+                  <div class="form-group form-group-inputs">
                     <label for="date">Change Password</label>
                     <div class="input-group col-md-12">
                       <input type="password" class="form-control pull-right" id="password" name="password" placeholder="Type new password">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-				  <div class="form-group form-group-inputs">
+                  <div class="form-group form-group-inputs">
                     <label for="date">Confirm New Password</label>
                     <div class="input-group col-md-12">
                       <input type="password" class="form-control pull-right" id="cfmPassword" name="newpassword" placeholder="Reenter new password">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-				<!-- 	<div class="form-group form-group-inputs">
+                <!--    <div class="form-group form-group-inputs">
                     <label for="date">Enter Old Password to confirm changes</label>
                     <div class="input-group col-md-12">
                       <input type="password" class="form-control pull-right" id="date" name="passwordold" placeholder="Type old password" required>
                     </div>
-					
+                   
                   </div> -->
           <div class="form-group form-group-inputs">
             <label for="role">Branch</label>                
@@ -268,31 +268,31 @@ $role_permission = $rowrole['role'];
                           while($row=mysqli_fetch_array($query2)){?>
                         <option value="<?php echo $row['branch_id'];?>"><?php echo $row['branch_name'];?></option>
                         <?php }?>
-                   </select>   
+                   </select>  
           </div>
-
+ 
           <div class="form-group form-group-inputs">
             <label for="role">Role</label>
             <select class="form-control" id="role" name="role">              
-              <option value="encoder" selected>Encoder</option>         
-              <option value="admin">Admin</option>     
+              <option value="encoder" selected>Encoder</option>        
+              <option value="admin">Admin</option>    
             </select>
           </div>
-
+ 
                   <div class="form-group form-group-inputs">
                     <div class="input-group inputs-btn">
                       <input class = "btn btn-primary submit-btn save-btn" type="submit" value="Submit">
-					            <button type="reset" class="btn btn-danger clear-btn" id="daterange-btn" value="reset">
+                                <button type="reset" class="btn btn-danger clear-btn" id="daterange-btn" value="reset">
                         Clear
                       </button>
                     </div>
                   </div><!-- /.form group -->
          <?php }?>
-          </form>	
+          </form>  
         </section>
         <!-- /.sidebar -->
       </aside>
-
+ 
           <!-- Content Header (Page header) -->
           <section class="content-header">
             <h1>
@@ -302,8 +302,8 @@ $role_permission = $rowrole['role'];
             </h1>
           </section>
           <?php if ($role_permission == 'admin'){?>
-
-          
+ 
+         
           <!-- Main content -->
           <section class="content">
             <div class="col-sm-12">
@@ -312,46 +312,46 @@ $role_permission = $rowrole['role'];
                   <h3 class="box-title">Account list</h3>
                 </div><!-- /.box-header -->
                 <div class = "x-panel">
-						 <table id="datatable" class="table table-striped table-bordered table-responsive">
-							 <thead>
-								<tr>
+                         <table id="datatable" class="table table-striped table-bordered table-responsive">
+                             <thead>
+                                <tr>
                   <th>Branch name</th>
-									<th>Fullname</th>
+                                    <th>Fullname</th>
                   <th>Role</th>
-                  <th>Username</th>									
-									<th>Status</th>
-							
-								</tr>
-							 </thead>
-							 <tbody>
+                  <th>Username</th>                                
+                                    <th>Status</th>
+                           
+                                </tr>
+                             </thead>
+                             <tbody>
           <?php    $query=mysqli_query($con,"select * from user left join branch on user.branch_id = branch.branch_id")or die(mysqli_error());
     while($row=mysqli_fetch_array($query)){ ?>
-								<tr>
+                                <tr>
                   <td><?php echo $row['branch_name'];?></td>
-									<td><?php echo $row['name'];?></td>
+                                    <td><?php echo $row['name'];?></td>
                   <td><?php echo $row['role'];?></td>
-									<td><?php echo $row['username'];?></td>									
-									<td><?php echo $row['status'];?></td>																
-								</tr>
+                                    <td><?php echo $row['username'];?></td>                                
+                                    <td><?php echo $row['status'];?></td>                                                              
+                                </tr>
                                 <?php }?>
-								<?php   //   include 'update_user_modal.php';?>
-
-							 </tbody>								
-						 </table>
-						</div>
+                                <?php   //   include 'update_user_modal.php';?>
+ 
+                             </tbody>                              
+                         </table>
+                        </div>
  
             </div><!-- /.col -->
-			
-			
-	  
-            
+           
+           
+     
+           
           </section><!-- /.content -->
 <?php } ?>
         </div><!-- /.container -->
       </div><!-- /.content-wrapper -->
       <?php include('../dist/includes/footer.php');?>
     </div><!-- ./wrapper -->
-
+ 
         <!-- MODAL --->
         <div id="add" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
           <div class="modal-dialog">
@@ -369,7 +369,7 @@ $role_permission = $rowrole['role'];
                       <input type="text" class="form-control" name="username" required="">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-                
+               
                   <div class="form-group">
                     <label for="date">Password</label>
                     <div class="input-group col-md-12">
@@ -401,29 +401,41 @@ $role_permission = $rowrole['role'];
                       </select>                      
                     </div><!-- /.input group -->
                   </div><!-- /.input group -->
-
+                  <?php  
+                    if ($_SESSION['role'] != 'admin')
+                    {
+                  ?>
                   <div class="form-group">
                     <label for="role">Role</label>
                     <select class="form-control" id="role" name="role">              
-                      <option value="encoder" selected>Encoder</option>         
-                      <option value="admin">Admin</option>     
+                      <option value="encoder" selected>Encoder</option>        
+                      <option value="admin" disabled>Admin</option>    
                     </select>
                   </div>
-
+                  <?php }else{?>
+                  <div class="form-group">
+                    <label for="role">Role</label>
+                    <select class="form-control" id="role" name="role">              
+                      <option value="encoder" selected>Encoder</option>        
+                      <option value="admin">Admin</option>    
+                    </select>
+                  </div>
+                  <?php }?>
+ 
                   <div class="form-group">
                     <div class="input-group inputs-btn">
                       <button type="submit" class="btn btn-primary save-btn" id="daterange-btn" name="">
                         Save
                       </button>
-					            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                   </div><!-- /.form group -->
-				        </form>	
+                        </form>
             </div>
         </div><!--end of modal-dialog-->
       </div>
      <!--end of modal-->
-
+ 
     <!-- jQuery 2.1.4 -->
     <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
@@ -438,7 +450,7 @@ $role_permission = $rowrole['role'];
     <script src="../dist/js/demo.js"></script>
     <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
-    
+   
     <script>
       $(function () {
         $("#example1").DataTable();
@@ -452,7 +464,7 @@ $role_permission = $rowrole['role'];
         });
       });
     </script>
-	<script>
+    <script>
 function myFunction() {
     var pass1 = document.getElementById("password").value;
     var pass2 = document.getElementById("cfmPassword").value;
@@ -468,6 +480,6 @@ function myFunction() {
     }
     return ok;
 }
-	</script>
+    </script>
   </body>
 </html>
