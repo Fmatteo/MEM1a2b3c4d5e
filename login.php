@@ -293,56 +293,116 @@ $date = date("Y-m-d H:i:s");
 
 	if ($branch != 0)
 	{
-		$query=mysqli_query($con,"select * from user natural join branch where username='$user' and password='$pass' and branch_id='$branch' and status='active'")or die(mysqli_error($con));
-			$row=mysqli_fetch_array($query);
-		           $id=$row['user_id'];
-		           $name=$row['name'];
-		           $counter=mysqli_num_rows($query);
+		$query=mysqli_query($con, "SELECT * FROM user WHERE username ='$user' AND password='$pass' AND status ='active'")or die(mysqli_error());
+		$fetch = mysqli_fetch_array($query);
+		$role = $fetch['role'];
 
-		           $id=$row['user_id'];
-		           $_SESSION['branch']=$row['branch_id'];
-		           $_SESSION['skin']=$row['skin'];
+		if ($role != "admin")
+		{
+			$query=mysqli_query($con,"select * from user natural join branch where username='$user' and password='$pass' and branch_id='$branch' and status='active'")or die(mysqli_error($con));
+				$row=mysqli_fetch_array($query);
+			           $id=$row['user_id'];
+			           $name=$row['name'];
+			           $counter=mysqli_num_rows($query);
 
-		  	if ($counter == 0) 
-			  {	
-			  echo "<script type='text/javascript'>alert('Invalid Username or Password!');
-			  document.location='index.php'</script>";
-			  } 
-			  elseif ($counter > 0)
-			  {
-				  $_SESSION['id']=$row['user_id'];	
-				  $_SESSION['name']=$name;		
-			  
+			           $id=$row['user_id'];
+			           $_SESSION['branch']=$row['branch_id'];
+			           $_SESSION['skin']=$row['skin'];
 
-				$remarks="has logged in the system at ";  
-				mysqli_query($con,"INSERT INTO history_log(user_id,action,date) VALUES('$id','$remarks','$date')")or die(mysqli_error($con));
+			  	if ($counter == 0) 
+				  {	
+				  echo "<script type='text/javascript'>alert('Invalid Username or Password!');
+				  document.location='index.php'</script>";
+				  } 
+				  elseif ($counter > 0)
+				  {
+					  $_SESSION['id']=$row['user_id'];	
+					  $_SESSION['name']=$name;		
+				  
 
-			
-		    $query1=mysqli_query($con,"select * from payment natural join customer where branch_id='$branch' and status<>'paid'")or die(mysqli_error($con));
-		    while($row1=mysqli_fetch_array($query1)){
+					$remarks="has logged in the system at ";  
+					mysqli_query($con,"INSERT INTO history_log(user_id,action,date) VALUES('$id','$remarks','$date')")or die(mysqli_error($con));
 
-		      $pid=$row1['payment_id'];	
-		      $balance=$row1['balance'];	
-		      $payment_for = date("Y-m-d",strtotime($row1['payment_for']));
-		      $date = date("Y-m-d");
-		      $due1 = date("Y-m-d",strtotime($payment_for. " +1 months"));
-		      $due2 = date("Y-m-d",strtotime($due1. " +5 days"));
-		        if ($date>$due2)
-		          {
-		            $interest=$balance*(0.03);
-		            mysqli_query($con,"UPDATE payment SET interest='$interest',remaining=remaining+'$interest' where payment_id='$pid'") or die(mysqli_error($con));
-		           
-		          } 
-		        else
-		          {
-		            $interest='0';
-		           
-		          }
-		         
-		 		}                
+				
+			    $query1=mysqli_query($con,"select * from payment natural join customer where branch_id='$branch' and status<>'paid'")or die(mysqli_error($con));
+			    while($row1=mysqli_fetch_array($query1)){
 
-				 echo "<script type='text/javascript'>document.location='pages/home.php'</script>";
-			  }
+			      $pid=$row1['payment_id'];	
+			      $balance=$row1['balance'];	
+			      $payment_for = date("Y-m-d",strtotime($row1['payment_for']));
+			      $date = date("Y-m-d");
+			      $due1 = date("Y-m-d",strtotime($payment_for. " +1 months"));
+			      $due2 = date("Y-m-d",strtotime($due1. " +5 days"));
+			        if ($date>$due2)
+			          {
+			            $interest=$balance*(0.03);
+			            mysqli_query($con,"UPDATE payment SET interest='$interest',remaining=remaining+'$interest' where payment_id='$pid'") or die(mysqli_error($con));
+			           
+			          } 
+			        else
+			          {
+			            $interest='0';
+			           
+			          }
+			         
+			 		}                
+
+					 echo "<script type='text/javascript'>document.location='pages/home.php'</script>";
+				}
+		}
+		else
+		{
+			$query=mysqli_query($con,"select * from user natural join branch where username='$user' and password='$pass' and status='active'")or die(mysqli_error($con));
+				$row=mysqli_fetch_array($query);
+			           $id=$row['user_id'];
+			           $name=$row['name'];
+			           $counter=mysqli_num_rows($query);
+
+			           $id=$row['user_id'];
+			           $_SESSION['branch']=$row['branch_id'];
+			           $_SESSION['skin']=$row['skin'];
+
+			  	if ($counter == 0) 
+				  {	
+				  echo "<script type='text/javascript'>alert('Invalid Username or Password!');
+				  document.location='index.php'</script>";
+				  } 
+				  elseif ($counter > 0)
+				  {
+					  $_SESSION['id']=$row['user_id'];	
+					  $_SESSION['name']=$name;		
+				  
+
+					$remarks="has logged in the system at ";  
+					mysqli_query($con,"INSERT INTO history_log(user_id,action,date) VALUES('$id','$remarks','$date')")or die(mysqli_error($con));
+
+				
+			    $query1=mysqli_query($con,"select * from payment natural join customer where branch_id='$branch' and status<>'paid'")or die(mysqli_error($con));
+			    while($row1=mysqli_fetch_array($query1)){
+
+			      $pid=$row1['payment_id'];	
+			      $balance=$row1['balance'];	
+			      $payment_for = date("Y-m-d",strtotime($row1['payment_for']));
+			      $date = date("Y-m-d");
+			      $due1 = date("Y-m-d",strtotime($payment_for. " +1 months"));
+			      $due2 = date("Y-m-d",strtotime($due1. " +5 days"));
+			        if ($date>$due2)
+			          {
+			            $interest=$balance*(0.03);
+			            mysqli_query($con,"UPDATE payment SET interest='$interest',remaining=remaining+'$interest' where payment_id='$pid'") or die(mysqli_error($con));
+			           
+			          } 
+			        else
+			          {
+			            $interest='0';
+			           
+			          }
+			         
+			 		}                
+
+					 echo "<script type='text/javascript'>document.location='pages/home.php'</script>";
+				}
+		}
 	}	 
 	
 	else
