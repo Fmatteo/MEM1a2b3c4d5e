@@ -265,14 +265,10 @@ endif;
                     <thead>
                       <tr>
             						<th>Account #</th>
-            						<th>Picture</th>
-                        <th>Customer Last Name</th>
-                        <th>Customer First Name</th>
+                        <th>Last Name</th>
+                        <th>First Name</th>
                         <th>Address</th>
             						<th>Contact #</th>
-            						<th>Balance</th>
-                        <th>Credit Status</th>
-            						<th>Status</th>
                         <th>Action</th>
 						
                       </tr>
@@ -287,19 +283,12 @@ endif;
 ?>
                       <tr>
 					    <td><?php echo $row['cust_id'];?></td>
-						<td><img style="width:80px;height:60px" src="../dist/uploads/<?php echo $row['cust_pic'];?>"></td>
                         <td><?php echo $row['cust_last'];?></td>
                         <td><?php echo $row['cust_first'];?></td>
                         <td><?php echo $row['cust_address'];?></td>
 						<td><?php echo $row['cust_contact'];?></td>
-						<td><?php echo number_format($row['balance'],2);?></td>
-            <td><?php echo $row['credit_status'];?></td>
-						<td><?php if ($row['balance']==0) 
-								echo "<span class='label label-danger'>inactive</span>";
-								else echo "<span class='label label-info'>active</span>";
-							?></td>
                         <td>
-				<a href="<?php if ($row['credit_status']=='Approved') echo "account_summary.php?cid=$cid";?>"><i class="glyphicon glyphicon-share-alt text-green"></i></a>
+				<a href="customer_account.php?id=<?php echo $cid; ?>"><i class="glyphicon glyphicon-share-alt text-green"></i></a>
 				<a href="#updateordinance<?php echo $row['cust_id'];?>" data-target="#updateordinance<?php echo $row['cust_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
 				
 						</td>
@@ -341,14 +330,11 @@ endif;
 					</div>
 				</div>
         <br>
-		<div class="clearfix"></div>
-				  <div class="history" style="margin-top:50px">
-          </div>
+
               </div><br><br><br><hr>
               <div class="modal-footer">
-              <button class="btn btn-danger deleteButton" value="<?php echo $row['cust_id'];?>">Delete</button>
-              <button class="btn btn-success historyButton" value="<?php echo $row['cust_id'];?>">History</button>
 		<button type="submit" class="btn btn-primary">Save changes</button>
+              <button class="btn btn-danger deleteButton" value="<?php echo $row['cust_id'];?>">Delete</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
               </div>
 			  </form>
@@ -362,15 +348,11 @@ endif;
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th>#</th>
-						<th>Picture</th>
-                        <th>Customer Last Name</th>
-                        <th>Customer First Name</th>
+                        <th>Account #</th>
+                        <th>Last Name</th>
+                        <th>First Name</th>
                         <th>Address</th>
               						<th>Contact #</th>
-              						<th>Balance</th>
-                          <th>Credit Status</th>
-              						<th>Status</th>
                         <th>Action</th>
                       </tr>					  
                     </tfoot>

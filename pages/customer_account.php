@@ -54,7 +54,7 @@ endif;
                   <!-- Date range -->
                   <form method="post" action="" enctype="multipart/form-data">
       <?php
-          $cid=$_REQUEST['customer'];
+          $cid=$_REQUEST['id'];
           $query=mysqli_query($con,"select * from customer where cust_id='$cid'")or die(mysqli_error());
       $row=mysqli_fetch_array($query);
       ?>  
@@ -78,9 +78,14 @@ endif;
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
-                    <label for="date">Balance</label>
+                    <label for="date">Total Sales</label>
                     <div class="input-group col-md-12">
-                      <h3><?php echo number_format($row['balance'],2);?></h3>
+                      <?php 
+                        $query = mysqli_query($con, "SELECT SUM(amount_due)as total FROM sales WHERE cust_id='$cid'")or die(mysqli_error());
+                        $row1 = mysqli_fetch_array($query);
+                      
+                        echo "<h3>".number_format($row1['total'],2)."</h3>";
+                      ?>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                  <a href="transaction.php?cid=<?php echo $cid;?>" class="btn btn-primary">
