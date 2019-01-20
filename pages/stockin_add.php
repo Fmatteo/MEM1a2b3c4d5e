@@ -51,22 +51,9 @@ include('../dist/includes/dbcon.php');
 		}
 		else
 		{
-			if (isset($_POST['furniture']))
-			{
-				mysqli_query($con, "UPDATE product SET prod_qty = prod_qty + '$prod_qty' WHERE prod_name = '$prod_name' AND branch_id = '$branch'")or die(mysqli_error());
-				$row = mysqli_fetch_array($sql);
-			}
-			if (isset($_POST['cosmetics']))
-			{
-				mysqli_query($con, "UPDATE product SET prod_qty = prod_qty + '$prod_qty' WHERE prod_name = '$prod_name' AND branch_id = '$branch'")or die(mysqli_error());
-				$row = mysqli_fetch_array($sql);
-			}
-			if (isset($_POST['mobile']))
-			{
-				mysqli_query($con, "UPDATE product SET prod_qty = prod_qty + '$prod_qty' WHERE prod_name = '$prod_name' AND branch_id = '$branch'")or die(mysqli_error());
-				$row = mysqli_fetch_array($sql);
-			}
-			$prod_id = $row['prod_id'];
+			echo "<script>alert('Item with this name is currently exists. Pick another name and try again.')</script>";
+			echo "<script>window.history.back();</script>";
+			return;
 		}	
 	}	
 
