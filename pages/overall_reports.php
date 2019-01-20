@@ -304,7 +304,7 @@ $role_permission = $rowrole['role'];
                               <i class="glyphicon glyphicon-usd text-white"></i>Sales
                             </a>
                           </li><!-- end notification -->
-                          <li><!-- start notification -->
+                          <li style="display: none;"><!-- start notification -->
                             <a href="purchase_request.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-usd text-white"></i>Purchase Request
                             </a>

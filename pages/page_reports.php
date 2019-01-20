@@ -310,7 +310,7 @@ $role_permission = $rowrole['role'];
                               <i class="glyphicon glyphicon-usd text-white"></i>Sales
                             </a>
                           </li><!-- end notification -->
-                          <li><!-- start notification -->
+                          <li style="display: none;"><!-- start notification -->
                             <a href="purchase_request.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-usd text-white"></i>Purchase Request
                             </a>
@@ -370,7 +370,7 @@ $role_permission = $rowrole['role'];
           <!-- Main content -->
           <section class="content">
           <div class="col-md-12 col-sm-12 col-xs-12">
-					<div class="box-header">Reports</div> 
+					<div class="box-header text-center" style="color: white; font-size: 18px">Reports</div> 
 
 					<div class="x-panel">
 						<div role="main">
