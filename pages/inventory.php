@@ -274,12 +274,12 @@ $branch=$_SESSION['branch'];
           <a class = "btn btn-success btn-print" href = "" onclick = "window.print()"><i class ="glyphicon glyphicon-print"></i> Print</a>
               <a class = "btn btn-danger btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
             
-                  <table class="table table-bordered table-striped">
+                  <table id="example1" class="table table-bordered table-striped">
                     <thead>
           
                       <tr>
-                        <th>Product Code</th> 
-                        <th>Product Name</th>
+                        <th>Model</th> 
+                        <th>Category</th>
                         <th>Supplier</th>                        
                         <th>Qty Left</th>
             
@@ -292,16 +292,28 @@ $branch=$_SESSION['branch'];
                     <tbody>
 <?php
     $branch=$_SESSION['branch'];
-    $query=mysqli_query($con,"select * from product natural join supplier where branch_id='$branch' order by prod_name")or die(mysqli_error());
+
     $grand=0;
+
+    $sql = "SELECT * FROM product a
+    LEFT JOIN supplier b on a.supplier_id = b.supplier_id
+    LEFT JOIN category c on a.cat_id = c.cat_id
+    WHERE a.branch_id = '$branch' ORDER BY a.prod_name, b.supplier_name";
+
+    $query = mysqli_query($con, $sql)or die(mysqli_error());
+
     while($row=mysqli_fetch_array($query)){
       $total=$row['base_price']*$row['prod_qty'];
       $grand+=$total;
 ?>
                       <tr>
-                        <td><?php echo $row['prod_id'];?></td>
                         <td><?php echo $row['prod_name'];?></td>
-                        <td><?php echo $row['supplier_name'];?></td>
+                        <td><?php echo $row['cat_name'];?></td>
+                        <td>
+                          <?php if ($row['supplier_id'] != 0) { echo $row['supplier_name']; }
+                            else {echo $row['manufacturer'];}
+                          ?>
+                        </td>
                         <td><?php echo $row['prod_qty'];?></td>
             
             <td><?php echo $row['base_price'];?></td>
