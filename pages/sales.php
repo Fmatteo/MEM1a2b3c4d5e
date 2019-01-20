@@ -458,6 +458,31 @@ $branch=$_SESSION['branch'];
   <script src="../dist/js/app.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="../dist/js/demo.js"></script>
+
+  <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      $('#example1').DataTable({
+          "paging": false,
+          "lengthChange": false,
+          "searching": true,
+          "ordering":false,
+          "info": false,
+          "autoWidth": false,
+          "dom":' <"search"f><"top"l>rt<"bottom"ip><"clear">'
+        });
+    });
+
+  </script>
+  <style>
+    .search{
+      margin-top: 20px;
+      margin-left: 10px;
+    }
+  </style>
+
     <script>
   $(function () {
     //Initialize Select2 Elements
