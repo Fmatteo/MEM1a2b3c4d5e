@@ -493,6 +493,15 @@ $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or
                   <option value="check">Check</option>                  
                 </select>
               </div>
+
+              <div class="form-group">
+                <label for="modeofpayment">EXTRA</label>
+                <select class="form-control" id="modeofpayment" name="extra" required>
+                  <option value="NON-GOV" selected>NON-GOV</option>
+                  <option value="GOV">GOV</option>        
+                </select>
+              </div>
+
               <div class="form-group" id="tendered">
                 <label for="date">Cash Tendered</label><br>
                 <input type="text" style="text-align:right" class="form-control" onFocus="startCalc();" onBlur="stopCalc();"  id="cash" name="tendered" placeholder="Cash Tendered" required>

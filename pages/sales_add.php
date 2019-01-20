@@ -6,7 +6,8 @@ include('../dist/includes/dbcon.php');
 	$discount = $_POST['discount'];
 	// $payment = $_POST['payment'];
 	$amount_due = $_POST['amount_due'];
-	
+	$extra = $_POST['extra'];
+
 	date_default_timezone_set("Asia/Manila"); 
 	$date = date("Y-m-d H:i:s");
 	$cid=$_REQUEST['cid'];
@@ -18,8 +19,8 @@ include('../dist/includes/dbcon.php');
 		$tendered = $_POST['tendered'];
 		$change = $_POST['change'];
 
-		mysqli_query($con,"INSERT INTO sales(cust_id,user_id,discount,amount_due,total,date_added,modeofpayment,cash_tendered,cash_change,branch_id) 
-	VALUES('$cid','$id','$discount','$amount_due','$total','$date','$modeofpayment','$tendered','$change','$branch')")or die(mysqli_error($con));
+		mysqli_query($con,"INSERT INTO sales(cust_id,user_id,discount,amount_due,total,date_added,modeofpayment,cash_tendered,cash_change,branch_id,extra) 
+	VALUES('$cid','$id','$discount','$amount_due','$total','$date','$modeofpayment','$tendered','$change','$branch','$extra')")or die(mysqli_error($con));
 		
 	$sales_id=mysqli_insert_id($con);
 	$_SESSION['sid']=$sales_id;

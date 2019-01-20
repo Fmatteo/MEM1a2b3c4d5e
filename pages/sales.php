@@ -285,7 +285,7 @@ $role_permission = $rowrole['role'];
             <div class="col-md-12">
         <div class="box box-primary angel">
         <div class="box-header">
-          <h3 class="box-title">Select Date</h3>
+          <h3 class="box-title">NON-GOVERNMENT SALES REPORT<br><br>Select Date</h3>
         </div>
         <div class="box-body">
         
@@ -357,7 +357,7 @@ $branch=$_SESSION['branch'];
                     </thead>
                     <tbody>
 <?php
-  $query=mysqli_query($con,"select * from sales natural join sales_details natural join product natural join customer where date(date_added)>='$start' and date(date_added)<='$end' and branch_id='$branch'")or die(mysqli_error($con));
+  $query=mysqli_query($con,"select * from sales natural join sales_details natural join product natural join customer where date(date_added)>='$start' and date(date_added)<='$end' and branch_id='$branch' and extra='NON-GOV'")or die(mysqli_error($con));
     $qty=0;$grand=0;$discount=0;$total_profit=0;
                 while($row=mysqli_fetch_array($query)){
                 $total=$row['qty']*$row['price'];
