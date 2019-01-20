@@ -200,7 +200,7 @@ endif;
                             </a>
                           </li><!-- end notification -->
                           <li><!-- start notification -->
-                      
+                          <?php if ($_SESSION['role'] == 'admin'){?>
                             <a href="sales.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-usd text-white"></i>Sales Non-gov
                             </a>
@@ -233,7 +233,7 @@ endif;
                               <i class="glyphicon glyphicon-usd text-white"></i>History logs
                             </a>
                           </li><!-- end notification -->
-                         
+                         <?php }?>
                           <li><!-- start notification -->
                             <a href="receivables.php" class="subnav-txt" style="display:none;">
                               <i class="glyphicon glyphicon-th-list text-white"></i>Account Receivables

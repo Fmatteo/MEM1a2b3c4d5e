@@ -217,7 +217,7 @@ endif;
                             </a>
                           </li><!-- end notification -->
                           <li><!-- start notification -->
-                             <?php if ($role_permission == 'admin'){?>
+                             <?php if ($_SESSION['role'] == 'admin'){?>
                             <a href="sales.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-usd text-white"></i>Sales Non-gov
                             </a>
