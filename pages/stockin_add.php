@@ -44,9 +44,8 @@ include('../dist/includes/dbcon.php');
 			{
 				$prod_imei = $_POST['prod_imei'];
 				$prod_color = $_POST['prod_color'];
-				$prod_manufacturer = $_POST['prod_manufacturer'];
 
-				mysqli_query($con, "INSERT INTO product(prod_name, cat_id, prod_qty, branch_id, reorder, base_price, type, imei, color, manufacturer)VALUES('$prod_name', '$prod_cat', '$prod_qty', '$branch', '$reorder', '$prod_price', 'mobile', '$prod_imei', '$prod_color', '$prod_manufacturer')")or die(mysqli_error($con));
+				mysqli_query($con, "INSERT INTO product(prod_name, cat_id, prod_qty, branch_id, reorder, base_price, type, imei, color, supplier_id)VALUES('$prod_name', '$prod_cat', '$prod_qty', '$branch', '$reorder', '$prod_price', 'mobile', '$prod_imei', '$prod_color', '$supplier')")or die(mysqli_error($con));
 			}
 	    	$prod_id = mysqli_insert_id($con);
 		}

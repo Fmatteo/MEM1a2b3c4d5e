@@ -594,7 +594,7 @@ endif;
                               <th>IMEI</th>
                               <th>Color</th>
                               <th>Category</th>
-                              <th>Manufacturer</th>
+                              <th>Company Name</th>
                               <th>Reorder</th>
                               <th>Quantity</th>
                               <th>Base price</th>
@@ -617,7 +617,7 @@ endif;
                               <td><?php echo $row['imei'];?></td>
                               <td><?php echo $row['color'];?></td>
                               <td><?php echo $row['cat_name'];?></td>
-                              <td><?php echo $row['manufacturer'];?></td>
+                              <td><?php echo $row['supplier_name'];?></td>
                               <td><?php echo $row['reorder'];?></td>
                               <td><?php echo $row['prod_qty'];?></td>
                               <td><?php echo $row['base_price'];?></td>
@@ -703,10 +703,19 @@ endif;
                                       </div>
 
                                       <div class="form-group">
-                                        <label class="control-label col-lg-3">Manufacturer</label>
+                                        <label class="control-label col-lg-3">Company Name</label>
                                         <div class="col-lg-9">
-                                          <input type="text" class="form-control" name="manufacturer" value="<?php echo $row['manufacturer']; ?>" required>
-                                          
+                                          <select name = "supplier" class = "form-control" required>
+                                            <?php 
+                                              $query1 = "SELECT * FROM supplier order by supplier_name";
+                                              $sql1 = mysqli_query($con, $query1)or die(mysqli_error($con));
+
+                                              while($row1 = mysqli_fetch_array($sql1))
+                                              {
+                                            ?>
+                                              <option value = "<?php echo $row1['supplier_id']; ?>"> <?php echo $row1['supplier_name']; ?> </option>
+                                            <?php }?>
+                                          </select>
                                         </div>
                                       </div>
 
@@ -747,7 +756,7 @@ endif;
                               <th>IMEI</th>
                               <th>Color</th>
                               <th>Category</th>
-                              <th>Manufacturer</th>
+                              <th>Company Name</th>
                               <th>Reorder</th>
                               <th>Quantity</th>
                               <th>Base price</th>
@@ -1001,9 +1010,21 @@ endif;
                     </div><!-- /.input group -->
                   </div><!-- /.form group --> 
                   <div class="form-group">
-                    <label for="date">Manufacturer</label>
+                    <label for="date">Company Name</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="color" name="prod_manufacturer" placeholder="Manufacturer" required>
+                      <select class="form-control" name="supplier_id" required>
+                        <?php 
+                          $query = "SELECT * FROM supplier";
+                          $sql = mysqli_query($con, $query)or die(mysqli_error());
+
+                          while ($row = mysqli_fetch_array($sql))
+                          {
+                            $supplier_id = $row[0];
+                            $supplier_name = $row[1];
+                        ?>
+                          <option value="<?php echo $supplier_id; ?>"> <?php echo $supplier_name; ?> </option>
+                        <?php }?>
+                      </select>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->     
                   <div class="form-group">

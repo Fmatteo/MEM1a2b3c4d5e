@@ -48,12 +48,12 @@ if ($count == 0) // CHECKS IF THERE IS ALREADY SAME NAME EXISTING
 		$imei = $_POST['imei'];
 		$color = $_POST['color'];
 		$category = $_POST['category'];
-		$manufacturer = $_POST['manufacturer'];
+		$supplier = $_POST['supplier'];
 		$reorder = $_POST['reorder'];
 		$qty = $_POST['qty'];
 		$price = $_POST['price'];
 
-		mysqli_query($con, "UPDATE product SET prod_name = '$model', cat_id = '$category', prod_qty = '$qty', reorder = '$reorder', base_price = '$price', imei='$imei', color = '$color', manufacturer = '$manufacturer' WHERE prod_id = '$id' AND branch_id = '$branch'")or die(mysqli_error($con));
+		mysqli_query($con, "UPDATE product SET prod_name = '$model', cat_id = '$category', prod_qty = '$qty', reorder = '$reorder', base_price = '$price', imei='$imei', color = '$color', supplier_id = '$supplier' WHERE prod_id = '$id' AND branch_id = '$branch'")or die(mysqli_error($con));
 	}
 	echo "<script type='text/javascript'>alert('Successfully updated product details!');</script>";
 	echo "<script>document.location='stockin.php'</script>";  
