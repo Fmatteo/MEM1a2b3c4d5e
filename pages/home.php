@@ -237,7 +237,14 @@ $role_permission = $rowrole['role'];
                           <li><!-- start notification -->
                              <?php if ($role_permission == 'admin'){?>
                             <a href="sales.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-usd text-white"></i>Sales
+                              <i class="glyphicon glyphicon-usd text-white"></i>Sales Non-gov
+                            </a>
+
+                          </li><!-- end notification -->
+                          <li><!-- start notification -->
+                             
+                            <a href="salesgov.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-usd text-white"></i>Sales gov
                             </a>
 
                           </li><!-- end notification -->
