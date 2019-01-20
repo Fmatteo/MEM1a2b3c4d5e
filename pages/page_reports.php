@@ -1,4 +1,5 @@
-<?php include '../dist/includes/dbcon.php';
+<?php include 'header.php';
+
 $branch_id = $_GET['id'];
 
 ?>
@@ -24,18 +25,20 @@ th{
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-       <?php //include 'main_sidebar.php';?>
+       <?php include 'main_sidebar.php';?>
 
         <!-- top navigation -->
-       <?php //include 'top_nav.php';?>
+       <?php include 'top_nav.php';?>
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div role="main"> 
-			<div class="row">
-				<div class="col-md-12 col-sm-12 col-xs-12">	
+        <div class="right_col" style="padding: 40px;" role="main">
+			<div class = "row" style="margin-top: 25px;">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="box-header">Reports</div> 
+
 					<div class = "x-panel">
-						<div class="right_col" role="main">
+						<div role="main">
 								<?php					 
 			$branch=$_GET['id'];
 			$query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die(mysqli_error());  
@@ -76,11 +79,11 @@ th{
 								<?php 
 								$date = date("M. d, Y");
 								$branch_id = $_GET['id'];
-									$query = mysqli_query($con,"select SUM(remaining) as remaining from payment where  branch_id ='$branch_id' ") or die(mysqli_error($con));
+									$query = mysqli_query($con,"select SUM(balance) as total_balance from customer where  branch_id ='$branch_id' ") or die(mysqli_error($con));
 										$row1=mysqli_fetch_array($query);
 											
 								?>
-								<div class="count green"><?php echo $row1['remaining'];?></div>
+								<div class="count green"><?php echo $row1['total_balance'];?></div>
 								<span class="count_bottom"><i class="green">Total Receivables as of</i> <?php echo $date;?></span>
 								</div>
 								<div class="col-md-3 col-sm-3 col-xs-3 tile_stats_count">
@@ -250,7 +253,18 @@ th{
           });
       });
     </script>
-	<?php //include 'datatable_script.php';?>
+     <footer>
+          <div class="pull-right">
+            <p class="footer-txt">Copyright © 2018 <strong>SYDESO</strong> System Development Solutions. All rights reserved.</p>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+	<?php include 'datatable_script.php';?>
+	<?php include 'datatable_script.php';?>
     <!-- /gauge.js -->
   </body>
 </html>
