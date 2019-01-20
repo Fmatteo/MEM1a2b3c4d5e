@@ -357,7 +357,7 @@ $branch=$_SESSION['branch'];
                     </thead>
                     <tbody>
 <?php
-  $query=mysqli_query($con,"select * from sales natural join sales_details natural join product natural join customer where date(date_added)>='$start' and date(date_added)<='$end' and branch_id='$branch' and extra='NON-GOV'")or die(mysqli_error($con));
+  $query=mysqli_query($con,"select * from sales natural join sales_details natural join product natural join customer where date(date_added)>='$start' and date(date_added)<='$end' and branch_id='$branch' and extra='GOV'")or die(mysqli_error($con));
     $qty=0;$grand=0;$discount=0;$total_profit=0;
                 while($row=mysqli_fetch_array($query)){
                 $total=$row['qty']*$row['price'];
