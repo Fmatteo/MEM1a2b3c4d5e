@@ -345,12 +345,11 @@ $branch=$_SESSION['branch'];
                     <thead>
                       <tr>
                         <th>Transaction #</th>
+                        <th>Mode of Payment</th>
                         <th>Customer Name</th>
                         <th>Product</th>
-                        <th>Product Code</th>
                         <th>Qty</th>
                         <th>Selling Price</th>
-                        <th>Total Expenses</th>
                         <th>Total Sales</th>
                         <th>Profit</th>
                         <th>Date Paid</th>
@@ -358,7 +357,7 @@ $branch=$_SESSION['branch'];
                     </thead>
                     <tbody>
 <?php
-  $query=mysqli_query($con,"select * from sales natural join sales_details natural join product natural join customer where date(date_added)>='$start' and date(date_added)<='$end' and branch_id='$branch' and modeofpayment='cash'")or die(mysqli_error($con));
+  $query=mysqli_query($con,"select * from sales natural join sales_details natural join product natural join customer where date(date_added)>='$start' and date(date_added)<='$end' and branch_id='$branch'")or die(mysqli_error($con));
     $qty=0;$grand=0;$discount=0;$total_profit=0;
                 while($row=mysqli_fetch_array($query)){
                 $total=$row['qty']*$row['price'];
@@ -368,18 +367,16 @@ $branch=$_SESSION['branch'];
         
 ?>
             <tr>
-            <td><?php echo $row['sales_id'];;?></td>
+            <td><?php echo $row['sales_id'];?></td>
+            <td><?php echo strtoupper($row['modeofpayment']); ?></td> 
             <td><?php echo $row['cust_last'].", ".$row['cust_first'];?></td>
             <td><?php echo $row['prod_name'];?></td>
-            <td><?php echo $row['serial'];?></td>
             <td><?php echo $row['qty'];?></td>
              <td><?php echo $row['price'];?></td>
-            <td></td>
             <td style="text-align:right"><?php echo number_format($total,2);
                 ?></td>
             <td><?php echo $profit;?></td>
             <td><?php echo date("M d, Y h:i a",strtotime($row['date_added']));?></td>    
-      
     
  <?php }?>                       
                       </tr>
@@ -387,16 +384,16 @@ $branch=$_SESSION['branch'];
                     </tbody>
                     <tfoot>
           <tr>
-            <th colspan="9">Total</th>
+            <th colspan="8">Total</th>
             <th style="text-align:right;"><h4><b><?php echo  number_format($grand,2);?></b></h4></th>
           </tr>                
           
           <tr>
-            <th colspan="9">Total Cash Sales</th>
+            <th colspan="8">Total Cash Sales</th>
             <th style="text-align:right;"><h4><b><?php echo  number_format(($grand-$discount),2);?></b></h4></th>
           </tr> 
           <tr>
-            <th colspan="9">Total Profit less Expenses</th>
+            <th colspan="8">Total Profit less Expenses</th>
   <th style="text-align:right;"><h4><b><?php echo  number_format(($total_profit),2);}?></b></h4></th>
           </tr>   
           <tr>
