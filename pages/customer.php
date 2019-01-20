@@ -32,18 +32,20 @@ endif;
   border-radius: 6px;
 }
 
- .sidebar {  
-    width: 250;
-    height:100%;
-    display: block;
-    left: -240px;
-    top: 0px;
-    transition: left 0.3s linear;
+ 
+   
+   .sidebar {  
+      width: 250;
+      height:100%;
+      display: block;
+      left: -240px;
+      top: 0px;
+      transition: left 0.3s linear;
     }
 
     .sidebar.visible {
-    left:0px;
-    transition: left 0.3s linear;
+      left:0px;
+      transition: left 0.3s linear;
     }
 
     .nav-txt {
@@ -51,36 +53,37 @@ endif;
     }
 
     .subnav-txt:hover {
-      color: #ff0000;
+      color: #3498db;
     }
 
     .nav-txt:hover {
-      background-color: #7d0000;
+      background-color: #3a539b;
       color: white;
       transition: all .2s;
     }
 
     .main-sidebar {
-    background-image: linear-gradient(to left, #22a7f0 , #3498db);
-    position: fixed;
-    z-index: 5;
-}
+      background-image: linear-gradient(to left, #22a7f0 , #3498db);
+      position: fixed;
+      z-index: 5;
+    }
 
     .main-sidebar * a {
       color: white;
     }
 
     .treeview-menu {
-      background-color: #7d0000;
+      background-color: #3a539b;
     }
 
     .reorder-count {
       font-size: 10px !important;
     }
 
-   .box-header {
-    background-image: linear-gradient(to left, #22a7f0 , #3498db);
-}
+    .box-header {
+      background-image: linear-gradient(to left, #22a7f0 , #3498db);
+    }
+
     .menu {
       list-style-type: none;
       margin: 0;
@@ -93,13 +96,66 @@ endif;
       display: block !important;
     }
 
-    .btn:hover {
-      transition: all .2s linear;
+    .transactions-link {
+      display: inline-block;
     }
-    .box.box-danger {
-    border-top-color: #dd4b39;
-}
 
+    .transactions-box {
+      background-image: linear-gradient(to left, #22a7f0 , #3498db);
+      display: flex;
+      height: 150px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .transactions-box:hover .transactions-title-visible {
+      transform: translateX(-100%);
+      transition: all .5s;
+    }
+
+    .transactions-box:hover .transactions-title-invisible {
+      right: 0;
+      transition: all .5s;
+    }
+
+    .transactions-title {
+      color: white;
+      letter-spacing: 2px;
+      display: inline-block;
+      font-size: 17px;
+      margin: 10px 0 0 0;
+      width: 100%;
+      padding: 5px;
+      text-align: center;
+      font-variant: bold;
+    }
+
+    .transactions-title-invisible {
+      position: absolute;
+      width: 100%;
+      top: 85px;
+      right: -100%;
+    }
+
+    .transaction-title-visible {
+      width: 100%;
+    }
+
+    .transactions-wrapper {
+      display: grid;
+      grid-template-columns: repeat(3,300px);
+      grid-gap: 15px;
+      justify-content: center;
+      margin-top: 25px;
+    }
+    .box.box-primary {
+    border-top-color: #2db8eb;
+}
+    
 
           </style>
  </head>
