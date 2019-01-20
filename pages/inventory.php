@@ -279,8 +279,9 @@ $branch=$_SESSION['branch'];
           
                       <tr>
                         <th>Model</th> 
+                        <th>Description</th>
                         <th>Category</th>
-                        <th>Supplier</th>                        
+                        <th>Company Name</th>                        
                         <th>Qty Left</th>
             
                         <th>Price</th>
@@ -308,6 +309,8 @@ $branch=$_SESSION['branch'];
 ?>
                       <tr>
                         <td><?php echo $row['prod_name'];?></td>
+                        <td><?php if ($row['type'] != 'mobile') { echo $row['prod_desc']; }
+                        else { echo 'IMEI: '.$row['imei'] .'<br>'. 'Color: ' . $row['color']; }?></td>
                         <td><?php echo $row['cat_name'];?></td>
                         <td>
                           <?php if ($row['supplier_id'] != 0) { echo $row['supplier_name']; }
