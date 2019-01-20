@@ -139,8 +139,7 @@ endif;
  </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
   <body>
-  <div class="wrapper">
-      <?php include('../dist/includes/header.php');?>
+  <?php include('../dist/includes/header.php');?>
       <!-- Full Width Column -->
       <div class="content-wrapper">
      
@@ -168,6 +167,11 @@ endif;
                 </a>
               <ul class="treeview-menu">
                 <li>
+                          <li><!-- start notification -->
+                            <a href="customer.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-user text-white"></i> Customer
+                            </a>
+                          </li><!-- end notification -->
                           <li><!-- start notification -->
                             <a href="category.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-user text-white"></i> Company Name
@@ -213,15 +217,24 @@ endif;
                             </a>
                           </li><!-- end notification -->
                           <li><!-- start notification -->
+                             <?php if ($role_permission == 'admin'){?>
                             <a href="sales.php" class="subnav-txt">
-                              <i class="glyphicon glyphicon-usd text-white"></i>Sales
+                              <i class="glyphicon glyphicon-usd text-white"></i>Sales Non-gov
                             </a>
+
                           </li><!-- end notification -->
                           <li><!-- start notification -->
+                             
+                            <a href="salesgov.php" class="subnav-txt">
+                              <i class="glyphicon glyphicon-usd text-white"></i>Sales gov
+                            </a>
+
+                          </li><!-- end notification -->
+                         <!--  <li>
                             <a href="purchase_request.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-usd text-white"></i>Purchase Request
                             </a>
-                          </li><!-- end notification -->
+                          </li> -->
                           <li><!-- start notification -->
                             <a href="reports_per_branch.php" class="subnav-txt">
                               <i class="glyphicon glyphicon-usd text-white"></i>Reports per branch
@@ -237,6 +250,7 @@ endif;
                               <i class="glyphicon glyphicon-usd text-white"></i>History logs
                             </a>
                           </li><!-- end notification -->
+                          <?php }?>
                           <li><!-- start notification -->
                             <a href="receivables.php" class="subnav-txt" style="display:none;">
                               <i class="glyphicon glyphicon-th-list text-white"></i>Account Receivables
@@ -266,6 +280,8 @@ endif;
         </section>
         <!-- /.sidebar -->
       </aside>
+
+
 
           <!-- Content Header (Page header) -->
           <section class="content-header">
