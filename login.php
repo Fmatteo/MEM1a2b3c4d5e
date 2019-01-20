@@ -296,6 +296,7 @@ $date = date("Y-m-d H:i:s");
 		$query=mysqli_query($con, "SELECT * FROM user WHERE username ='$user' AND password='$pass' AND status ='active'")or die(mysqli_error());
 		$fetch = mysqli_fetch_array($query);
 		$role = $fetch['role'];
+		$_SESSION['role'] = $fetch['role'];
 
 		if ($role != "admin")
 		{
@@ -409,6 +410,8 @@ $date = date("Y-m-d H:i:s");
 	{
 		$query=mysqli_query($con,"select * from user where username='$user' and password='$pass' and status='active' and role='admin'")or die(mysqli_error($con));
 			$row=mysqli_fetch_array($query);
+		$_SESSION['role'] = $row['role'];
+
 		           $id=$row['user_id'];
 		           $name=$row['name'];
 		           $counter=mysqli_num_rows($query);
