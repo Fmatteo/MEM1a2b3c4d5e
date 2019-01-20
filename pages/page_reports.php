@@ -266,5 +266,6 @@ th{
 	<?php include 'datatable_script.php';?>
 	<?php include 'datatable_script.php';?>
     <!-- /gauge.js -->
+    <!-- -->
   </body>
 </html>
