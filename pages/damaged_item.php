@@ -248,6 +248,7 @@ endif;
                   <h3 class="box-title">Damaged item history</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
+                  <a class = "btn btn-success btn-print" href = "" onclick = "window.print()"><i class ="glyphicon glyphicon-print"></i> Print</a>
                 <table id="example1" class="table table-bordered table-striped">
                           <thead>
                             <tr>
@@ -256,7 +257,8 @@ endif;
                               <th>Category</th>
                               <th>Qty</th>  
                               <th>Date</th>                           
-                              <th>Notification</th>                              
+                              <th>Notification</th>  
+                              <th>Remarks</th>                            
                               <th>Action</th> 
                             </tr>
                           </thead>
@@ -295,6 +297,7 @@ endif;
                               ?>                              
                               <td><?php if (isset($row['date'])) echo $row['date'];?></td>
                               <td style="background: <?php echo $color;?>;color:#fff;font-weight: 800;"><?php echo $text; ?></td>
+                              <td><?php echo $row['remarks']; ?></td>
                               <td>
                                 <a href="#updateitem<?php echo $row['prod_id'];?>" data-target="#updateitem<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
                               </td>
@@ -342,8 +345,10 @@ endif;
                               <th>Company name</th>
                               <th>Category</th>
                               <th>Qty</th>                              
-                              <th>Notification</th>
                               <th>Date</th>
+                              <th>Notification</th>
+                              <th>Remarks</th>
+                              <th>Actions</th>
                             </tr>					  
                           </tfoot>
                         </table>
