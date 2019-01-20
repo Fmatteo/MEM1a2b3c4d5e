@@ -393,7 +393,7 @@ $branch=$_SESSION['branch'];
             <th style="text-align:right;"><h4><b><?php echo  number_format(($grand-$discount),2);?></b></h4></th>
           </tr> 
           <tr>
-            <th colspan="8">Total Profit less Expenses</th>
+            <th colspan="8">Total Profit</th>
   <th style="text-align:right;"><h4><b><?php echo  number_format(($total_profit),2);}?></b></h4></th>
           </tr>   
           <tr>

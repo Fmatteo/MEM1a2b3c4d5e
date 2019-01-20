@@ -11,12 +11,13 @@ include('../dist/includes/dbcon.php');
 	$password =$_POST['password'];
 	$newpassword = $_POST['newpassword'];
 	$role = $_POST['role'];
+	$branch = $_POST['branch_id'];
 	
-	$pass=md5($old);
+	$pass=md5($password);
 	$salt="a1Bz20ydqelm8m1wql";
 	$pass=$salt.$pass;
 	
-	$passnew=md5($password);
+	$passnew=md5($newpassword);
 	$salt="a1Bz20ydqelm8m1wql";
 	$passnew=$salt.$passnew;
 	
@@ -25,15 +26,15 @@ include('../dist/includes/dbcon.php');
 	
 				$passold=$row['password'];
 				
-				if ($ewpassword==$password)
+				if ($pass==$passnew)
 				{
 					if ($password<>"")
 					{
-						mysqli_query($con,"update user set name='$name',username='$username',password='$passnew',role='$role' where user_id='$id'")or die(mysqli_error($con));
+						mysqli_query($con,"update user set name='$name',username='$username',password='$passnew',role='$role',branch_id='$branch' where user_id='$id'")or die(mysqli_error($con));
 					}
 					else
 					{
-						mysqli_query($con,"update user set name='$name',username='$username',role='$role' where user_id='$id'")or die(mysqli_error($con));
+						mysqli_query($con,"update user set name='$name',username='$username',role='$role',branch_id='$branch' where user_id='$id'")or die(mysqli_error($con));
 					}
 					
 					$_SESSION['name']=$name;
