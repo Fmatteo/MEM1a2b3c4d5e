@@ -194,7 +194,7 @@ endif;
             <div class="form-group">
               <label for="date">Category for</label>
               <div class="input-group col-md-12">
-                <select class="form-control" required>
+                <select class="form-control" name="cat_for" required>
                   <option value="Furniture" selected>Furniture</option>
                   <option value="Beauty Products">Beauty Products</option>
                   <option value="Mobile">Mobile</option>
