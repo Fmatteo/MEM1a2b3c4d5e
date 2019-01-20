@@ -20,6 +20,7 @@ endif;
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
+
     <style>
       
     </style>
@@ -88,8 +89,7 @@ endif;
                       ?>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-                 <a href="transaction.php?cid=<?php echo $cid;?>" class="btn btn-primary">
-                  <i class="glyphicon glyphicon-shopping-cart text-blue"></i>Add New Order</a>
+
         </form> 
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
@@ -105,36 +105,90 @@ endif;
                   <table id="" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>Qty</th>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Term</th>
-                        <th>Payable for</th>
-                        <th>Order Date</th>
-                        <th>Due Date</th>
-                        <th>Amount Due</th>
-                        <th>Payment Status</th>
+                        <th>Transaction #</th>
+                        <th>Mode of Payment</th>
+                        <th>Extra</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
 <?php
    // $cid=$_REQUEST['cid'];
-    $query=mysqli_query($con,"select * from sales natural join sales_details natural join product natural join term where cust_id='$cid'")or die(mysqli_error($con));
-    while($row=mysqli_fetch_array($query)){
-    
+    $query = mysqli_query($con, "SELECT * FROM sales WHERE cust_id='$cid'")or die(mysqli_error());
+    while ($row = mysqli_fetch_array($query))
+    {
+      $sid = $row['sales_id'];
 ?>
                       <tr>
-                        <td><?php echo $row['qty'];?></td>
-                        <td><?php echo $row['prod_name'];?></td>
-                        <td><?php echo $row['prod_price'];?></td>
-                        <td><?php echo $row['term'];?></td>
-                        <td><?php echo $row['payable_for'];?> month/s</td>
-                        <td><?php echo date("M d, Y h:i a",strtotime($row['date']));?></td>
-                       <td><?php echo date("M d, Y h:i a",strtotime($row['due_date']));?></td>
-                        <td><?php echo $row['due'];?></td>
-                        <td><?php echo $row['status'];?></td>
-                        
+                        <td><?php echo $row['sales_id']; ?></td>
+                        <td><?php echo strtoupper($row['modeofpayment']); ?></td>
+                        <td><?php echo $row['extra']; ?></td>
+                        <td><?php echo date('Y-m-d', strtotime($row['date_added'])); ?></td>
+                        <td><?php echo $row['amount_due']; ?></td>
+                        <td>
+                          <a href="#show<?php echo $row['sales_id']; ?>" data-target="#show<?php echo $row['sales_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><button type="button" class="btn btn-primary">VIEW MORE</button></a>
+                        </td>
                       </tr>
+
+
+                      <div id="show<?php echo $row['sales_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="width: 60%;">
+                          <div class="modal-content" style="height:auto">
+                            <div class="modal-header box-header bg-dark">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span></button>
+                              <h4 class="modal-title text-dark">Transaction Purchase History</h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class ="container" style="width: 100%;">
+                                <div class="row text-bold">
+                                  <div class="col">
+                                    Product Name
+                                  </div>
+                                  <div class="col">
+                                    Qty
+                                  </div>
+                                  <div class="col">
+                                    Price
+                                  </div>
+                                  <div class="col">
+                                    Amount
+                                  </div>
+                                </div>
+
+                                <?php 
+                                  $sql = mysqli_query($con, "SELECT a.qty, a.price, a.qty * a.price as total, b.prod_name FROM sales_details a LEFT JOIN product b on a.prod_id = b.prod_id WHERE a.sales_id ='$sid'")or die(mysqli_error());
+                                  $count = 0;
+                                  while($row_details = mysqli_fetch_array($sql))
+                                  {
+                                    $count++;
+                                    if ($count % 2 == 1)
+                                    {
+                                ?>
+                                    <div class="row" style="background-color: #f9f9f9;">
+                                      <div class="col"><?php echo $row_details['prod_name']; ?></div>
+                                      <div class="col"><?php echo $row_details['qty']; ?></div>
+                                      <div class="col"><?php echo $row_details['price']; ?></div>
+                                      <div class="col"><?php echo $row_details['total']; ?></div>
+                                    </div>
+                                <?php }else {?>
+                                    <div class="row" style="background-color: #ffffff;">
+                                      <div class="col"><?php echo $row_details['prod_name']; ?></div>
+                                      <div class="col"><?php echo $row_details['qty']; ?></div>
+                                      <div class="col"><?php echo $row_details['price']; ?></div>
+                                      <div class="col"><?php echo $row_details['total']; ?></div>
+                                    </div>
+                                <?php }}?>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                          </div> <!-- END OF MODAL DIALOG -->
+                        </div> <!-- END OF MODAL CONTENT -->
+                      </div> <!-- END OF MODAL -->   
     <?php }?>       
                     </tbody>
                    
@@ -168,7 +222,19 @@ endif;
     <script src="../dist/js/demo.js"></script>
     <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
-    
+    <style>
+      .row
+      {
+        display: flex;
+      }
+      .col
+      {
+        border: 1px solid #f4f4f4;
+        padding: 10px 10px; 
+        width: 25%;
+        overflow: hidden;
+      }
+    </style>
     <script>
       $(function () {
         $("#example1").DataTable();

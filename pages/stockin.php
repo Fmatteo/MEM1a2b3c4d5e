@@ -257,7 +257,7 @@ endif;
                               <td>
                                 <a href="#updateitem<?php echo $row['prod_id'];?>" data-target="#updateitem<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
                                 <a href="stockin_del.php?id=<?php echo $row['prod_id']; ?>" onclick="return confirm('Are you sure to delete this item?');" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-trash text-blue"></i></a>
-                                <a href="#stockin_fur<?php echo $row['prod']; ?>" data-target="#stockin_fur<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><button type="button" class="btn btn-primary">Stock in</button></a>
+                                <a href="#stockin_fur<?php echo $row['prod_id']; ?>" data-target="#stockin_fur<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><button type="button" class="btn btn-primary">Stock in</button></a>
                               </td>
                             </tr> 
 
@@ -439,7 +439,7 @@ endif;
                               <td>
                                 <a href="#updatecostmetics<?php echo $row['prod_id'];?>" data-target="#updatecostmetics<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
                                 <a href="stockin_del.php?id=<?php echo $row['prod_id']; ?>" onclick="return confirm('Are you sure to delete this item?');" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-trash text-blue"></i></a>
-                                <a href="#stockin_cos<?php echo $row['prod']; ?>" data-target="#stockin_cos<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><button type="button" class="btn btn-primary">Stock in</button></a>
+                                <a href="#stockin_cos<?php echo $row['prod_id']; ?>" data-target="#stockin_cos<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><button type="button" class="btn btn-primary">Stock in</button></a>
                               </td>
                             </tr>   
 
@@ -624,7 +624,7 @@ endif;
                               <td>
                                 <a href="#updatemobile<?php echo $row['prod_id'];?>" data-target="#updatemobile<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
                                 <a href="stockin_del.php?id=<?php echo $row['prod_id']; ?>" onclick="return confirm('Are you sure to delete this item?');" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-trash text-blue"></i></a>
-                                <a href="#stockin_mob<?php echo $row['prod']; ?>" data-target="#stockin_mob<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><button type="button" class="btn btn-primary">Stock in</button></a>
+                                <a href="#stockin_mob<?php echo $row['prod_id']; ?>" data-target="#stockin_mob<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><button type="button" class="btn btn-primary">Stock in</button></a>
                               </td>
                             </tr>     
 
