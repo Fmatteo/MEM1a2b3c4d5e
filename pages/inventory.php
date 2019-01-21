@@ -299,9 +299,10 @@ $branch=$_SESSION['branch'];
                         <th>Model</th> 
                         <th>Description</th>
                         <th>Category</th>
+                        <th>Cat for</th>
                         <th>Company Name</th>                        
                         <th>Qty Left</th>
-            
+                        
                         <th>Price</th>
                         <th>Total</th>
                         <th style="text-align:center">Reorder</th>
@@ -330,6 +331,7 @@ $branch=$_SESSION['branch'];
                         <td><?php if ($row['type'] != 'mobile') { echo $row['prod_desc']; }
                         else { echo 'IMEI: '.$row['imei'] .'<br>'. 'Color: ' . $row['color']; }?></td>
                         <td><?php echo $row['cat_name'];?></td>
+                        <td><?php echo $row['cat_for'];?></td>
                         <td>
                           <?php if ($row['supplier_id'] != 0) { echo $row['supplier_name']; }
                             else {echo $row['manufacturer'];}
