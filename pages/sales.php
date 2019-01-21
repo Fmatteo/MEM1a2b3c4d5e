@@ -60,6 +60,27 @@ $role_permission = $rowrole['role'];
       h5,h6{
         text-align:center;
       }
+       @media print {
+          .btn-print {
+            display:none !important;
+          }
+      .main-footer  {
+      display:none !important;
+      }
+      div.dataTables_length label {
+        display: none !important;
+      }
+      div.dataTables_filter label{
+        display: none !important;
+      }
+      div.dataTables_paginate ul.pagination{
+        display: none !important;
+      }
+      
+      .btn-primary{
+        display:none;
+      }
+    }
     
 
       @media print {
