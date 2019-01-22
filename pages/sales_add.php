@@ -32,7 +32,15 @@ include('../dist/includes/dbcon.php');
 			$price=$row['price'];
 			
 			
-			mysqli_query($con,"INSERT INTO sales_details(prod_id,qty,price,sales_id) VALUES('$pid','$qty','$price','$sales_id')")or die(mysqli_error($con));
+			$query_prod = mysqli_query($con, "SELECT * FROM product WHERE prod_id = '$pid'");
+            while ($row_prod = mysqli_fetch_array($query_prod))
+            {
+                $base_price = $row_prod['base_price'];
+            }
+ 
+            $profit = ($price - $base_price) * $qty;
+
+			mysqli_query($con,"INSERT INTO sales_details(prod_id,qty,price,sales_id,profit) VALUES('$pid','$qty','$price','$sales_id','$profit')")or die(mysqli_error($con));
 			mysqli_query($con,"UPDATE product SET prod_qty=prod_qty-'$qty' where prod_id='$pid' and branch_id='$branch'") or die(mysqli_error($con)); 
 		}
 		

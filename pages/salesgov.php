@@ -57,27 +57,6 @@ $role_permission = $rowrole['role'];
     <link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico|Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
     <style type="text/css">
-     @media print {
-          .btn-print {
-            display:none !important;
-          }
-      .main-footer  {
-      display:none !important;
-      }
-      div.dataTables_length label {
-        display: none !important;
-      }
-      div.dataTables_filter label{
-        display: none !important;
-      }
-      div.dataTables_paginate ul.pagination{
-        display: none !important;
-      }
-      
-      .btn-primary{
-        display:none;
-      }
-    }
       h5,h6{
         text-align:center;
       }
@@ -402,7 +381,7 @@ $branch=$_SESSION['branch'];
                 while($row=mysqli_fetch_array($query)){
                 $total=$row['qty']*$row['price'];
                 $grand=$grand+$total-$row['discount'];
-        $profit = ($row['price'] * $row['qty']) - ($row['base_price'] * $row['qty']);
+        $profit = $row['profit'];
         $total_profit = $total_profit + $profit;
         
 ?>
