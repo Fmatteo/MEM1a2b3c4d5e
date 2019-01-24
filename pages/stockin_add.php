@@ -45,13 +45,16 @@ include('../dist/includes/dbcon.php');
 					mysqli_query($con, "INSERT INTO product(prod_name, prod_desc, cat_id, prod_qty, branch_id, reorder, supplier_id, base_price, type)VALUES('$prod_name', '$prod_desc', '$prod_cat', '$prod_qty', '$branch', '$reorder', '$supplier', '$prod_price', 'cosmetics')")or die(mysqli_error($con));
 				}
 
-				if (isset($_POST['mobile']) && empty($prod_imei))
+				if (isset($_POST['mobile']))
 				{
-					mysqli_query($con, "INSERT INTO product(prod_name, cat_id, prod_qty, branch_id, reorder, base_price, type, imei, color, supplier_id)VALUES('$prod_name', '$prod_cat', '$prod_qty', '$branch', '$reorder', '$prod_price', 'mobile', '$prod_imei', '$prod_color', '$supplier')")or die(mysqli_error($con));
-				}
-				else
-				{
-					mysqli_query($con, "INSERT INTO product(prod_name, cat_id, prod_qty, branch_id, reorder, base_price, type, imei, color, supplier_id)VALUES('$prod_name', '$prod_cat', '1', '$branch', '$reorder', '$prod_price', 'mobile', '$prod_imei', '$prod_color', '$supplier')")or die(mysqli_error($con));
+					if (empty($prod_imei))
+					{
+						mysqli_query($con, "INSERT INTO product(prod_name, cat_id, prod_qty, branch_id, reorder, base_price, type, imei, color, supplier_id)VALUES('$prod_name', '$prod_cat', '$prod_qty', '$branch', '$reorder', '$prod_price', 'mobile', '$prod_imei', '$prod_color', '$supplier')")or die(mysqli_error($con));
+					}
+					else
+					{
+						mysqli_query($con, "INSERT INTO product(prod_name, cat_id, prod_qty, branch_id, reorder, base_price, type, imei, color, supplier_id)VALUES('$prod_name', '$prod_cat', '1', '$branch', '$reorder', '$prod_price', 'mobile', '$prod_imei', '$prod_color', '$supplier')")or die(mysqli_error($con));
+					}
 				}
 				
 		    	$prod_id = mysqli_insert_id($con);

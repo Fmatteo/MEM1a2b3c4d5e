@@ -318,7 +318,7 @@ $branch=$_SESSION['branch'];
           
                       <tr>
                         <th>Model</th> 
-                        <th>Description</th>
+                        <th style="display:none">Description</th>
                         <th>Category</th>
                         <th>Cat for</th>
                         <th>Company Name</th>                        
@@ -349,7 +349,7 @@ $branch=$_SESSION['branch'];
 ?>
                       <tr>
                         <td><?php echo $row['prod_name'];?></td>
-                        <td><?php if ($row['type'] != 'mobile') { echo $row['prod_desc']; }
+                        <td style="display:none;"><?php if ($row['type'] != 'mobile') { echo $row['prod_desc']; }
                         else { echo 'IMEI: '.$row['imei'] .'<br>'. 'Color: ' . $row['color']; }?></td>
                         <td><?php echo $row['cat_name'];?></td>
                         <td><?php echo $row['cat_for'];?></td>
@@ -369,7 +369,7 @@ $branch=$_SESSION['branch'];
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th colspan="7">Total</th>
+                        <th colspan="6">Total</th>
                         
             
             <th colspan="2">P<?php echo number_format($grand,2);?></th>
