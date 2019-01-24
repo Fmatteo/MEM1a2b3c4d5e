@@ -6,7 +6,15 @@ $branch=$_SESSION['branch'];
 include('../dist/includes/dbcon.php');
 
 	$cid = $_POST['cid'];
-	list($name, $imei) = explode(".", $_POST['prod_name']);
+	if (strpos($_POST['prod_name'], '.') !== false)
+	{
+		list($name, $imei) = explode(".", $_POST['prod_name']);
+	}
+	else
+	{
+		$name = $_POST['prod_name'];
+		$imei = '';
+	}
 	$qty = $_POST['qty'];
 	$price = $_POST['price'];
 		
