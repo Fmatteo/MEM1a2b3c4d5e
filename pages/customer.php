@@ -305,13 +305,18 @@ endif;
         </section>
         <!-- /.sidebar -->
       </aside>
-
+      
+      <section class="content-header">
+            <h1 style="text-align: right;">
+              <a class="btn btn-md btn-primary" href="home.php">Back</a>
+            </h1>
+          </section>
 
           <!-- Main content -->
           <section class="content">
             <div class="row">
-	          
-			
+            
+      
             <div class="col-xs-12">
               <div class="box box-danger">
     
@@ -322,87 +327,87 @@ endif;
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-            						<th>Account #</th>
+                        <th>Account #</th>
                         <th>Last Name</th>
                         <th>First Name</th>
                         <th>Address</th>
-            						<th>Contact #</th>
+                        <th>Contact #</th>
                         <th>Action</th>
-						
+            
                       </tr>
                     </thead>
                     <tbody>
 <?php
-		$branch=$_SESSION['branch'];
-		$query=mysqli_query($con,"select * from customer where branch_id='$branch'")or die(mysqli_error());
-		$i=1;
-		while($row=mysqli_fetch_array($query)){
-		$cid=$row['cust_id'];
+    $branch=$_SESSION['branch'];
+    $query=mysqli_query($con,"select * from customer where branch_id='$branch'")or die(mysqli_error());
+    $i=1;
+    while($row=mysqli_fetch_array($query)){
+    $cid=$row['cust_id'];
 ?>
                       <tr>
-					    <td><?php echo $row['cust_id'];?></td>
+              <td><?php echo $row['cust_id'];?></td>
                         <td><?php echo $row['cust_last'];?></td>
                         <td><?php echo $row['cust_first'];?></td>
                         <td><?php echo $row['cust_address'];?></td>
-						<td><?php echo $row['cust_contact'];?></td>
+            <td><?php echo $row['cust_contact'];?></td>
                         <td>
-				<a href="customer_account.php?id=<?php echo $cid; ?>"><i class="glyphicon glyphicon-share-alt text-green"></i></a>
-				<a href="#updateordinance<?php echo $row['cust_id'];?>" data-target="#updateordinance<?php echo $row['cust_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
-				
-						</td>
+        <a href="customer_account.php?id=<?php echo $cid; ?>"><i class="glyphicon glyphicon-share-alt text-green"></i></a>
+        <a href="#updateordinance<?php echo $row['cust_id'];?>" data-target="#updateordinance<?php echo $row['cust_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+        
+            </td>
                       </tr>
-				<div id="updateordinance<?php echo $row['cust_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-	<div class="modal-dialog">
-	  <div class="modal-content" style="height:auto">
+        <div id="updateordinance<?php echo $row['cust_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content" style="height:auto">
               <div class="modal-header box-header" style="color:white">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span></button>
                 <h4 class="modal-title">Update Customer Details</h4>
               </div>
               <div class="modal-body">
-			  <form class="form-horizontal" method="post" action="customer_update.php" enctype='multipart/form-data'>
+        <form class="form-horizontal" method="post" action="customer_update.php" enctype='multipart/form-data'>
                 
-				<div class="form-group">
-					<label class="control-label col-lg-3" for="name">Last Name</label>
-					<div class="col-lg-9">
-						<input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['cust_id'];?>" required>  
-						<input type="text" class="form-control" id="name" name="last" value="<?php echo $row['cust_last'];?>" required>  
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-lg-3" for="name">First Name</label>
-					<div class="col-lg-9">
-						<input type="text" class="form-control" id="name" name="first" value="<?php echo $row['cust_first'];?>" required>  
-					</div>
-				</div>				
-				<div class="form-group">
-					<label class="control-label col-lg-3" for="file">Address</label>
-					<div class="col-lg-9">
-					    <textarea class="form-control" id="name" name="address" required><?php echo $row['cust_address'];?></textarea>  
-					</div>
-				</div> 
-				<div class="form-group">
-					<label class="control-label col-lg-3" for="price">Contact Number</label>
-					<div class="col-lg-9">
-					  <input type="text" class="form-control" id="price" name="contact" value="<?php echo $row['cust_contact'];?>" required>  
-					</div>
-				</div>
+        <div class="form-group">
+          <label class="control-label col-lg-3" for="name">Last Name</label>
+          <div class="col-lg-9" style="margin-bottom: 15px">
+            <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['cust_id'];?>" required>  
+            <input type="text" class="form-control" id="name" name="last" value="<?php echo $row['cust_last'];?>" required>  
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-lg-3" for="name">First Name</label>
+          <div class="col-lg-9" style="margin-bottom: 15px">
+            <input type="text" class="form-control" id="name" name="first" value="<?php echo $row['cust_first'];?>" required>  
+          </div>
+        </div>        
+        <div class="form-group">
+          <label class="control-label col-lg-3" for="file">Address</label>
+          <div class="col-lg-9" style="margin-bottom: 15px">
+              <textarea class="form-control" id="name" name="address" required><?php echo $row['cust_address'];?></textarea>  
+          </div>
+        </div> 
+        <div class="form-group">
+          <label class="control-label col-lg-3" for="price">Contact Number</label>
+          <div class="col-lg-9" style="margin-bottom: 15px">
+            <input type="text" class="form-control" id="price" name="contact" value="<?php echo $row['cust_contact'];?>" required>  
+          </div>
+        </div>
         <br>
 
               </div><br><br><br><hr>
               <div class="modal-footer">
-		<button type="submit" class="btn btn-primary">Save changes</button>
+    <button type="submit" class="btn btn-primary">Save changes</button>
               <button class="btn btn-danger deleteButton" value="<?php echo $row['cust_id'];?>">Delete</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
               </div>
-			  </form>
+        </form>
             </div>
-			
+      
         </div><!--end of modal-dialog-->
  </div>
- <!--end of modal-->   	  
+ <!--end of modal-->      
                  
-<?php $i++;}?>					  
+<?php $i++;}?>            
                     </tbody>
                     <tfoot>
                       <tr>
@@ -410,18 +415,18 @@ endif;
                         <th>Last Name</th>
                         <th>First Name</th>
                         <th>Address</th>
-              						<th>Contact #</th>
+                          <th>Contact #</th>
                         <th>Action</th>
-                      </tr>					  
+                      </tr>           
                     </tfoot>
                   </table>
                 </div><!-- /.box-body -->
  
             </div><!-- /.col -->
-			
-			
+      
+      
           </div><!-- /.row -->
-	 
+   
             
           </section><!-- /.content -->
         </div><!-- /.container -->
@@ -445,15 +450,15 @@ endif;
     <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
            <style>
-	table tr td{
-		border:1px solid #ddd;
-		padding:8px;
-		
-	}
-	table{
-		margin-bottom:40px;
-	}
-	</style> 
+  table tr td{
+    border:1px solid #ddd;
+    padding:8px;
+    
+  }
+  table{
+    margin-bottom:40px;
+  }
+  </style> 
     <script>
       $(function () {
         $("#example1").DataTable();
@@ -533,9 +538,9 @@ endif;
       $(document).ready(function(){
               $(".deleteButton").click(function(e) {
               e.preventDefault();
-			var confirmation = confirm("are you sure you want to remove the item?");
+      var confirmation = confirm("are you sure you want to remove the item?");
 
-			if (confirmation) {
+      if (confirmation) {
               $.ajax({
                   type: "POST",
                   url: "ajax.php",
@@ -558,7 +563,7 @@ endif;
                       alert('error');
                   }
               });
-			}
+      }
         }); // ajax 
 
               $(".glyphicon-edit").click(function(){
@@ -588,10 +593,10 @@ endif;
                   }
               });
         }); // ajax 
-		
-				  $(".glyphicon-edit").click(function(){
-			  $(".history").html("");
-		  })
+    
+          $(".glyphicon-edit").click(function(){
+        $(".history").html("");
+      })
       })
     </script>
   </body>

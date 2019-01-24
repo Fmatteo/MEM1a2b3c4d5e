@@ -288,12 +288,29 @@ javascript:window.history.forward(1);
                 <?php
                   $branch=$_SESSION['branch'];
                   $cid=$_REQUEST['cid'];
+
                   include('../dist/includes/dbcon.php');
                    $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
                       while($row=mysqli_fetch_array($query2)){
+                        $type = $row['type'];
+                        $id = $row['prod_id'];
+                        $imei = $row['imei'];
                 ?>
+                <?php if ($imei == ''){?>
                     <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name']." Available(".$row['prod_qty'].")";?></option>
-                  <?php }?>
+                  <?php }else{ ?>
+                    <?php
+                      $sql = "SELECT * FROM mobile WHERE prod_id='$id' AND remarks=''";
+                      $query3=mysqli_query($con, $sql)or die(mysqli_error());
+
+                      while($row1 = mysqli_fetch_array($query3))
+                      {
+                    ?>
+                      <option value="<?php echo $row['prod_id'];?>.<?php echo $row1['id']; ?>">
+                        <?php echo $row['prod_name'] ?> | <?php echo $row1['imei'] ?> Available(1)
+                      </option>
+                    <?php }?>
+                  <?php }}?>
                 </select>
                 <input type="hidden" class="form-control" name="cid" value="<?php echo $cid;?>" required>   
               </div><!-- /.form group -->
@@ -306,6 +323,7 @@ javascript:window.history.forward(1);
               </div><!-- /.input group -->
             </div><!-- /.form group -->
            </div>
+
            <div class=" col-md-2">
             <div class="form-group">
               <label for="date">Selling Price</label>
@@ -470,11 +488,13 @@ $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or
                 <input type="hidden" class="form-control" name="cid" value="<?php echo $cid;?>" required>    
                 <input type="text" style="text-align:right" class="form-control" id="total" name="total" placeholder="Total" 
                 value="<?php echo number_format($grand,2);?>" tabindex="5" readonly>
+<<<<<<< Updated upstream
               </div> /.form group -->
+        
         
             <?php $total_profit = $grand - $base_total;
               
-            ?>
+            ?>  
               <div class="form-group" style="display:none;">
               <label for="date">Total Profit</label>
               
@@ -494,6 +514,7 @@ $queryb=mysqli_query($con,"select balance from customer where cust_id='$cid'")or
                 <input type="text" style="text-align:right" class="form-control" id="amount_due" name="amount_due" placeholder="Amount Due" value="<?php echo number_format($grand,2);?>" readonly>
               
               </div><!-- /.form group -->    
+
 
               <div class="form-group">
                 <label for="modeofpayment">Mode of payment</label>

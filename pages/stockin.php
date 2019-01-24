@@ -375,7 +375,7 @@ endif;
                                 </div> <!-- END OF MODAL DIALOG -->
                               </div> <!-- END OF MODAL CONTENT -->
                             </div> <!-- END OF MODAL -->              
-                            <?php } ?>					  
+                            <?php } ?>            
                           </tbody>
                           <tfoot>
                             <tr>
@@ -387,7 +387,7 @@ endif;
                               <th>Quantity</th>
                               <th>Base price</th>
                               <th>Actions</th>
-                            </tr>					  
+                            </tr>           
                           </tfoot>
                         </table>
                       </div><!-- /.box-body -->
@@ -591,8 +591,7 @@ endif;
                           <thead>
                             <tr>
                               <th>Model</th>
-                              <th>IMEI</th>
-                              <th>Color</th>
+                              <th>IMEI/Color</th>
                               <th>Category</th>
                               <th>Company Name</th>
                               <th>Reorder</th>
@@ -611,11 +610,18 @@ endif;
                                   LEFT JOIN category c ON a.cat_id = c.cat_id
                                   WHERE a.branch_id='$branch' AND a.type = 'mobile'";
                                 $query=mysqli_query($con,$sql)or die(mysqli_error());
-                                while($row=mysqli_fetch_array($query)){?>
+                                while($row=mysqli_fetch_array($query)){
+                                  $pid = $row['prod_id'];
+                                  ?>
                             <tr>
                               <td><?php echo $row['prod_name'];?></td>
-                              <td><?php echo $row['imei'];?></td>
-                              <td><?php echo $row['color'];?></td>
+                              <td>
+                                <?php if ($row['imei'] != '') {?>
+                                  <a href="#show<?php echo $row['prod_id']; ?>" data-target="#show<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer">
+                                    <button type="button" class="btn btn-primary">View Details</button>
+                                  </a>
+                                <?php }else{echo 'N/A'; }?>
+                              </td>
                               <td><?php echo $row['cat_name'];?></td>
                               <td><?php echo $row['supplier_name'];?></td>
                               <td><?php echo $row['reorder'];?></td>
@@ -624,9 +630,65 @@ endif;
                               <td>
                                 <a href="#updatemobile<?php echo $row['prod_id'];?>" data-target="#updatemobile<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
                                 <a href="stockin_del.php?id=<?php echo $row['prod_id']; ?>" onclick="return confirm('Are you sure to delete this item?');" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-trash text-blue"></i></a>
+                                <?php if ($row['imei'] == '') {?>
                                 <a href="#stockin_mob<?php echo $row['prod_id']; ?>" data-target="#stockin_mob<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><button type="button" class="btn btn-primary">Stock in</button></a>
+                                <?php }?>
                               </td>
                             </tr>     
+
+                      <div id="show<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="width: 60%;">
+                          <div class="modal-content" style="height:auto">
+                            <div class="modal-header box-header bg-dark">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span></button>
+                              <h4 class="modal-title text-dark">Details..</h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class ="container" style="width: 100%;">
+                                <div class="row text-bold">
+                                  <div class="col">
+                                    Model
+                                  </div>
+                                  <div class="col">
+                                    IMEI
+                                  </div>
+                                  <div class="col">
+                                    Color
+                                  </div>
+                                </div>
+
+                                <?php 
+                                  $sql = "SELECT * FROM mobile WHERE prod_id = '$pid' AND remarks=''";
+                                  $exe = mysqli_query($con, $sql)or die(mysqli_error());
+
+                                  $count = 0;
+                                  while($row1 = mysqli_fetch_array($exe))
+                                  {
+                                    $count++;
+                                    if ($count % 2 == 1)
+                                    {
+                                ?>
+                                    <div class="row" style="background-color: #f9f9f9;">
+                                      <div class="col"><?php echo $row['prod_name']; ?></div>
+                                      <div class="col"><?php echo $row1['imei']; ?></div>
+                                      <div class="col"><?php echo $row1['color']; ?></div>
+                                    </div>
+                                <?php }else {?>
+                                    <div class="row" style="background-color: #ffffff;">
+                                      <div class="col"><?php echo $row['prod_name']; ?></div>
+                                      <div class="col"><?php echo $row1['imei']; ?></div>
+                                      <div class="col"><?php echo $row1['color']; ?></div>
+                                    </div>
+                                <?php }}?>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                          </div> <!-- END OF MODAL DIALOG -->
+                        </div> <!-- END OF MODAL CONTENT -->
+                      </div> <!-- END OF MODAL -->   
 
                             <div id="stockin_mob<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
@@ -671,24 +733,24 @@ endif;
                                         </div>
                                       </div>
 
-                                      <div class="form-group">
+                                      <div class="form-group" style="display: none;">
                                         <label class="control-label col-lg-3">IMEI</label>
                                         <div class="col-lg-9">
-                                          <input type="text" class="form-control" id="desc" name="imei" value="<?php echo $row['imei'];?>" required>  
+                                          <input type="text" class="form-control" id="desc" name="imei" value="<?php echo $row['imei'];?>">  
                                         </div>
                                       </div>
 
-                                      <div class="form-group">
+                                      <div class="form-group" style="display: none;">
                                         <label class="control-label col-lg-3">Color</label>
                                         <div class="col-lg-9">
-                                          <input type="text" class="form-control" id="desc" name="color" value="<?php echo $row['color'];?>" required>  
+                                          <input type="text" class="form-control" id="desc" name="color" value="<?php echo $row['color'];?>">  
                                         </div>
                                       </div>
 
                                       <div class="form-group">
                                         <label class="control-label col-lg-3">Category</label>
                                         <div class="col-lg-9">
-                                          <select name = "category" class = "form-control" required>
+                                          <select name = "category" class = "form-control">
                                             <?php 
                                               $query2 = "SELECT * FROM category WHERE cat_for='Mobile' order by cat_name";
                                               $sql2 = mysqli_query($con, $query2)or die(mysqli_error($con));
@@ -705,7 +767,7 @@ endif;
                                       <div class="form-group">
                                         <label class="control-label col-lg-3">Company Name</label>
                                         <div class="col-lg-9">
-                                          <select name = "supplier" class = "form-control" required>
+                                          <select name = "supplier" class = "form-control">
                                             <?php 
                                               $query1 = "SELECT * FROM supplier order by supplier_name";
                                               $sql1 = mysqli_query($con, $query1)or die(mysqli_error($con));
@@ -722,21 +784,21 @@ endif;
                                       <div class="form-group">
                                         <label class="control-label col-lg-3">Reorder</label>
                                         <div class="col-lg-9">
-                                          <input type="number" class="form-control" id="reorder" name="reorder" value="<?php echo $row['reorder'];?>" required>  
+                                          <input type="number" class="form-control" id="reorder" name="reorder" value="<?php echo $row['reorder'];?>">  
                                         </div>
                                       </div>
 
                                       <div class="form-group">
                                         <label class="control-label col-lg-3">Quantity</label>
                                         <div class="col-lg-9">
-                                          <input type="text" class="form-control" id="qty" name="qty" value="<?php echo $row['prod_qty'];?>" required readonly>  
+                                          <input type="text" class="form-control" id="qty" name="qty" value="<?php echo $row['prod_qty'];?>"readonly>  
                                         </div>
                                       </div>
 
                                       <div class="form-group">
                                         <label class="control-label col-lg-3">Base Price</label>
                                         <div class="col-lg-9">
-                                          <input type="text" class="form-control" id="price" name="price" value="<?php echo $row['base_price'];?>" required>  
+                                          <input type="text" class="form-control" id="price" name="price" value="<?php echo $row['base_price'];?>">  
                                         </div>
                                       </div>
                                   </div>
@@ -753,8 +815,7 @@ endif;
                           <tfoot>
                             <tr>
                               <th>Model</th>
-                              <th>IMEI</th>
-                              <th>Color</th>
+                              <th>IMEI/Color</th>
                               <th>Category</th>
                               <th>Company Name</th>
                               <th>Reorder</th>
@@ -869,7 +930,7 @@ endif;
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                   </div><!-- /.form group -->
-				        </form>	
+                </form> 
             </div>
         </div><!--end of modal-dialog-->
       </div>
@@ -957,7 +1018,7 @@ endif;
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                   </div><!-- /.form group -->
-				        </form>	
+                </form> 
             </div>
         </div><!--end of modal-dialog-->
       </div>
@@ -984,19 +1045,19 @@ endif;
                   <div class="form-group">
                     <label for="date">IMEI</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="prod_imei" name="prod_imei" placeholder="Description" required>
+                      <input type="text" class="form-control pull-right" id="prod_imei" name="prod_imei" placeholder="Description">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                   
                   <div class="form-group">
                     <label for="date">Color</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="prod_color" name="prod_color" placeholder="Color" required>
+                      <input type="text" class="form-control pull-right" id="prod_color" name="prod_color" placeholder="Color">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->    
                   <div class="form-group">
                     <label for="date">Category</label>
                     <div class="input-group col-md-12">
-                      <select class="form-control" name="prod_cat" required>
+                      <select class="form-control" name="prod_cat">
                         <?php 
                           $query = "SELECT * FROM category WHERE cat_for='Mobile' order by cat_name";
                           $sql = mysqli_query($con, $query)or die(mysqli_error());
@@ -1012,7 +1073,7 @@ endif;
                   <div class="form-group">
                     <label for="date">Company Name</label>
                     <div class="input-group col-md-12">
-                      <select class="form-control" name="supplier_id" required>
+                      <select class="form-control" name="supplier_id">
                         <?php 
                           $query = "SELECT * FROM supplier";
                           $sql = mysqli_query($con, $query)or die(mysqli_error());
@@ -1030,30 +1091,30 @@ endif;
                   <div class="form-group">
                     <label for="date">Reorder</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="reorder" name="reorder" placeholder="Reorder" required>
+                      <input type="text" class="form-control pull-right" id="reorder" name="reorder" placeholder="Reorder">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                 
                   <div class="form-group">
                     <label for="date">Quantity</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="qty" name="qty" placeholder="Quantity" required>
+                      <input type="text" class="form-control pull-right" id="qty" name="qty" placeholder="Quantity">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <label for="date">Base Price</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Base price" required>
+                      <input type="text" class="form-control pull-right" id="base_price" name="base_price" placeholder="Base price">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <div class="input-group">
-                      <button type="submit" name="mobile" class="btn btn-primary save-btn" id="daterange-btn" name="">
+                      <button type="submit" name="mobile" class="btn btn-primary save-btn" id="daterange-btn">
                         Save
                       </button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                   </div><!-- /.form group -->
-				        </form>	
+                </form> 
             </div>
         </div><!--end of modal-dialog-->
       </div>
@@ -1076,7 +1137,19 @@ endif;
     <script src="../dist/js/demo.js"></script>
     <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
-    
+    <style>
+      .row
+      {
+        display: flex;
+      }
+      .col
+      {
+        border: 1px solid #f4f4f4;
+        padding: 10px 10px; 
+        width: 33.33%;
+        overflow: hidden;
+      }
+    </style>
     <script>
       $(function () {
         $("#example1").DataTable();
@@ -1094,16 +1167,16 @@ endif;
     </script>
      <script>
       $(function () {
-	
-		
-			$(".stockoutButton").click(function(e) {
+  
+    
+      $(".stockoutButton").click(function(e) {
               e.preventDefault();
               $.ajax({
                   type: "POST",
                   url: "ajax.php",
                   data: { 
-					  prod_id: $("#prod_id").val(), // < note use of 'this' here
-					  qty: $("#qty").val(), // < note use of 'this' here
+            prod_id: $("#prod_id").val(), // < note use of 'this' here
+            qty: $("#qty").val(), // < note use of 'this' here
                       process: 'stockout'
                   },
                   success: function(result) {
@@ -1111,7 +1184,7 @@ endif;
                           alert("bad")                        
                       }else{
                           alert("success")
-						  location.reload();
+              location.reload();
                       }
                       
                   },
@@ -1119,10 +1192,10 @@ endif;
                       alert('error');
                   }
               });
-        }); // ajax 		
-		
-		
-		
+        }); // ajax     
+    
+    
+    
       });
     </script>
   </body>
