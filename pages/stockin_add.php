@@ -26,6 +26,19 @@ include('../dist/includes/dbcon.php');
 	$date = date("Y-m-d H:i:s");
 
 	$id=$_SESSION['id'];
+
+	if (!empty($prod_imei))
+	{
+		$sql = mysqli_query($con, "SELECT * FROM mobile WHERE imei = '$prod_imei'")or die(mysqli_error());
+		$count = mysqli_num_rows($sql);
+
+		if ($count > 0)
+		{
+			echo "<script type='text/javascript'>alert('Error, this IMEI already exists. Please try again.');</script>";
+			echo "<script>window.history.back();</script>";   
+			return;
+		}
+	}
 	
 	if (isset($_POST['prod_name']) && !isset($_POST['mobile_stockin1']))
 	{
