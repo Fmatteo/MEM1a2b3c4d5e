@@ -13,8 +13,14 @@ include('../dist/includes/dbcon.php');
 	$final_prod_qty = $prod_qty + $qty;
 	$final_qty = $damage_qty - $qty;
 
+	$query = mysqli_query($con, "SELECT extra FROM damage WHERE damage_id='$damage_id'")or die(mysqli_error());
+	$row = mysqli_fetch_array($query);
+	$id = $row['extra'];
+
+	mysqli_query($con, "UPDATE mobile SET remarks = '' WHERE id = '$id'")or die(mysqli_error());
+
 	if ($final_qty == 0){
-		$sql = " DELETE FROM damage WHERE prod_id = '$prod_id' AND branch_id = '$branch'";
+		$sql = " DELETE FROM damage WHERE damage_id = '$damage_id' AND branch_id = '$branch'";
 	   if (mysqli_query($con, $sql)) {	      	
 		echo "<script type='text/javascript'>alert('Record deleted successfully');</script>";
 	   } else {

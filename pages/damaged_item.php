@@ -223,9 +223,23 @@ endif;
                 <select class="form-control select2" name="prod_id" id="prod_id" required>
                 <?php include('../dist/includes/dbcon.php');
                 $query2=mysqli_query($con,"select * from product where branch_id='$branch' order by prod_name")or die(mysqli_error());
-                while($row=mysqli_fetch_array($query2)){?>
-                <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
+                while($row=mysqli_fetch_array($query2)){
+                  $id = $row['prod_id'];
+                  if ($row['imei'] == ''){?>
+                  <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name'];?></option>
+                <?php } else{?>
+                  <?php
+                      $sql = "SELECT * FROM mobile WHERE prod_id='$id' AND remarks=''";
+                      $query3=mysqli_query($con, $sql)or die(mysqli_error());
 
+                      while($row1 = mysqli_fetch_array($query3))
+                      {
+                    ?>
+                      <option value="<?php echo $row['prod_id'];?>.<?php echo $row1['id']; ?>">
+                        <?php echo $row['prod_name'] ?> | <?php echo $row1['imei'] ?>
+                      </option>
+                    <?php }?>
+                <?php }?>
                 <?php 
                 $prod_qty = $row['prod_qty'];
                 }?>
