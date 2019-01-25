@@ -632,6 +632,8 @@ endif;
                                 <a href="stockin_del.php?id=<?php echo $row['prod_id']; ?>" onclick="return confirm('Are you sure to delete this item?');" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-trash text-blue"></i></a>
                                 <?php if ($row['imei'] == '') {?>
                                 <a href="#stockin_mob<?php echo $row['prod_id']; ?>" data-target="#stockin_mob<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><button type="button" class="btn btn-primary">Stock in</button></a>
+                                <?php } else{?>
+                                  <a href="#stockin_mob1<?php echo $row['prod_id']; ?>" data-target="#stockin_mob1<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><button type="button" class="btn btn-primary">Stock in</button></a>
                                 <?php }?>
                               </td>
                             </tr>     
@@ -689,6 +691,41 @@ endif;
                           </div> <!-- END OF MODAL DIALOG -->
                         </div> <!-- END OF MODAL CONTENT -->
                       </div> <!-- END OF MODAL -->   
+
+                      <div id="stockin_mob1<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content" style="height:auto">
+                                  <div class="modal-header box-header" style="color:white">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Stockin Mobile</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form class="form-horizontal" method="post" action="stockin_add.php?id=<?php echo $row['prod_id']; ?>" enctype='multipart/form-data'>
+                                      <input type="hidden" class="form-control" id="model" name="prod_name" value="<?php echo $row['prod_name'];?>" required>  
+                                      <input type="hidden" class="form-control" id="price" name="base_price" value="<?php echo $row['base_price'];?>">  
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">IMEI</label>
+                                        <div class="col-lg-9">
+                                          <input type="number" class="form-control" id="model" name="prod_imei" required>  
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Color</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="model" name="prod_color" required>  
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="submit" name = "mobile_stockin1" class="btn btn-primary">OK</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                  </form>
+                                  </div>
+                                </div> <!-- END OF MODAL DIALOG -->
+                              </div> <!-- END OF MODAL CONTENT -->
+                            </div> <!-- END OF MODAL -->  
 
                             <div id="stockin_mob<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
