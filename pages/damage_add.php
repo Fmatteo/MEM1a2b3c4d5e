@@ -45,7 +45,7 @@ include('../dist/includes/dbcon.php');
 
 
 */
-	mysqli_query($con,"UPDATE product SET prod_qty='$prod_left' where prod_id='$prod_id' and branch_id='$branch'") or die(mysqli_error($con)); 
+	mysqli_query($con,"UPDATE product SET prod_qty=prod_qty-$qty where prod_id='$prod_id' and branch_id='$branch'") or die(mysqli_error($con)); 
 	mysqli_query($con,"UPDATE mobile SET remarks='damaged' WHERE id='$imei'")or die(mysqli_error());
 			
 	echo "<script type='text/javascript'>alert('Successfully added new damaged items!');</script>";
