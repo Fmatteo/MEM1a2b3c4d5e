@@ -245,10 +245,17 @@ endif;
                                   WHERE a.branch_id = '$branch' AND a.type='furniture' order by prod_name
                                   ";
                                 $query=mysqli_query($con,$sql)or die(mysqli_error());
-                                while($row=mysqli_fetch_array($query)){?>
+                                while($row=mysqli_fetch_array($query)){
+                                  $pid = $row['prod_id'];?>
                             <tr>
                               <td><?php echo $row['prod_name'];?></td>
-                              <td><?php echo $row['prod_desc'];?></td>
+                              <td>
+                                <?php if ($row['color'] != '') {?>
+                                  <a href="#show_<?php echo $row['prod_id']; ?>" data-target="#show_<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer">
+                                    <button type="button" class="btn btn-primary">View Details</button>
+                                  </a>
+                                <?php }else{echo $row['prod_desc']; }?>
+                              </td>
                               <td><?php echo $row['supplier_name'];?></td>
                               <td><?php echo $row['cat_name'];?></td>
                               <td><?php echo $row['reorder'];?></td>
@@ -257,9 +264,91 @@ endif;
                               <td>
                                 <a href="#updateitem<?php echo $row['prod_id'];?>" data-target="#updateitem<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
                                 <a href="stockin_del.php?id=<?php echo $row['prod_id']; ?>" onclick="return confirm('Are you sure to delete this item?');" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-trash text-blue"></i></a>
+                                
+                                <?php if ($row['color'] == '') {?>
                                 <a href="#stockin_fur<?php echo $row['prod_id']; ?>" data-target="#stockin_fur<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><button type="button" class="btn btn-primary">Stock in</button></a>
+                                <?php } else{?>
+                                  <a href="#stockin_fur1<?php echo $row['prod_id']; ?>" data-target="#stockin_fur1<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><button type="button" class="btn btn-primary">Stock in</button></a>
+                                <?php }?>
                               </td>
                             </tr> 
+
+                        <div id="show_<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="width: 60%;">
+                          <div class="modal-content" style="height:auto">
+                            <div class="modal-header box-header bg-dark">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span></button>
+                              <h4 class="modal-title text-dark">Details..</h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class ="container container1" style="width: 100%;">
+                                <div class="row text-bold">
+                                  <div class="col">
+                                    Model
+                                  </div>
+                                  <div class="col">
+                                    Color
+                                  </div>
+                                </div>
+
+                                <?php 
+                                  $sql = "SELECT * FROM furniture WHERE prod_id = '$pid' AND remarks=''";
+                                  $exe = mysqli_query($con, $sql)or die(mysqli_error());
+
+                                  $count = 0;
+                                  while($row1 = mysqli_fetch_array($exe))
+                                  {
+                                    $count++;
+                                    if ($count % 2 == 1)
+                                    {
+                                ?>
+                                    <div class="row" style="background-color: #f9f9f9;">
+                                      <div class="col"><?php echo $row['prod_name']; ?></div>
+                                      <div class="col"><?php echo $row1['color']; ?></div>
+                                    </div>
+                                <?php }else {?>
+                                    <div class="row" style="background-color: #ffffff;">
+                                      <div class="col"><?php echo $row['prod_name']; ?></div>
+                                      <div class="col"><?php echo $row1['color']; ?></div>
+                                    </div>
+                                <?php }}?>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                          </div> <!-- END OF MODAL DIALOG -->
+                        </div> <!-- END OF MODAL CONTENT -->
+                      </div> <!-- END OF MODAL -->   
+
+                      <div id="stockin_fur1<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content" style="height:auto">
+                                  <div class="modal-header box-header" style="color:white">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Stockin Furniture</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form class="form-horizontal" method="post" action="stockin_add.php?id=<?php echo $row['prod_id']; ?>" enctype='multipart/form-data'>
+                                      <input type="hidden" class="form-control" id="model" name="prod_name" value="<?php echo $row['prod_name'];?>" required>  
+                                      <input type="hidden" class="form-control" id="price" name="base_price" value="<?php echo $row['base_price'];?>">
+                                      <div class="form-group">
+                                        <label class="control-label col-lg-3">Color</label>
+                                        <div class="col-lg-9">
+                                          <input type="text" class="form-control" id="model" name="prod_color" required>  
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="submit" name = "furniture_stockin1" class="btn btn-primary">OK</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                  </form>
+                                  </div>
+                                </div> <!-- END OF MODAL DIALOG -->
+                              </div> <!-- END OF MODAL CONTENT -->
+                            </div> <!-- END OF MODAL -->
 
                             <div id="stockin_fur<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
@@ -900,9 +989,15 @@ endif;
                   <div class="form-group">
                     <label for="date">Description</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description" required>
+                      <input type="text" class="form-control pull-right" id="prod_desc" name="prod_desc" placeholder="Description">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
+                  <div class="form-group">
+                    <label for="date">Color</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" id="prod_color" name="prod_color" placeholder="Color">
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->   
                   <div class="form-group">
                     <label for="date">Category(Sub-category)</label>
                     <div class="input-group col-md-12">
@@ -944,19 +1039,19 @@ endif;
                   <div class="form-group">
                     <label for="date">Reorder</label>
                     <div class="input-group col-md-12">
-                      <input type="number" class="form-control pull-right" id="reorder" name="reorder" placeholder="Reorder" required>
+                      <input type="number" class="form-control pull-right" id="reorder" name="reorder" placeholder="Reorder">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->                 
                   <div class="form-group">
                     <label for="date">Quantity</label>
                     <div class="input-group col-md-12">
-                      <input type="number" class="form-control pull-right" id="qty" name="qty" placeholder="Quantity" required>
+                      <input type="number" class="form-control pull-right" id="qty" name="qty" placeholder="Quantity">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
                     <label for="date">Base Price</label>
                     <div class="input-group col-md-12">
-                      <input type="number" class="form-control pull-right" id="base_price" name="base_price" placeholder="Base price" required>
+                      <input type="number" class="form-control pull-right" id="base_price" name="base_price" placeholder="Base price">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   <div class="form-group">
@@ -1184,6 +1279,14 @@ endif;
         border: 1px solid #f4f4f4;
         padding: 10px 10px; 
         width: 33.33%;
+        overflow: hidden;
+      }
+
+      .container1 .col
+      {
+        border: 1px solid #f4f4f4;
+        padding: 10px 10px; 
+        width: 50%;
         overflow: hidden;
       }
     </style>

@@ -39,6 +39,19 @@ include('../dist/includes/dbcon.php');
 			return;
 		}
 	}
+
+	if (((isset($_POST['furniture']) || isset($_POST['furniture_stockin1'])) && !empty($prod_color)))
+	{
+		$sql = mysqli_query($con, "SELECT * FROM furniture WHERE color = '$prod_color'")or die(mysqli_error());
+		$count = mysqli_num_rows($sql);
+
+		if ($count > 0)
+		{
+			echo "<script type='text/javascript'>alert('Error, this COLOR already exists. Please try again.');</script>";
+			echo "<script>window.history.back();</script>";   
+			return;
+		}
+	}
 	
 	if (isset($_POST['prod_name']) && !isset($_POST['mobile_stockin1']))
 	{
@@ -50,7 +63,14 @@ include('../dist/includes/dbcon.php');
 			{
 				if (isset($_POST['furniture']))
 				{
-					mysqli_query($con, "INSERT INTO product(prod_name, prod_desc, cat_id, prod_qty, branch_id, reorder, supplier_id, base_price, type)VALUES('$prod_name', '$prod_desc', '$prod_cat', '$prod_qty', '$branch', '$reorder', '$supplier', '$prod_price', 'furniture')")or die(mysqli_error($con));
+					if (empty($prod_color))
+					{
+						mysqli_query($con, "INSERT INTO product(prod_name, prod_desc, cat_id, prod_qty, branch_id, reorder, supplier_id, base_price, type, color)VALUES('$prod_name', '$prod_desc', '$prod_cat', '$prod_qty', '$branch', '$reorder', '$supplier', '$prod_price', 'furniture', '$prod_color')")or die(mysqli_error($con));
+					}
+					else
+					{
+						mysqli_query($con, "INSERT INTO product(prod_name, prod_desc, cat_id, prod_qty, branch_id, reorder, supplier_id, base_price, type, color)VALUES('$prod_name', '$prod_desc', '$prod_cat', '1', '$branch', '$reorder', '$supplier', '$prod_price', 'furniture', '$prod_color')")or die(mysqli_error($con));
+					}
 				}
 
 				if (isset($_POST['cosmetics']))
@@ -74,7 +94,7 @@ include('../dist/includes/dbcon.php');
 			}
 			else
 			{
-				if (!empty($prod_imei))
+				if (!empty($prod_imei) || ((isset($_POST['furniture']) || isset($_POST['furniture_stockin1'])) && !empty($prod_color)))
 				{
 					mysqli_query($con, "UPDATE product SET prod_qty = prod_qty+1 WHERE prod_name = '$prod_name' AND branch_id = '$branch'")or die(mysqli_error());
 				}
@@ -84,6 +104,22 @@ include('../dist/includes/dbcon.php');
 					echo "<script>window.history.back();</script>";
 					return;
 				}
+
+				/*if (isset($_POST['furniture']) || isset($_POST['furniture_stockin1']))
+				{
+					if (!empty($prod_color))
+					{
+						mysqli_query($con, "UPDATE product SET prod_qty = prod_qty+1 WHERE prod_name = '$prod_name' AND branch_id = '$branch'")or die(mysqli_error());
+					}
+					else
+					{
+						echo "<script>alert('Item with this name is currently exists. Pick another name and try again.')</script>";
+						echo "<script>window.history.back();</script>";
+						return;
+					}
+
+					
+				}*/
 			}	
 
 			if (!empty($prod_imei))
@@ -95,6 +131,16 @@ include('../dist/includes/dbcon.php');
 				mysqli_query($con, "INSERT INTO mobile(prod_id, imei, color)VALUES('$id', '$prod_imei', '$prod_color')")or die(mysqli_error());
 				$prod_id = $id;
 			}	
+
+			if (((isset($_POST['furniture']) || isset($_POST['furniture_stockin1'])) && !empty($prod_color)))
+			{
+				$sql = mysqli_query($con, "SELECT * FROM product WHERE prod_name = '$prod_name' AND branch_id='$branch'")or die(mysqli_error());
+				$row = mysqli_fetch_array($sql);
+				$id = $row['prod_id'];
+
+				mysqli_query($con, "INSERT INTO furniture(prod_id, color)VALUES('$id', '$prod_color')")or die(mysqli_error());
+				$prod_id = $id;
+			}
 
 	}	
 

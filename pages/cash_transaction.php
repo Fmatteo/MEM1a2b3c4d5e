@@ -296,8 +296,22 @@ javascript:window.history.forward(1);
                         $id = $row['prod_id'];
                         $imei = $row['imei'];
                 ?>
-                <?php if ($imei == ''){?>
+                <?php if ($imei == ''){
+                  if ($row['color'] == ''){?>
                     <option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name']." Available(".$row['prod_qty'].")";?></option>
+                    <?php }else{ ?>
+                  <?php
+                      $sql = "SELECT * FROM furniture WHERE prod_id='$id' AND remarks=''";
+                      $query3=mysqli_query($con, $sql)or die(mysqli_error());
+
+                      while($row1 = mysqli_fetch_array($query3))
+                      {
+                    ?>
+                      <option value="<?php echo $row['prod_id'];?>.<?php echo $row1['id']; ?>.furniture">
+                        <?php echo $row['prod_name'] ?> | <?php echo $row1['color'] ?> Available(1)
+                      </option>
+                    <?php }?>
+                <?php }?>
                   <?php }else{ ?>
                     <?php
                       $sql = "SELECT * FROM mobile WHERE prod_id='$id' AND remarks=''";
@@ -306,7 +320,7 @@ javascript:window.history.forward(1);
                       while($row1 = mysqli_fetch_array($query3))
                       {
                     ?>
-                      <option value="<?php echo $row['prod_id'];?>.<?php echo $row1['id']; ?>">
+                      <option value="<?php echo $row['prod_id'];?>.<?php echo $row1['id']; ?>.mobile">
                         <?php echo $row['prod_name'] ?> | <?php echo $row1['imei'] ?> Available(1)
                       </option>
                     <?php }?>

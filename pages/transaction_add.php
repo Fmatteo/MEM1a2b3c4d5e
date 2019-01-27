@@ -8,12 +8,15 @@ include('../dist/includes/dbcon.php');
 	$cid = $_POST['cid'];
 	if (strpos($_POST['prod_name'], '.') !== false)
 	{
-		list($name, $imei) = explode(".", $_POST['prod_name']);
+		list($name, $imei, $extra) = explode(".", $_POST['prod_name']);
+		$insert = $imei.'.'.$extra;
 	}
 	else
 	{
 		$name = $_POST['prod_name'];
 		$imei = '';
+		$extra = '';
+		$insert = '';
 	}
 	$qty = $_POST['qty'];
 	$price = $_POST['price'];
@@ -36,7 +39,7 @@ include('../dist/includes/dbcon.php');
 	
 		}
 		else{*/
-			mysqli_query($con,"INSERT INTO temp_trans(prod_id,qty,price,branch_id,mobile_id) VALUES('$name','$qty','$price','$branch','$imei')")or die(mysqli_error($con));
+			mysqli_query($con,"INSERT INTO temp_trans(prod_id,qty,price,branch_id,extra) VALUES('$name','$qty','$price','$branch','$insert')")or die(mysqli_error($con));
 		//}
 	}else{
 		echo "<script>alert('Sorry there is not enough stock for this product')</script>";  

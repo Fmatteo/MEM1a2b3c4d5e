@@ -15,9 +15,21 @@ include('../dist/includes/dbcon.php');
 
 	$query = mysqli_query($con, "SELECT extra FROM damage WHERE damage_id='$damage_id'")or die(mysqli_error());
 	$row = mysqli_fetch_array($query);
-	$id = $row['extra'];
+	
+	if (strpos($row['extra'], '.') !== false)
+	{
+		list($id, $type) = explode(".", $row['extra']);
 
-	mysqli_query($con, "UPDATE mobile SET remarks = '' WHERE id = '$id'")or die(mysqli_error());
+		if ($type == 'mobile')
+		{
+			mysqli_query($con, "UPDATE mobile SET remarks = '' WHERE id = '$id'")or die(mysqli_error());
+		}
+		else
+		{
+			mysqli_query($con, "UPDATE furniture SET remarks = '' WHERE id = '$id'")or die(mysqli_error());
+		}
+	}
+
 
 	if ($final_qty == 0){
 		$sql = " DELETE FROM damage WHERE damage_id = '$damage_id' AND branch_id = '$branch'";

@@ -66,8 +66,21 @@ include('../dist/includes/dbcon.php');
 		$query=mysqli_query($con, "SELECT * FROM temp_trans WHERE branch_id='$branch'")or die(mysqli_error($con));
 		while ($row = mysqli_fetch_array($query))
 		{
-			$mid = $row['mobile_id'];
-			mysqli_query($con, "UPDATE mobile SET remarks = 'SOLD' WHERE id = '$mid'")or die(mysqli_error());
+			$mid = $row['extra'];
+			if (strpos($mid, '.') !== false)
+			{
+				list($id, $type) = explode(".", $mid);
+
+				if ($type == 'mobile')
+				{
+					mysqli_query($con, "UPDATE mobile SET remarks = 'SOLD' WHERE id = '$id'")or die(mysqli_error());
+				}
+				else
+				{
+					mysqli_query($con, "UPDATE furniture SET remarks = 'SOLD' WHERE id = '$id'")or die(mysqli_error());
+				}
+			}
+			//mysqli_query($con, "UPDATE mobile SET remarks = 'SOLD' WHERE id = '$mid'")or die(mysqli_error());
 		}
 		mysqli_query($con,"DELETE FROM temp_trans where branch_id='$branch'")or die(mysqli_error($con));
 		//echo "<script>document.location='receipt.php?cid=$cid'</script>";  	

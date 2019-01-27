@@ -7,12 +7,15 @@ include('../dist/includes/dbcon.php');
 
 	if (strpos($_POST['prod_id'], '.') !== false)
 	{
-		list($prod_id, $imei) = explode(".", $_POST['prod_id']);
+		list($prod_id, $imei, $extra) = explode(".", $_POST['prod_id']);
+		$insert = $imei.'.'.$extra;
 	}
 	else
 	{
 		$prod_id = $_POST['prod_id'];
 		$imei = '';
+		$extra = '';
+		$insert = '';
 	}
 
 	$prod_qty = $_POST['prod_qty'];
@@ -24,7 +27,7 @@ include('../dist/includes/dbcon.php');
 		
 	if($prod_qty > $qty){
 	$prod_left = $prod_qty - $qty;
-	mysqli_query($con,"INSERT INTO damage(prod_id,damage_qty,date,remarks,branch_id,extra) VALUES('$prod_id','$qty','$date','$remarks','$branch','$imei')")or die(mysqli_error($con));
+	mysqli_query($con,"INSERT INTO damage(prod_id,damage_qty,date,remarks,branch_id,extra) VALUES('$prod_id','$qty','$date','$remarks','$branch','$insert')")or die(mysqli_error($con));
 	// $prod_id = mysqli_insert_id($con);
 	$remarks2="added damage $qty of product id of $id";  
 	
@@ -46,9 +49,17 @@ include('../dist/includes/dbcon.php');
 
 */
 	mysqli_query($con,"UPDATE product SET prod_qty=prod_qty-$qty where prod_id='$prod_id' and branch_id='$branch'") or die(mysqli_error($con)); 
-	mysqli_query($con,"UPDATE mobile SET remarks='damaged' WHERE id='$imei'")or die(mysqli_error());
+	if ($extra == 'mobile')
+	{
+		mysqli_query($con,"UPDATE mobile SET remarks='damaged' WHERE id='$imei'")or die(mysqli_error());
+	}
+	else
+	{
+		mysqli_query($con,"UPDATE furniture SET remarks='damaged' WHERE id='$imei'")or die(mysqli_error());
+	}
 			
 	echo "<script type='text/javascript'>alert('Successfully added new damaged items!');</script>";
+	
 }else{
 	echo "<script type='text/javascript'>alert('Sorry, damaged items cant be more than the quantity of the product');</script>";
 }
