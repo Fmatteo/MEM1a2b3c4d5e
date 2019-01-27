@@ -53,7 +53,7 @@ include('../dist/includes/dbcon.php');
 		}
 	}
 	
-	if (isset($_POST['prod_name']) && !isset($_POST['mobile_stockin1']))
+	if (isset($_POST['prod_name']) && !isset($_POST['mobile_stockin1']) && !isset($_POST['furniture_stockin1']))
 	{
 		$query = "SELECT * FROM product WHERE prod_name = '$prod_name' AND branch_id='$branch'";
 		$sql = mysqli_query($con, $query)or die(mysqli_error());
@@ -161,6 +161,14 @@ include('../dist/includes/dbcon.php');
 		$prod_id = $_GET['id'];
 		mysqli_query($con, "UPDATE product SET prod_qty = prod_qty + 1 WHERE prod_id = '$prod_id'")or die(mysqli_error());
 		mysqli_query($con, "INSERT INTO mobile(prod_id, imei, color)VALUES('$prod_id', '$prod_imei', '$prod_color')")or die(mysqli_error());
+		$prod_qty = 1;
+	}
+
+	if (isset($_POST['furniture_stockin1']))
+	{
+		$prod_id = $_GET['id'];
+		mysqli_query($con, "UPDATE product SET prod_qty = prod_qty + 1 WHERE prod_id = '$prod_id'")or die(mysqli_error());
+		mysqli_query($con, "INSERT INTO furniture(prod_id, color)VALUES('$prod_id', '$prod_color')")or die(mysqli_error());
 		$prod_qty = 1;
 	}
 
