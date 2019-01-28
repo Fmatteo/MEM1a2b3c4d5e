@@ -30,7 +30,37 @@ include('../dist/includes/dbcon.php');
 			$pid=$row['prod_id'];	
  			$qty=$row['qty'];
 			$price=$row['price'];
-			
+			$extra = $row['extra'];
+
+			if (strpos($extra, '.') !== false)
+			{
+				list($id, $extra) = explode(".", $extra);
+
+				if ($extra == 'mobile')
+				{
+					$query1 = "SELECT * FROM mobile WHERE id = '$id'";
+				}
+				else
+				{
+					$query1 = "SELECT * FROM furniture WHERE id = '$id'";
+				}
+
+				$sql = mysqli_query($con, $query1)or die(mysqli_error());
+				$row1=mysqli_fetch_array($sql);
+
+				if ($extra == 'mobile')
+				{
+					$insert = $row1['imei'];
+				}
+				else
+				{
+					$insert = $row1['color'];
+				}
+			}
+			else
+			{
+				$insert = '';
+			}
 			
 			$query_prod = mysqli_query($con, "SELECT * FROM product WHERE prod_id = '$pid'");
             while ($row_prod = mysqli_fetch_array($query_prod))
@@ -40,7 +70,7 @@ include('../dist/includes/dbcon.php');
  
             $profit = ($price - $base_price) * $qty;
 
-			mysqli_query($con,"INSERT INTO sales_details(prod_id,qty,price,sales_id,profit) VALUES('$pid','$qty','$price','$sales_id','$profit')")or die(mysqli_error($con));
+			mysqli_query($con,"INSERT INTO sales_details(prod_id,qty,price,sales_id,profit,extra) VALUES('$pid','$qty','$price','$sales_id','$profit','$insert')")or die(mysqli_error($con));
 			mysqli_query($con,"UPDATE product SET prod_qty=prod_qty-'$qty' where prod_id='$pid' and branch_id='$branch'") or die(mysqli_error($con)); 
 		}
 		

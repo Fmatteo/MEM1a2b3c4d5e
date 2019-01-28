@@ -377,7 +377,7 @@ $branch=$_SESSION['branch'];
                     </thead>
                     <tbody>
 <?php
-  $query=mysqli_query($con,"select a.sales_id, a.modeofpayment, a.discount, a.date_added, b.qty, b.price, b.profit, c.prod_name, d.cust_last, d.cust_first from sales a LEFT JOIN sales_details b ON a.sales_id = b.sales_id LEFT JOIN product c ON b.prod_id = c.prod_id LEFT JOIN customer d ON a.cust_id = d.cust_id where date(a.date_added)>='$start' and date(a.date_added)<='$end' and a.branch_id='$branch' and a.extra='GOV'")or die(mysqli_error($con));
+  $query=mysqli_query($con,"select a.sales_id, a.modeofpayment, a.discount, a.date_added, b.qty, b.price, b.profit, b.extra, c.prod_name, d.cust_last, d.cust_first from sales a LEFT JOIN sales_details b ON a.sales_id = b.sales_id LEFT JOIN product c ON b.prod_id = c.prod_id LEFT JOIN customer d ON a.cust_id = d.cust_id where date(a.date_added)>='$start' and date(a.date_added)<='$end' and a.branch_id='$branch' and a.extra='GOV'")or die(mysqli_error($con));
     $qty=0;$grand=0;$discount=0;$total_profit=0;
                 while($row=mysqli_fetch_array($query)){
                 $total=$row['qty']*$row['price'];
@@ -390,7 +390,7 @@ $branch=$_SESSION['branch'];
             <td><?php echo $row['sales_id'];?></td>
             <td><?php echo strtoupper($row['modeofpayment']); ?></td> 
             <td><?php echo $row['cust_last'].", ".$row['cust_first'];?></td>
-            <td><?php echo $row['prod_name'];?></td>
+            <td><?php echo $row['prod_name'] . ' ' . trim($row['extra']);?></td>
             <td><?php echo $row['qty'];?></td>
              <td><?php echo $row['price'];?></td>
             <td style="text-align:right"><?php echo number_format($total-$row['discount'],2);
