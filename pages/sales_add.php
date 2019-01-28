@@ -73,11 +73,13 @@ include('../dist/includes/dbcon.php');
 
 				if ($type == 'mobile')
 				{
-					mysqli_query($con, "UPDATE mobile SET remarks = 'SOLD' WHERE id = '$id'")or die(mysqli_error());
+					//mysqli_query($con, "UPDATE mobile SET remarks = 'SOLD' WHERE id = '$id'")or die(mysqli_error());
+					mysqli_query($con, "DELETE FROM mobile WHERE id = '$id'")or die(mysqli_error());
 				}
 				else
 				{
-					mysqli_query($con, "UPDATE furniture SET remarks = 'SOLD' WHERE id = '$id'")or die(mysqli_error());
+					//mysqli_query($con, "UPDATE furniture SET remarks = 'SOLD' WHERE id = '$id'")or die(mysqli_error());
+					mysqli_query($con, "DELETE FROM furniture WHERE id = '$id'")or die(mysqli_error());
 				}
 			}
 			//mysqli_query($con, "UPDATE mobile SET remarks = 'SOLD' WHERE id = '$mid'")or die(mysqli_error());
