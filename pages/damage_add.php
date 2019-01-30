@@ -36,6 +36,17 @@ include('../dist/includes/dbcon.php');
 
 		return;
 	}
+
+	if (!empty($imei))
+	{
+		if ($qty > 1)
+		{
+			echo "<script type='text/javascript'>alert('The selected item supports one at a time adding a damage item.');</script>";
+			echo "<script>document.location='damaged_item.php'</script>";  
+
+			return;
+		}
+	}
 		
 	//if($prod_qty > $qty){
 	$prod_left = $prod_qty - $qty;
