@@ -113,13 +113,13 @@ $branch=$_SESSION['branch'];
                         <th colspan="3"><h6><?php echo $rowb['branch_address'];?></h6></th>
                         <th><span style="font-size: 16px;color: red">
                           <?php 
-              if ((intval($row1['or_no']) >= 0) && (intval($row1['or_no']) < 9)) {
+              if ((intval($sales_id) >= 0) && (intval($sales_id) < 9)) {
                           ?>              
-                          No. 000<?php echo $row1['or_no'];?></span></th>  
-                          <?php } elseif((intval($row1['or_no']) >= 10) && (intval($row1['or_no']) < 99)){ ?>
-                          No. 00<?php echo $row1['or_no'];?></span></th>
-              <?php } elseif((intval($row1['or_no']) >= 100) && (intval($row1['or_no']) < 999)){ ?>
-                          No. 0<?php echo $row1['or_no'];?></span></th>
+                          No. 000<?php echo $sales_id;?></span></th>  
+                          <?php } elseif((intval($sales_id) >= 10) && (intval($sales_id) < 99)){ ?>
+                          No. 00<?php echo $sales_id;?></span></th>
+              <?php } elseif((intval($sales_id) >= 100) && (intval($sales_id) < 999)){ ?>
+                          No. 0<?php echo $sales_id;?></span></th>
                           <?php }?>
                       </tr>
                       <tr>
