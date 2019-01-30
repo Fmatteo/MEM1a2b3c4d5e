@@ -33,7 +33,7 @@ endif;
     }
 
     ::-webkit-scrollbar-thumb{
-      background:linear-gradient(darkred, white);
+      background:linear-gradient(blue, white);
       border-radius: 6px;
     }
 
