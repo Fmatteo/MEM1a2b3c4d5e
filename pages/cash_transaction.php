@@ -342,7 +342,7 @@ javascript:window.history.forward(1);
             <div class="form-group">
               <label for="date">Selling Price</label>
               <div class="input-group">
-                <input type="number" class="form-control pull-right" id="price" name="price" placeholder="Selling Price" required>
+                <input type="decimal" class="form-control pull-right" id="price" name="price" placeholder="Selling Price" required>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
            </div> 
