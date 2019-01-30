@@ -24,8 +24,20 @@ include('../dist/includes/dbcon.php');
 	date_default_timezone_set('Asia/Manila');
 	$date = date("Y-m-d H:i:s");
 	$id=$_SESSION['id'];
+
+	$query=mysqli_query($con, "SELECT * FROM product WHERE prod_id = '$prod_id' AND branch_id = '$branch'")or die(mysqli_error());
+	$get = mysqli_fetch_array($query);
+	$currentCount = $get['prod_qty'];
+
+	if ($qty > $currentCount)
+	{
+		echo "<script type='text/javascript'>alert('Sorry, damaged items cant be more than the quantity of the product');</script>";
+		echo "<script>document.location='damaged_item.php'</script>";  
+
+		return;
+	}
 		
-	if($prod_qty > $qty){
+	//if($prod_qty > $qty){
 	$prod_left = $prod_qty - $qty;
 	mysqli_query($con,"INSERT INTO damage(prod_id,damage_qty,date,remarks,branch_id,extra) VALUES('$prod_id','$qty','$date','$remarks','$branch','$insert')")or die(mysqli_error($con));
 	// $prod_id = mysqli_insert_id($con);
@@ -60,9 +72,9 @@ include('../dist/includes/dbcon.php');
 			
 	echo "<script type='text/javascript'>alert('Successfully added new damaged items!');</script>";
 	
-}else{
+/*}else{
 	echo "<script type='text/javascript'>alert('Sorry, damaged items cant be more than the quantity of the product');</script>";
-}
+}*/
 	echo "<script>document.location='damaged_item.php'</script>";  
 	
 ?>
