@@ -19,6 +19,7 @@ include('../dist/includes/dbcon.php');
 	if (strtolower($row1['remarks']) == 'transfer' || strtolower($row1['remarks']) == 'retail')
 	{
 		echo "<script>document.location='damaged_item.php'</script>";
+		/// asdasdasdasd
 		return;
 	}
 
