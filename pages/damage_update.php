@@ -13,6 +13,15 @@ include('../dist/includes/dbcon.php');
 	$final_prod_qty = $prod_qty + $qty;
 	$final_qty = $damage_qty - $qty;
 
+	$query1 = mysqli_query($con, "SELECT * FROM damage WHERE damage_id = '$damage_id'")or die(mysqli_error());
+	$row1 = mysqli_fetch_array($query1);
+
+	if (strtolower($row1['remarks']) == 'transfer' || strtolower($row1['remarks']) == 'retail')
+	{
+		echo "<script>document.location='damaged_item.php'</script>";
+		return;
+	}
+
 	$query = mysqli_query($con, "SELECT extra FROM damage WHERE damage_id='$damage_id'")or die(mysqli_error());
 	$row = mysqli_fetch_array($query);
 	
