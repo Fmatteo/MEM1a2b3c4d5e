@@ -29,7 +29,7 @@ include('../dist/includes/dbcon.php');
 
 	if (!empty($prod_imei))
 	{
-		$sql = mysqli_query($con, "SELECT * FROM mobile WHERE imei = '$prod_imei'")or die(mysqli_error());
+		$sql = mysqli_query($con, "SELECT * FROM mobile WHERE imei = '$prod_imei' AND branch_id ='$branch'")or die(mysqli_error());
 		$count = mysqli_num_rows($sql);
 
 		if ($count > 0)
@@ -42,7 +42,7 @@ include('../dist/includes/dbcon.php');
 
 	if (((isset($_POST['furniture']) || isset($_POST['furniture_stockin1'])) && !empty($prod_color)))
 	{
-		$sql = mysqli_query($con, "SELECT * FROM furniture WHERE color = '$prod_color'")or die(mysqli_error());
+		$sql = mysqli_query($con, "SELECT * FROM furniture WHERE color = '$prod_color' AND branch_id ='$branch'")or die(mysqli_error());
 		$count = mysqli_num_rows($sql);
 
 		if ($count > 0)
@@ -128,7 +128,7 @@ include('../dist/includes/dbcon.php');
 				$row = mysqli_fetch_array($sql);
 				$id = $row['prod_id'];
 
-				mysqli_query($con, "INSERT INTO mobile(prod_id, imei, color)VALUES('$id', '$prod_imei', '$prod_color')")or die(mysqli_error());
+				mysqli_query($con, "INSERT INTO mobile(prod_id, imei, color, branch_id)VALUES('$id', '$prod_imei', '$prod_color', '$branch')")or die(mysqli_error());
 				$prod_id = $id;
 			}	
 
@@ -138,7 +138,7 @@ include('../dist/includes/dbcon.php');
 				$row = mysqli_fetch_array($sql);
 				$id = $row['prod_id'];
 
-				mysqli_query($con, "INSERT INTO furniture(prod_id, color)VALUES('$id', '$prod_color')")or die(mysqli_error());
+				mysqli_query($con, "INSERT INTO furniture(prod_id, color, branch_id)VALUES('$id', '$prod_color', '$branch')")or die(mysqli_error());
 				$prod_id = $id;
 			}
 
@@ -160,7 +160,7 @@ include('../dist/includes/dbcon.php');
 	{
 		$prod_id = $_GET['id'];
 		mysqli_query($con, "UPDATE product SET prod_qty = prod_qty + 1 WHERE prod_id = '$prod_id'")or die(mysqli_error());
-		mysqli_query($con, "INSERT INTO mobile(prod_id, imei, color)VALUES('$prod_id', '$prod_imei', '$prod_color')")or die(mysqli_error());
+		mysqli_query($con, "INSERT INTO mobile(prod_id, imei, color, branch_id)VALUES('$prod_id', '$prod_imei', '$prod_color', '$branch')")or die(mysqli_error());
 		$prod_qty = 1;
 	}
 
@@ -168,7 +168,7 @@ include('../dist/includes/dbcon.php');
 	{
 		$prod_id = $_GET['id'];
 		mysqli_query($con, "UPDATE product SET prod_qty = prod_qty + 1 WHERE prod_id = '$prod_id'")or die(mysqli_error());
-		mysqli_query($con, "INSERT INTO furniture(prod_id, color)VALUES('$prod_id', '$prod_color')")or die(mysqli_error());
+		mysqli_query($con, "INSERT INTO furniture(prod_id, color, branch_id)VALUES('$prod_id', '$prod_color', '$branch')")or die(mysqli_error());
 		$prod_qty = 1;
 	}
 
