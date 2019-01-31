@@ -349,11 +349,11 @@ endif;
                               <td style="background: <?php echo $color;?>;color:#fff;font-weight: 800;"><?php echo $text; ?></td>
                               <td><?php echo $row['remarks']; ?></td>
                               <td>
-                                <a href="#updateitem<?php echo $row['prod_id'];?>" data-target="#updateitem<?php echo $row['prod_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+                                <a href="#updateitem<?php echo $row['damage_id'];?>" data-target="#updateitem<?php echo $row['damage_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
                               </td>
                             </tr>
 
-<div id="updateitem<?php echo $row['prod_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="updateitem<?php echo $row['damage_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content" style="height:auto">
          <div class="modal-header box-header" style="color:white">

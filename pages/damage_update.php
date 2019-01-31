@@ -13,6 +13,10 @@ include('../dist/includes/dbcon.php');
 	$final_prod_qty = $prod_qty + $qty;
 	$final_qty = $damage_qty - $qty;
 
+	/*echo "<script>alert('$damage_id');</script>";
+	return;
+	/*	
+
 	$query1 = mysqli_query($con, "SELECT * FROM damage WHERE damage_id = '$damage_id'")or die(mysqli_error());
 	$row1 = mysqli_fetch_array($query1);
 
@@ -21,11 +25,18 @@ include('../dist/includes/dbcon.php');
 		echo "<script>document.location='damaged_item.php'</script>";
 		/// asdasdasdasd
 		return;
-	}
+	}*/
 
-	$query = mysqli_query($con, "SELECT extra FROM damage WHERE damage_id='$damage_id'")or die(mysqli_error());
+	$query = mysqli_query($con, "SELECT * FROM damage WHERE damage_id='$damage_id'")or die(mysqli_error());
 	$row = mysqli_fetch_array($query);
 	
+	if (strtolower($row['remarks']) == 'transfer' || strtolower($row['remarks']) == 'retail')
+	{
+		echo "<script>document.location='damaged_item.php'</script>";
+		/// asdasdasdasd
+		return;
+	}
+
 	if (strpos($row['extra'], '.') !== false)
 	{
 		list($id, $type) = explode(".", $row['extra']);
