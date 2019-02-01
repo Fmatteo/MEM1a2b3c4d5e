@@ -66,10 +66,23 @@ $role_permission = $rowrole['role'];
           .btn-print {
             display:none !important;
           }
-      }
       .main-footer  {
       display:none !important;
       }
+      .box.box-danger{
+        display: none !important;
+      }
+      .btn-primary{
+        display: none;
+      }
+      .form-group{
+        display: none;
+      }
+      label{
+        display:none;
+      }
+    }
+      
       
       ::-webkit-scrollbar{
   width: 12px;
@@ -405,16 +418,16 @@ $branch=$_SESSION['branch'];
                     </tbody>
                     <tfoot>
           <tr>
-            <th colspan="9">Total</th>
+            <th colspan="8">Total</th>
             <th style="text-align:right;"><h4><b><?php echo  number_format($grand,2);?></b></h4></th>
           </tr>                
           
           <tr>
-            <th colspan="9">Total Cash Sales</th>
+            <th colspan="8">Total Cash Sales</th>
             <th style="text-align:right;"><h4><b><?php echo  number_format(($grand-$discount),2);?></b></h4></th>
           </tr> 
           <tr>
-            <th colspan="9">Total Profit</th>
+            <th colspan="8">Total Profit</th>
   <th style="text-align:right;"><h4><b><?php echo  number_format(($total_profit),2);}?></b></h4></th>
           </tr>   
           <tr>
