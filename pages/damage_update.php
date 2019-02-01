@@ -30,7 +30,7 @@ include('../dist/includes/dbcon.php');
 	$query = mysqli_query($con, "SELECT * FROM damage WHERE damage_id='$damage_id'")or die(mysqli_error());
 	$row = mysqli_fetch_array($query);
 	
-	if (strtolower($row['remarks']) == 'transfer' || strtolower($row['remarks']) == 'retail')
+	if (strtolower($row['remarks']) == 'transfer' || strtolower($row['remarks']) == 'retail' || strtolower($row['remarks']) == 'void')
 	{
 		echo "<script>document.location='damaged_item.php'</script>";
 		/// asdasdasdasd
